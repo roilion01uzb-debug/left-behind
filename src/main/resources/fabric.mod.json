@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "leftbehind",
+  "version": "${version}",
+  "name": "Left Behind",
+  "description": "A horror mod about Original Steve, the memories he can't escape, and Herobrine, who is always one step ahead.",
+  "authors": ["Temur"],
+  "license": "All-Rights-Reserved",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["dev.leftbehind.LeftBehind"],
+    "client": ["dev.leftbehind.client.LeftBehindClient"]
+  },
+  "depends": {
+    "fabricloader": ">=0.20.0",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*"
+  }
+}
