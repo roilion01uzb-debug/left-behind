@@ -5,9 +5,11 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.leftbehind.LeftBehind;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.resources.Identifier;
@@ -17,7 +19,8 @@ import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.saveddata.SavedDataType;
 
 /**
- * Everything Original Steve remembers. Saved with the world, so it survives server restarts.
+ * Everything Original Steve remembers, and where the story has got to.
+ * Saved with the world, so it survives server restarts.
  */
 public final class SteveMemory extends SavedData {
     public static final Codec<SteveMemory> CODEC = RecordCodecBuilder.create(i -> i.group(
@@ -27,10 +30,10 @@ public final class SteveMemory extends SavedData {
             UUIDUtil.STRING_CODEC.optionalFieldOf("steve").forGetter(m -> Optional.ofNullable(m.steveId)),
             Codec.BOOL.optionalFieldOf("steve_dead", false).forGetter(m -> m.steveDead),
             Codec.INT.optionalFieldOf("breaches", 0).forGetter(m -> m.breaches),
-            Codec.BOOL.optionalFieldOf("lost_night", false).forGetter(m -> m.lostNight),
-            Codec.LONG.optionalFieldOf("episode_end", 0L).forGetter(m -> m.episodeEnd),
-            Codec.STRING.listOf().optionalFieldOf("night_log", List.of()).forGetter(m -> m.nightLog),
-            Codec.LONG.optionalFieldOf("next_herobrine_check", 0L).forGetter(m -> m.nextHerobrineCheck)
+            Codec.unboundedMap(Codec.STRING, Codec.LONG).optionalFieldOf("counters", Map.of()).forGetter(m -> m.counters),
+            Codec.STRING.listOf().optionalFieldOf("flags", List.of()).forGetter(m -> List.copyOf(m.flags)),
+            Codec.STRING.listOf().optionalFieldOf("journal", List.of()).forGetter(m -> m.journal),
+            Codec.STRING.listOf().optionalFieldOf("night_log", List.of()).forGetter(m -> m.nightLog)
     ).apply(i, SteveMemory::new));
 
     public static final SavedDataType<SteveMemory> TYPE = new SavedDataType<>(
@@ -44,51 +47,133 @@ public final class SteveMemory extends SavedData {
     public UUID steveId;
     public boolean steveDead;
     public int breaches;
-    public boolean lostNight;
-    public long episodeEnd;
-    /** What Steve did during the last lost night. He doesn't remember it. The world does. */
+    /** Story clocks and numbers: the act, cooldowns, when the episode ends. */
+    public final Map<String, Long> counters;
+    /** One-time story events that have happened. */
+    public final Set<String> flags;
+    /** Unlocked journal entries, in the order they were found. */
+    public final List<String> journal;
+    /** What Steve did during his last episode. He doesn't remember it. The world does. */
     public final List<String> nightLog;
-    public long nextHerobrineCheck;
 
     public SteveMemory() {
-        this(100f, Map.of(), Map.of(), Optional.empty(), false, 0, false, 0L, List.of(), 0L);
+        this(100f, Map.of(), Map.of(), Optional.empty(), false, 0, Map.of(), List.of(), List.of(), List.of());
     }
 
     private SteveMemory(float stability, Map<UUID, Relationship> relationships, Map<String, Integer> habits,
-                        Optional<UUID> steveId, boolean steveDead, int breaches, boolean lostNight, long episodeEnd,
-                        List<String> nightLog, long nextHerobrineCheck) {
+                        Optional<UUID> steveId, boolean steveDead, int breaches, Map<String, Long> counters,
+                        List<String> flags, List<String> journal, List<String> nightLog) {
         this.stability = stability;
         this.relationships = new HashMap<>(relationships);
         this.habits = new HashMap<>(habits);
         this.steveId = steveId.orElse(null);
         this.steveDead = steveDead;
         this.breaches = breaches;
-        this.lostNight = lostNight;
-        this.episodeEnd = episodeEnd;
+        this.counters = new HashMap<>(counters);
+        this.flags = new LinkedHashSet<>(flags);
+        this.journal = new ArrayList<>(journal);
         this.nightLog = new ArrayList<>(nightLog);
-        this.nextHerobrineCheck = nextHerobrineCheck;
     }
 
     public static SteveMemory get(MinecraftServer server) {
         return server.getDataStorage().computeIfAbsent(TYPE);
     }
 
+    // ---- relationships ----------------------------------------------------
+
     public Relationship relationship(UUID player) {
         setDirty();
         return relationships.computeIfAbsent(player, id -> new Relationship());
     }
 
+    public float trust(UUID player) {
+        Relationship r = relationships.get(player);
+        return r == null ? 20f : r.trust;
+    }
+
+    public AngerStage anger(UUID player) {
+        Relationship r = relationships.get(player);
+        return r == null ? AngerStage.CALM : r.stage();
+    }
+
+    public float highestTrust() {
+        float best = 0f;
+        for (Relationship r : relationships.values()) best = Math.max(best, r.trust);
+        return best;
+    }
+
+    // ---- habits -----------------------------------------------------------
+
     public int habit(String name) {
         return habits.getOrDefault(name, 0);
     }
 
-    public void observe(String habit) {
-        habits.merge(habit, 1, Integer::sum);
+    public int observe(String habit) {
         setDirty();
+        return habits.merge(habit, 1, Integer::sum);
     }
+
+    // ---- stability and mood -----------------------------------------------
 
     public void addStability(float amount) {
         stability = Mth.clamp(stability + amount, 0f, 100f);
         setDirty();
+    }
+
+    public Mood mood() {
+        return Mood.byId(counter("mood"));
+    }
+
+    public void setMood(Mood mood) {
+        setCounter("mood", mood.ordinal());
+    }
+
+    // ---- story state ------------------------------------------------------
+
+    public long counter(String key) {
+        return counters.getOrDefault(key, 0L);
+    }
+
+    public void setCounter(String key, long value) {
+        counters.put(key, value);
+        setDirty();
+    }
+
+    public long addCounter(String key, long amount) {
+        setDirty();
+        return counters.merge(key, amount, Long::sum);
+    }
+
+    public boolean flag(String key) {
+        return flags.contains(key);
+    }
+
+    /** Sets a flag. Returns true if it was not set before. */
+    public boolean setFlag(String key) {
+        boolean added = flags.add(key);
+        if (added) setDirty();
+        return added;
+    }
+
+    public void clearFlag(String key) {
+        if (flags.remove(key)) setDirty();
+    }
+
+    /** True if enough time has passed since this key was last used; if so, starts the cooldown again. */
+    public boolean cooldown(String key, long now, long ticks) {
+        long next = counter("cd_" + key);
+        if (now < next) return false;
+        setCounter("cd_" + key, now + ticks);
+        return true;
+    }
+
+    public int act() {
+        return (int) Mth.clamp(counter("act"), 1, 4);
+    }
+
+    public int count(String prefix) {
+        int n = 0;
+        for (String id : journal) if (id.startsWith(prefix)) n++;
+        return n;
     }
 }

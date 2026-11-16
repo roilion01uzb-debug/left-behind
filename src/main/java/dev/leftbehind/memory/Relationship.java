@@ -2,6 +2,8 @@ package dev.leftbehind.memory;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import java.util.HashMap;
+import java.util.Map;
 import net.minecraft.util.Mth;
 
 /**
@@ -15,7 +17,9 @@ public final class Relationship {
             Codec.FLOAT.optionalFieldOf("anger", 0f).forGetter(r -> r.anger),
             Codec.INT.optionalFieldOf("times_hurt", 0).forGetter(r -> r.timesHurt),
             Codec.INT.optionalFieldOf("gifts", 0).forGetter(r -> r.gifts),
-            Codec.INT.optionalFieldOf("kills_witnessed", 0).forGetter(r -> r.killsWitnessed)
+            Codec.INT.optionalFieldOf("kills_witnessed", 0).forGetter(r -> r.killsWitnessed),
+            Codec.INT.optionalFieldOf("talks", 0).forGetter(r -> r.talks),
+            Codec.unboundedMap(Codec.STRING, Codec.LONG).optionalFieldOf("marks", Map.of()).forGetter(r -> r.marks)
     ).apply(i, Relationship::new));
 
     public float trust;
@@ -23,17 +27,22 @@ public final class Relationship {
     public int timesHurt;
     public int gifts;
     public int killsWitnessed;
+    public int talks;
+    /** Per-player notes: which topics were asked, when he last gave a gift, and so on. */
+    public final Map<String, Long> marks;
 
     public Relationship() {
-        this(20f, 0f, 0, 0, 0);
+        this(20f, 0f, 0, 0, 0, 0, Map.of());
     }
 
-    public Relationship(float trust, float anger, int timesHurt, int gifts, int killsWitnessed) {
+    public Relationship(float trust, float anger, int timesHurt, int gifts, int killsWitnessed, int talks, Map<String, Long> marks) {
         this.trust = trust;
         this.anger = anger;
         this.timesHurt = timesHurt;
         this.gifts = gifts;
         this.killsWitnessed = killsWitnessed;
+        this.talks = talks;
+        this.marks = new HashMap<>(marks);
     }
 
     public void addTrust(float amount) {
@@ -46,5 +55,22 @@ public final class Relationship {
 
     public AngerStage stage() {
         return AngerStage.of(anger);
+    }
+
+    public long mark(String key) {
+        return marks.getOrDefault(key, 0L);
+    }
+
+    public boolean hasMark(String key) {
+        return marks.containsKey(key);
+    }
+
+    public void setMark(String key, long value) {
+        marks.put(key, value);
+    }
+
+    /** True the first time it is called for a key. */
+    public boolean firstTime(String key) {
+        return marks.putIfAbsent(key, 1L) == null;
     }
 }

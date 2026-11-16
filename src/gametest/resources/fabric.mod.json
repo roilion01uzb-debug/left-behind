@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "id": "leftbehind-test",
+  "version": "1.0.0",
+  "name": "Left Behind Tests",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-client-gametest": ["dev.leftbehind.test.LeftBehindClientTest"]
+  },
+  "depends": { "leftbehind": "*" }
+}
