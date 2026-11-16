@@ -3,6 +3,7 @@ package dev.leftbehind.registry;
 import dev.leftbehind.LeftBehind;
 import dev.leftbehind.entity.Herobrine;
 import dev.leftbehind.entity.OriginalSteve;
+import dev.leftbehind.entity.Remnant;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -15,11 +16,15 @@ import net.minecraft.world.entity.MobCategory;
 public final class ModEntities {
     public static final EntityType<OriginalSteve> ORIGINAL_STEVE = register("original_steve",
             EntityType.Builder.<OriginalSteve>of(OriginalSteve::new, MobCategory.MISC)
-                    .sized(0.6F, 1.8F).eyeHeight(1.62F).clientTrackingRange(16));
+                    .sized(0.6F, 1.8F).eyeHeight(1.62F).clientTrackingRange(10));
 
     public static final EntityType<Herobrine> HEROBRINE = register("herobrine",
             EntityType.Builder.<Herobrine>of(Herobrine::new, MobCategory.MISC)
-                    .sized(0.6F, 1.8F).eyeHeight(1.62F).clientTrackingRange(16).fireImmune());
+                    .sized(0.6F, 1.8F).eyeHeight(1.62F).clientTrackingRange(10).fireImmune());
+
+    public static final EntityType<Remnant> REMNANT = register("remnant",
+            EntityType.Builder.<Remnant>of(Remnant::new, MobCategory.MISC)
+                    .sized(0.6F, 1.8F).eyeHeight(1.62F).clientTrackingRange(10).fireImmune());
 
     private ModEntities() {}
 
@@ -31,5 +36,6 @@ public final class ModEntities {
     public static void init() {
         FabricDefaultAttributeRegistry.register(ORIGINAL_STEVE, OriginalSteve.createAttributes());
         FabricDefaultAttributeRegistry.register(HEROBRINE, Herobrine.createAttributes());
+        FabricDefaultAttributeRegistry.register(REMNANT, Remnant.createAttributes());
     }
 }

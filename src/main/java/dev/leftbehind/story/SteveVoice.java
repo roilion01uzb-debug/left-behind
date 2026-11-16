@@ -1,9 +1,12 @@
 package dev.leftbehind.story;
 
+import dev.leftbehind.fx.Fx;
+import dev.leftbehind.registry.ModSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 
@@ -25,6 +28,8 @@ public final class SteveVoice {
 
     public static void steve(Entity steve, String line) {
         say(steve, "Steve", ChatFormatting.AQUA, line);
+        // Until there are recorded voiceovers, he has a small wordless voice of his own.
+        Fx.sound(steve, ModSounds.TALK, SoundSource.NEUTRAL, 0.7f, 0.92f + steve.getRandom().nextFloat() * 0.16f);
     }
 
     public static void steve(Entity steve, RandomSource random, String... lines) {

@@ -25,6 +25,7 @@ public final class ModSounds {
     public static final Holder<SoundEvent> BREACH = register("steve.breach");
     public static final Holder<SoundEvent> PANIC_BREATH = register("steve.panic_breath");
     public static final Holder<SoundEvent> MUTTER = register("steve.mutter");
+    public static final Holder<SoundEvent> TALK = register("steve.talk");
     public static final Holder<SoundEvent> GHOST_APPEAR = register("ghost.appear");
     public static final Holder<SoundEvent> GHOST_HUM = register("ghost.hum");
     public static final Holder<SoundEvent> FRAGMENT = register("memory.fragment");
