@@ -7,7 +7,7 @@ Herobrine is always one step ahead of both of you, and he knows exactly which me
 
 ## Download
 
-`downloads/left-behind-0.2.1.jar`. Put it in your `mods` folder together with Fabric API.
+`downloads/left-behind-0.2.2.jar`. Put it in your `mods` folder together with Fabric API.
 
 ## What's in 0.2
 

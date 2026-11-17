@@ -39,12 +39,14 @@ public final class Observation {
             if (level instanceof ServerLevel server && player instanceof ServerPlayer serverPlayer) onBreak(server, serverPlayer, state);
         });
 
+        // Only watches. It must return null: any result here, even PASS, replaces the item's own use,
+        // which stops every block from being placed (that was the bug in 0.2.0 and 0.2.1).
         ItemEvents.USE_ON.register(context -> {
             if (context.getLevel() instanceof ServerLevel server && context.getPlayer() instanceof ServerPlayer player
                     && context.getItemInHand().getItem() instanceof BlockItem blockItem) {
                 onPlace(server, player, blockItem.getBlock());
             }
-            return InteractionResult.PASS;
+            return null;
         });
 
         UseItemCallback.EVENT.register((player, level, hand) -> {

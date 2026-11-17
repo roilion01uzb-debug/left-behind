@@ -4,6 +4,8 @@ import net.fabricmc.fabric.api.client.gametest.v1.FabricClientGameTest;
 import net.fabricmc.fabric.api.client.gametest.v1.context.ClientGameTestContext;
 import net.fabricmc.fabric.api.client.gametest.v1.context.TestServerContext;
 import net.fabricmc.fabric.api.client.gametest.v1.context.TestSingleplayerContext;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.Blocks;
 
 /**
  * Starts a real singleplayer world, walks through the main features and takes screenshots.
@@ -28,6 +30,24 @@ public class LeftBehindClientTest implements FabricClientGameTest {
         try (TestSingleplayerContext world = context.worldBuilder().create()) {
             TestServerContext server = world.getServer();
             context.waitTicks(40);
+
+            // The basics still work with the mod installed: placing a block in survival.
+            server.runCommand("gamemode survival @a");
+            server.runCommand("item replace entity @a weapon.mainhand with minecraft:stone 16");
+            BlockPos feet = server.computeOnServer(s -> s.getPlayerList().getPlayers().getFirst().blockPosition());
+            context.getInput().lookAt(feet.offset(3, -1, 0));
+            context.waitTicks(5);
+            context.getInput().pressKey(options -> options.keyUse);
+            context.waitTicks(10);
+            int placed = server.computeOnServer(s -> {
+                int count = 0;
+                for (BlockPos pos : BlockPos.betweenClosed(feet.offset(-5, 0, -5), feet.offset(5, 1, 5))) {
+                    if (s.overworld().getBlockState(pos).is(Blocks.STONE)) count++;
+                }
+                return count;
+            });
+            context.takeScreenshot("00_place_block");
+            if (placed == 0) throw new AssertionError("Could not place a block with Left Behind installed");
             server.runCommand("gamemode creative @a");
             server.runCommand("time set noon");
             server.runCommand("leftbehind settings hunt false");
