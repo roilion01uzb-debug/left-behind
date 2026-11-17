@@ -2,6 +2,9 @@ package dev.leftbehind;
 
 import dev.leftbehind.command.LeftBehindCommand;
 import dev.leftbehind.fx.FxPayload;
+import dev.leftbehind.story.SteveVoice;
+import dev.leftbehind.talk.SpeechPayload;
+import dev.leftbehind.talk.Talk;
 import dev.leftbehind.registry.ModEntities;
 import dev.leftbehind.registry.ModSounds;
 import dev.leftbehind.story.Observation;
@@ -23,9 +26,18 @@ public class LeftBehind implements ModInitializer {
         ModSounds.init();
         ModEntities.init();
         PayloadTypeRegistry.clientboundPlay().register(FxPayload.TYPE, FxPayload.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(SpeechPayload.TYPE, SpeechPayload.CODEC);
         Observation.register();
-        ServerLifecycleEvents.SERVER_STARTING.register(server -> StoryDirector.resetTransient());
-        ServerTickEvents.END_SERVER_TICK.register(StoryDirector::tick);
+        ServerLifecycleEvents.SERVER_STARTING.register(server -> {
+            StoryDirector.resetTransient();
+            SteveVoice.reset();
+            Talk.reset();
+        });
+        ServerTickEvents.END_SERVER_TICK.register(server -> {
+            StoryDirector.tick(server);
+            SteveVoice.tick(server);
+            Talk.tick(server);
+        });
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> LeftBehindCommand.register(dispatcher));
         LOGGER.info("Left Behind loaded. He is already here.");
     }

@@ -1,5 +1,8 @@
 package dev.leftbehind.client.render;
 
+import net.minecraft.client.renderer.state.level.CameraRenderState;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import dev.leftbehind.client.talk.SpeechBubble;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.leftbehind.entity.OriginalSteve;
 import net.minecraft.client.model.geom.ModelLayers;
@@ -24,6 +27,7 @@ public class OriginalSteveRenderer extends HumanoidMobRenderer<OriginalSteve, Pe
     public void extractRenderState(OriginalSteve entity, PersonRenderState state, float partialTicks) {
         super.extractRenderState(entity, state, partialTicks);
         state.pose = entity.getState();
+        SpeechBubble.extract(entity, state, partialTicks);
         if (state.pose == OriginalSteve.STATE_COWER || state.pose == OriginalSteve.STATE_STARE) {
             state.walkAnimationSpeed = 0.0F;
         }
@@ -46,5 +50,11 @@ public class OriginalSteveRenderer extends HumanoidMobRenderer<OriginalSteve, Pe
         if (state.pose == OriginalSteve.STATE_COWER) {
             poseStack.translate(0.0F, 0.55F, 0.0F);
         }
+    }
+
+    @Override
+    protected void submitNameDisplay(PersonRenderState state, PoseStack poseStack, SubmitNodeCollector collector, CameraRenderState camera) {
+        super.submitNameDisplay(state, poseStack, collector, camera);
+        SpeechBubble.submit(state, poseStack, collector, camera);
     }
 }

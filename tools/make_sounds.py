@@ -489,8 +489,6 @@ if __name__ == "__main__":
     save("steve/panic_breath", panic_breath(311), peak=0.7)
     save("steve/mutter_1", mutter(321), peak=0.6)
     save("steve/mutter_2", mutter(322), peak=0.6)
-    for i in range(4):
-        save(f"steve/talk_{i + 1}", talk(330 + i), peak=0.5)
     save("ghost/appear", ghost_appear(401), peak=0.7)
     save("ghost/hum", ghost_hum(411), quality=3, peak=0.6)
     save("memory/fragment", memory_fragment(501), peak=0.75)

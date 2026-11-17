@@ -1,6 +1,8 @@
 package dev.leftbehind.client;
 
 import dev.leftbehind.client.fx.ScreenFx;
+import dev.leftbehind.client.talk.SpeechClient;
+import dev.leftbehind.talk.SpeechPayload;
 import dev.leftbehind.client.render.HerobrineRenderer;
 import dev.leftbehind.client.render.ModModels;
 import dev.leftbehind.client.render.OriginalSteveRenderer;
@@ -23,8 +25,16 @@ public class LeftBehindClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.REMNANT, RemnantRenderer::new);
 
         ClientPlayNetworking.registerGlobalReceiver(FxPayload.TYPE, (payload, context) -> context.client().execute(() -> ScreenFx.receive(payload)));
-        ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> ScreenFx.reset());
-        ClientTickEvents.END_CLIENT_TICK.register(ScreenFx::tick);
+        ClientPlayNetworking.registerGlobalReceiver(SpeechPayload.TYPE, (payload, context) -> context.client().execute(() -> SpeechClient.receive(payload)));
+        ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
+            ScreenFx.reset();
+            SpeechClient.reset();
+        });
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            ScreenFx.tick(client);
+            SpeechClient.tick(client);
+        });
+        HudElementRegistry.addLast(SpeechClient.ID, SpeechClient::extract);
         HudElementRegistry.addLast(ScreenFx.ID, ScreenFx::extract);
     }
 }

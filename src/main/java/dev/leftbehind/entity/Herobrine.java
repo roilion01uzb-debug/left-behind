@@ -255,8 +255,7 @@ public class Herobrine extends PathfinderMob {
     }
 
     public static void whisper(ServerPlayer player, String line) {
-        player.sendSystemMessage(Component.literal("<???> ").withStyle(ChatFormatting.DARK_GRAY)
-                .append(Component.literal(line).withStyle(ChatFormatting.WHITE, ChatFormatting.ITALIC)));
+        dev.leftbehind.story.SteveVoice.whisper(player, StoryDirector.activeHerobrine(), "???", dev.leftbehind.story.SteveVoice.HEROBRINE_COLOR, line);
     }
 
     private boolean isLookedAtBy(ServerPlayer player, double dist) {

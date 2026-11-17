@@ -19,7 +19,8 @@ public final class Relationship {
             Codec.INT.optionalFieldOf("gifts", 0).forGetter(r -> r.gifts),
             Codec.INT.optionalFieldOf("kills_witnessed", 0).forGetter(r -> r.killsWitnessed),
             Codec.INT.optionalFieldOf("talks", 0).forGetter(r -> r.talks),
-            Codec.unboundedMap(Codec.STRING, Codec.LONG).optionalFieldOf("marks", Map.of()).forGetter(r -> r.marks)
+            Codec.unboundedMap(Codec.STRING, Codec.LONG).optionalFieldOf("marks", Map.of()).forGetter(r -> r.marks),
+            Codec.unboundedMap(Codec.STRING, Codec.STRING).optionalFieldOf("notes", Map.of()).forGetter(r -> r.notes)
     ).apply(i, Relationship::new));
 
     public float trust;
@@ -31,11 +32,15 @@ public final class Relationship {
     /** Per-player notes: which topics were asked, when he last gave a gift, and so on. */
     public final Map<String, Long> marks;
 
+    /** What the player has told him: their name, their answers to his questions. */
+    public final Map<String, String> notes;
+
     public Relationship() {
-        this(20f, 0f, 0, 0, 0, 0, Map.of());
+        this(20f, 0f, 0, 0, 0, 0, Map.of(), Map.of());
     }
 
-    public Relationship(float trust, float anger, int timesHurt, int gifts, int killsWitnessed, int talks, Map<String, Long> marks) {
+    public Relationship(float trust, float anger, int timesHurt, int gifts, int killsWitnessed, int talks, Map<String, Long> marks,
+                        Map<String, String> notes) {
         this.trust = trust;
         this.anger = anger;
         this.timesHurt = timesHurt;
@@ -43,6 +48,11 @@ public final class Relationship {
         this.killsWitnessed = killsWitnessed;
         this.talks = talks;
         this.marks = new HashMap<>(marks);
+        this.notes = new HashMap<>(notes);
+    }
+
+    public @org.jspecify.annotations.Nullable String note(String key) {
+        return notes.get(key);
     }
 
     public void addTrust(float amount) {
