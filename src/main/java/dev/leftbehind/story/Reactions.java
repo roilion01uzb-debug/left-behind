@@ -44,6 +44,7 @@ public final class Reactions {
         if (memory == null) return false;
         long time = steve.level().getGameTime();
         if (time < memory.counter("cd_remark_any")) return false;
+        if (dev.leftbehind.talk.Talk.inConversation(time)) return false;
         if (!memory.cooldown("remark_" + key, time, cooldownSeconds * 20L)) return false;
         memory.setCounter("cd_remark_any", time + 70);
         SteveVoice.steve(steve, steve.getRandom(), lines);

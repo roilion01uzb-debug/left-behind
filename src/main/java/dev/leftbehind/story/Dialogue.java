@@ -175,11 +175,11 @@ public final class Dialogue {
                 }
             }
             case "follow" -> {
-                if (r.trust >= 30f) {
+                if (r.trust >= 25f) {
                     steve.orderFollow(player);
                     answer = pick(steve, "Okay. I'll keep up.", "Lead the way.", "Where are we going? ...never mind. I'll come.");
                 } else {
-                    answer = "I'd rather not. Not yet.";
+                    answer = "Not yet. I don't know you well enough. Talk to me a bit more first.";
                 }
             }
             case "stay" -> {

@@ -73,6 +73,7 @@ public final class Talk {
     /** What is going on in one player's conversation right now. Not saved: a conversation doesn't survive a restart. */
     static final class Session {
         long lastExchange = -100000;
+        long lastHeard = -100000;
         long lastNear = -100000;
         long nextInit;
         @Nullable String pendingQ;
@@ -97,6 +98,12 @@ public final class Talk {
     public static void reset() {
         SESSIONS.clear();
         HEARD.clear();
+    }
+
+    /** True while someone is in the middle of a conversation with him, so his idle remarks wait. */
+    public static boolean inConversation(long now) {
+        for (Session s : SESSIONS.values()) if (now - s.lastHeard < 400) return true;
+        return false;
     }
 
     static Session session(ServerPlayer player) {
@@ -162,6 +169,7 @@ public final class Talk {
     private static void respond(Ctx c, String text, String raw) {
         Session s = c.session;
         s.lastExchange = c.now;
+        s.lastHeard = c.now;
         countTalk(c);
         TalkBook book = TalkBook.get();
 
@@ -613,11 +621,11 @@ public final class Talk {
             if (c.rel.stage().atLeast(AngerStage.PROVOCATION)) continue;
             if (wasAway) {
                 greet(c);
-                s.nextInit = Math.max(s.nextInit, now + 500);
                 return;
             }
             if (now < s.nextInit) continue;
-            if (now - s.lastExchange < 400) {
+            if (now - s.lastHeard < 400) {
+                // They're in the middle of telling him something. Let them.
                 s.nextInit = now + 200;
                 continue;
             }
@@ -640,6 +648,7 @@ public final class Talk {
         }
         String line = Dialogue.greeting(c.level, c.steve, c.player, c.memory, c.rel);
         say(c, line);
+        c.session.nextInit = Math.max(c.session.nextInit, c.now + 500);
     }
 
     private static void initiate(Ctx c) {
@@ -696,7 +705,6 @@ public final class Talk {
         say(c, greeting);
         // He has things to say, if you came over to listen.
         s.nextInit = Math.min(s.nextInit, c.now + 90);
-        s.lastExchange = c.now - 400;
     }
 
     public static void herobrineInteract(Herobrine herobrine, ServerPlayer player) {

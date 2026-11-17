@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import net.minecraft.client.DeltaTracker;
+import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -19,6 +20,9 @@ import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.Vec3;
+import org.joml.Vector3fc;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -92,6 +96,21 @@ public final class SpeechClient {
         return rows;
     }
 
+    private static boolean bubbleInView(Minecraft client, int entityId) {
+        if (client.level == null || entityId < 0) return false;
+        Entity speaker = client.level.getEntity(entityId);
+        if (speaker == null) return false;
+        Camera camera = client.gameRenderer.mainCamera();
+        Vec3 eye = camera.position();
+        Vec3 head = speaker.position().add(0, speaker.getBbHeight() + 0.4, 0);
+        Vec3 to = head.subtract(eye);
+        double dist = to.length();
+        if (dist > 24.0 || dist < 0.01) return false;
+        Vector3fc forward = camera.forwardVector();
+        double dot = (to.x * forward.x() + to.y * forward.y() + to.z * forward.z()) / dist;
+        return dot > 0.82;
+    }
+
     /** The subtitle box above the hotbar. */
     public static void extract(GuiGraphicsExtractor graphics, DeltaTracker delta) {
         if (SUBTITLES.isEmpty()) return;
@@ -106,6 +125,8 @@ public final class SpeechClient {
         Iterator<Line> it = SUBTITLES.descendingIterator();
         while (it.hasNext()) {
             Line line = it.next();
+            // If you're looking at him, his words are already above his head. The subtitle is for when you're not.
+            if (line.style() == SpeechPayload.SPOKEN && bubbleInView(client, line.entityId())) continue;
             Component name = Component.literal(line.speaker() + ": ").withStyle(s -> s.withColor(TextColor.fromRgb(line.color())));
             int nameW = font.width(name);
             List<String> rows = typed(font, line, width - nameW, partial);

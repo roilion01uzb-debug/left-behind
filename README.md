@@ -7,9 +7,9 @@ Herobrine is always one step ahead of both of you, and he knows exactly which me
 
 ## Download
 
-`downloads/left-behind-0.2.2.jar`. Put it in your `mods` folder together with Fabric API.
+`downloads/left-behind-0.3.0.jar`. Put it in your `mods` folder together with Fabric API.
 
-## What's in 0.2
+## What's in it
 
 ### A story that moves forward
 
@@ -24,19 +24,31 @@ helped him remember and lived through his memory breaches. It doesn't move on by
   A brick pyramid. Something at 0, 0. Bring Steve near one and he remembers.
 - **25 advancements** in their own "Left Behind" tab track all of it.
 
-### A Steve who talks
+### A Steve who talks (new in 0.3)
 
-- **Right-click Steve** to open a conversation. Ask who he is, what he remembers, what he thinks of you, about "him",
-  about "them", about this place. His answers change as the acts move on and as he trusts you more.
-  You can also ask him to follow you, to stay, or to go where he likes.
+Steve speaks English, and you talk to him the way you talk to anyone: **type in chat**. No menus, no buttons.
+
+- **His words appear above his head**, typed out as he says them, and as a **subtitle just above your hotbar**
+  when he is behind you or too far to read. Herobrine's whispers show up as grey subtitles.
+- **Just type near him.** Within about 10 blocks he hears you if he can see you; once you are talking, 20 blocks is fine;
+  say "Steve" and he hears you from 40. Slang and typos are fine ("u ok?", "wru doing", "helloooo").
+- **He starts conversations himself.** He says hello when you come back, asks your name the first time you meet,
+  and later asks you things: what you are afraid of, what you like to build, whether you dream, why you stay.
+  He **remembers your answers** and brings them up again days later.
+- **He learns words.** Mention something he has never heard of ("have you seen netherite?") and he asks what it is.
+  Tell him, and from then on he knows it and remembers who taught him.
+- **Ask him anything**: who he is, if he is real, about "him", about "the others", about this place, how he feels,
+  what he remembers, what he thinks of you. Ask for a joke or a story. Over 60 subjects, and his answers change as the
+  acts move on and as he trusts you more.
+- **Ask him to do things**: "follow me", "stay here", "go where you want". He only follows people he trusts.
 - **Hold something and right-click him** and he reacts to it: food, tools, flowers, music discs, a compass, bricks,
-  a bed, TNT and about thirty other things. Gifts raise his trust.
-- **Type in chat near him** and he answers certain words.
+  a bed, TNT and about thirty other things. Gifts raise his trust. Right-clicking him with an empty hand gets his attention.
 - **He comments on what you do**: mining, building, fighting, dying, sleeping, sneaking behind him, standing still too long,
-  being on fire, the weather, the time of day.
-- **He has opinions about you** built from what he has watched you do, and he will tell you if you ask.
+  being on fire, the weather, the time of day. He keeps quiet about it while you are talking.
+- Insult him and he remembers. Tell him to shut up and he will, for a while. Some things only "sorry" fixes.
 - He still learns from you (chop enough trees and he starts chopping), still gets angry in stages if you hurt him,
-  and now defends players he trusts from monsters.
+  and defends players he trusts from monsters.
+- Players without the mod on a server still get his words in chat.
 
 ### Breaches you can watch
 
@@ -60,7 +72,7 @@ When Herobrine holds Steve's eyes, a memory breaks. Steve no longer disappears.
 - From Act III, when the meter is full, **he hunts you**. He walks at first. Then he doesn't. He will follow you until you are
   dead, through walls if he has to. The death message is "was removed".
 - The only way out is Steve: if a Steve who trusts you is close by, he steps in front of you. It costs him a breach.
-- You can right-click Herobrine and ask him **one** question. Don't ask a second one. Don't hit him.
+- You can right-click Herobrine and type **one** question in chat. Don't ask a second one. Don't hit him.
 
 ### The removed ones
 
@@ -73,7 +85,7 @@ Sometimes they leave something behind.
 - Screen effects: dread vignette with a heartbeat pulse, static, a flash of white eyes, blackouts, camera shake.
 - An ambience director that gets worse with each act: low drones, howling wind, knocking behind you when you are indoors,
   footsteps in the grass, cave sounds, and later whispers and breathing right behind your shoulder, bursts of static and eyes in the dark.
-- 29 original sounds, all with subtitles. They were made for this mod with `tools/make_sounds.py`,
+- 25 original sounds, all with subtitles. They were made for this mod with `tools/make_sounds.py`,
   so there is nothing borrowed in the jar.
 
 ## Settings (operators)
@@ -107,7 +119,7 @@ Block changes also respect the `mob_griefing` game rule.
 | `/leftbehind stability <0-100>` | Sets Steve's memory stability |
 | `/leftbehind reset` | Makes the world forget everything |
 
-Everyone can use `/steve journal`.
+Everyone can use `/steve journal`, and `/steve say <text>` talks to Steve without chat (for servers where chat is off).
 
 ## Building
 

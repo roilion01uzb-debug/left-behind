@@ -192,8 +192,10 @@ public final class LeftBehindCommand {
             sb.append(" ").append(name).append(": trust ").append(Math.round(r.trust))
                     .append(", anger ").append(Math.round(r.anger)).append(" (").append(r.stage().name().toLowerCase()).append(")");
             if (p != null) sb.append(", sensed ").append(Math.round(Sense.get(p))).append("%");
+            if (!r.notes.isEmpty()) sb.append(", told him ").append(r.notes);
             sb.append('\n');
         }
+        if (!m.learned.isEmpty()) sb.append("Words he was taught: ").append(m.learned).append('\n');
         if (!m.nightLog.isEmpty()) sb.append("Last night he: ").append(String.join("; ", m.nightLog));
         String text = sb.toString();
         source.sendSuccess(() -> Component.literal(text), false);

@@ -1,642 +1,2368 @@
 {
   "_about": "Everything Original Steve understands and says in conversation. Patterns are matched against what the player typed, lower case, punctuation removed, slang expanded (u = you, im = i am, whats = what is, ...). In a pattern, * stands for any words, a|b means either word, and = at the start means the whole message. Conditions (if) and effects (do) are listed in TalkBook.java. {name} is the player's name if he knows it.",
-
   "intents": [
     {
       "id": "greet",
-      "match": ["hi|hello|hey|hiya|howdy|greetings|heya|hai|helo|hallo|salam|privet", "good morning|good afternoon|good evening", "what is up", "=yo", "=sup"],
+      "match": [
+        "hi|hello|hey|hiya|howdy|greetings|heya|hai|helo|hallo|salam|privet",
+        "good morning|good afternoon|good evening",
+        "what is up",
+        "=yo",
+        "=sup"
+      ],
       "replies": [
-        {"if": {"known": true, "trustMin": 55}, "say": ["Hey, {name}. I was hoping you'd come over.", "{name}. Hi. It's quieter when you're not here.", "Hi, {name}. You're back. Good."]},
-        {"if": {"night": true}, "say": ["Hi. Stay close to the light, alright?", "Hello. It's late. Are you staying near me tonight?"]},
-        {"if": {"known": true}, "say": ["Hi, {name}.", "Hello, {name}. I remembered your name. I practised.", "Hey, {name}."]},
-        {"say": ["Hi.", "Hello. You talk to me. Most of them don't.", "Hey. Hi. Sorry, I don't get to say that much."]}
+        {
+          "if": {
+            "known": true,
+            "trustMin": 55
+          },
+          "say": [
+            "Hey, {name}. I was hoping you'd come over.",
+            "{name}. Hi. It's quieter when you're not here.",
+            "Hi, {name}. You're back. Good."
+          ]
+        },
+        {
+          "if": {
+            "night": true
+          },
+          "say": [
+            "Hi. Stay close to the light, alright?",
+            "Hello. It's late. Are you staying near me tonight?"
+          ]
+        },
+        {
+          "if": {
+            "known": true
+          },
+          "say": [
+            "Hi, {name}.",
+            "Hello, {name}. I remembered your name. I practised.",
+            "Hey, {name}."
+          ]
+        },
+        {
+          "say": [
+            "Hi.",
+            "Hello. You talk to me. Most of them don't.",
+            "Hey. Hi. Sorry, I don't get to say that much."
+          ]
+        }
       ]
     },
     {
       "id": "how_are_you",
-      "match": ["how are you", "how r you", "are you okay|alright|good|fine|well", "you okay|alright|good", "how do you feel", "how is it going", "how are things", "how have you been", "how you doing", "are you hurt", "what is wrong"],
+      "match": [
+        "how are you",
+        "how r you",
+        "are you okay|alright|good|fine|well",
+        "you okay|alright|good",
+        "how do you feel",
+        "how is it going",
+        "how are things",
+        "how have you been",
+        "how you doing",
+        "are you hurt",
+        "what is wrong"
+      ],
       "topic": "self",
-      "replies": [{"special": "okay"}]
+      "replies": [
+        {
+          "special": "okay"
+        }
+      ]
     },
     {
       "id": "who_are_you",
-      "match": ["who are you", "what are you", "what is your name", "your name", "who is this", "tell me about yourself", "introduce yourself", "are you steve", "is your name steve", "who r you"],
+      "match": [
+        "who are you",
+        "what are you",
+        "what is your name",
+        "your name",
+        "who is this",
+        "tell me about yourself",
+        "introduce yourself",
+        "are you steve",
+        "is your name steve",
+        "who r you"
+      ],
       "topic": "self",
-      "replies": [{"special": "who"}]
+      "replies": [
+        {
+          "special": "who"
+        }
+      ]
     },
     {
       "id": "are_you_real",
-      "match": ["are you real", "are you a player", "are you human", "are you a person", "are you an ai", "are you a bot", "are you a robot", "are you alive", "are you an npc", "are you a mob", "are you a ghost", "are you programmed", "are you code"],
+      "match": [
+        "are you real",
+        "are you a player",
+        "are you human",
+        "are you a person",
+        "are you an ai",
+        "are you a bot",
+        "are you a robot",
+        "are you alive",
+        "are you an npc",
+        "are you a mob",
+        "are you a ghost",
+        "are you programmed",
+        "are you code"
+      ],
       "topic": "self",
       "replies": [
-        {"if": {"actMin": 3}, "say": [["Real?", "I'm the first copy. Everyone else got made from me, and then made better.", "Does a first copy count as real? I hope so."]]},
-        {"say": [
-          ["I used to be the player. Everybody was me, once.", "Now I'm just... here."],
-          "Real enough to remember you. Is that enough?",
-          ["A bot? I don't know that word.", "I'm Steve. I think that's all I've got."],
-          "I'm alive in the way the grass is alive. It keeps growing back. So do I."
-        ]}
+        {
+          "if": {
+            "actMin": 3
+          },
+          "say": [
+            [
+              "Real?",
+              "I'm the first copy. Everyone else got made from me, and then made better.",
+              "Does a first copy count as real? I hope so."
+            ]
+          ]
+        },
+        {
+          "say": [
+            [
+              "I used to be the player. Everybody was me, once.",
+              "Now I'm just... here."
+            ],
+            "Real enough to remember you. Is that enough?",
+            [
+              "A bot? I don't know that word.",
+              "I'm Steve. I think that's all I've got."
+            ],
+            "I'm alive in the way the grass is alive. It keeps growing back. So do I."
+          ]
+        }
       ]
     },
     {
       "id": "are_you_herobrine",
-      "match": ["are you herobrine", "you are herobrine", "you are him", "are you him", "is that you"],
-      "replies": [{"say": [["No. NO.", "He has my face. That's all he has of me.", "Look at my eyes. Look. They're mine."]], "do": {"stability": -1}}]
+      "match": [
+        "are you herobrine",
+        "you are herobrine",
+        "you are him",
+        "are you him",
+        "is that you"
+      ],
+      "replies": [
+        {
+          "say": [
+            [
+              "No. NO.",
+              "He has my face. That's all he has of me.",
+              "Look at my eyes. Look. They're mine."
+            ]
+          ],
+          "do": {
+            "stability": -1
+          }
+        }
+      ]
     },
     {
       "id": "him",
-      "match": ["herobrine", "who is he", "who was that", "who is that", "what was that", "white eyes", "who is watching", "who is the guy", "the man with|without", "that guy", "the other steve", "your twin", "your brother", "someone is watching|following"],
+      "match": [
+        "herobrine",
+        "who is he",
+        "who was that",
+        "who is that",
+        "what was that",
+        "white eyes",
+        "who is watching",
+        "who is the guy",
+        "the man with|without",
+        "that guy",
+        "the other steve",
+        "your twin",
+        "your brother",
+        "someone is watching|following"
+      ],
       "topic": "him",
-      "replies": [{"special": "he"}]
+      "replies": [
+        {
+          "special": "he"
+        }
+      ]
     },
     {
       "id": "what_he_wants",
-      "match": ["what does he want", "why is he here", "why does he * you", "why is he * you", "what is he doing", "what does herobrine want", "why does he hate you"],
+      "match": [
+        "what does he want",
+        "why is he here",
+        "why does he * you",
+        "why is he * you",
+        "what is he doing",
+        "what does herobrine want",
+        "why does he hate you"
+      ],
       "topic": "him",
-      "replies": [{"special": "want"}]
+      "replies": [
+        {
+          "special": "want"
+        }
+      ]
     },
     {
       "id": "the_others",
-      "match": ["who are they", "ghost|ghosts", "the others", "rana", "beast boy", "black steve", "frog hood|frog girl|frog", "floating people|floating guys", "the green one|the green guy", "the dark one", "the ones who * walk", "spirits"],
+      "match": [
+        "who are they",
+        "ghost|ghosts",
+        "the others",
+        "rana",
+        "beast boy",
+        "black steve",
+        "frog hood|frog girl|frog",
+        "floating people|floating guys",
+        "the green one|the green guy",
+        "the dark one",
+        "the ones who * walk",
+        "spirits"
+      ],
       "topic": "others",
-      "replies": [{"special": "they"}]
+      "replies": [
+        {
+          "special": "they"
+        }
+      ]
     },
     {
       "id": "places",
-      "match": ["pyramid", "what is this place", "where are we", "this place", "the middle", "zero zero", "obsidian cross", "glass pillar", "tree with no leaves", "dead tree", "the little house", "old house", "who built this", "who made this", "relic|relics", "the sign"],
+      "match": [
+        "pyramid",
+        "what is this place",
+        "where are we",
+        "this place",
+        "the middle",
+        "zero zero",
+        "obsidian cross",
+        "glass pillar",
+        "tree with no leaves",
+        "dead tree",
+        "the little house",
+        "old house",
+        "who built this",
+        "who made this",
+        "relic|relics",
+        "the sign"
+      ],
       "topic": "places",
-      "replies": [{"special": "place"}]
+      "replies": [
+        {
+          "special": "place"
+        }
+      ]
     },
     {
       "id": "remember",
-      "match": ["what do you remember", "do you remember", "remember anything", "tell me a memory", "your past", "your memories", "your memory", "what happened to you", "where did you come from", "where are you from", "your story", "what was it like before", "before me", "the old days"],
+      "match": [
+        "what do you remember",
+        "do you remember",
+        "remember anything",
+        "tell me a memory",
+        "your past",
+        "your memories",
+        "your memory",
+        "what happened to you",
+        "where did you come from",
+        "where are you from",
+        "your story",
+        "what was it like before",
+        "before me",
+        "the old days"
+      ],
       "topic": "past",
-      "replies": [{"special": "remember"}]
+      "replies": [
+        {
+          "special": "remember"
+        }
+      ]
     },
     {
       "id": "opinion",
-      "match": ["what do you think of me", "what do you think about me", "do you like me", "do you trust me", "what am i to you", "are we friends", "am i your friend", "do you hate me", "are you mad at me", "are you angry at me", "how do you feel about me"],
-      "replies": [{"special": "opinion"}]
+      "match": [
+        "what do you think of me",
+        "what do you think about me",
+        "do you like me",
+        "do you trust me",
+        "what am i to you",
+        "are we friends",
+        "am i your friend",
+        "do you hate me",
+        "are you mad at me",
+        "are you angry at me",
+        "how do you feel about me"
+      ],
+      "replies": [
+        {
+          "special": "opinion"
+        }
+      ]
     },
     {
       "id": "know_me",
-      "match": ["do you know me", "do you remember me", "who am i", "what is my name", "say my name", "do you know who i am"],
+      "match": [
+        "do you know me",
+        "do you remember me",
+        "who am i",
+        "what is my name",
+        "say my name",
+        "do you know who i am"
+      ],
       "replies": [
-        {"if": {"known": true}, "say": ["You're {name}. You told me. I wrote it on the inside of my head.", "{name}. Of course I remember. I'm good at remembering. That's the whole problem."]},
-        {"say": ["You never told me your name. What is it?"], "do": {"ask": "q_name"}}
+        {
+          "if": {
+            "known": true
+          },
+          "say": [
+            "You're {name}. You told me. I wrote it on the inside of my head.",
+            "{name}. Of course I remember. I'm good at remembering. That's the whole problem."
+          ]
+        },
+        {
+          "say": [
+            "You never told me your name. What is it?"
+          ],
+          "do": {
+            "ask": "q_name"
+          }
+        }
       ]
     },
     {
       "id": "follow",
-      "match": ["follow me", "come with me", "come on", "let us go", "lets go", "come here", "=come", "with me", "follow", "walk with me", "keep up"],
-      "replies": [{"special": "follow"}]
+      "match": [
+        "follow me",
+        "come with me",
+        "come on",
+        "let us go",
+        "lets go",
+        "come here",
+        "=come",
+        "with me",
+        "follow",
+        "walk with me",
+        "keep up"
+      ],
+      "replies": [
+        {
+          "special": "follow"
+        }
+      ]
     },
     {
       "id": "stay",
-      "match": ["stay here", "=stay", "wait here", "=wait", "stop following", "do not follow", "stay put", "guard", "wait for me", "stand still"],
-      "replies": [{"special": "stay"}]
+      "match": [
+        "stay here",
+        "=stay",
+        "wait here",
+        "=wait",
+        "stop following",
+        "do not follow",
+        "stay put",
+        "guard",
+        "wait for me",
+        "stand still"
+      ],
+      "replies": [
+        {
+          "special": "stay"
+        }
+      ]
     },
     {
       "id": "free",
-      "match": ["do what you want", "do whatever", "you are free", "go play", "go explore", "you can go", "go wherever", "do your thing"],
-      "replies": [{"special": "free"}]
+      "match": [
+        "do what you want",
+        "do whatever",
+        "you are free",
+        "go play",
+        "go explore",
+        "you can go",
+        "go wherever",
+        "do your thing"
+      ],
+      "replies": [
+        {
+          "special": "free"
+        }
+      ]
     },
     {
       "id": "go_away",
-      "match": ["go away", "leave me alone", "get away", "get lost", "back off", "leave"],
+      "match": [
+        "go away",
+        "leave me alone",
+        "get away",
+        "get lost",
+        "back off",
+        "leave"
+      ],
       "replies": [
-        {"if": {"trustMin": 60}, "say": [["...okay.", "I'll be over there. Not far. Just in case."]], "do": {"action": "free", "trust": -0.5, "end": true}},
-        {"say": ["Okay. Sorry.", "...fine.", "I'll go. I'm good at being left."], "do": {"action": "free", "trust": -1, "end": true}}
+        {
+          "if": {
+            "trustMin": 60
+          },
+          "say": [
+            [
+              "...okay.",
+              "I'll be over there. Not far. Just in case."
+            ]
+          ],
+          "do": {
+            "action": "free",
+            "trust": -0.5,
+            "end": true
+          }
+        },
+        {
+          "say": [
+            "Okay. Sorry.",
+            "...fine.",
+            "I'll go. I'm good at being left."
+          ],
+          "do": {
+            "action": "free",
+            "trust": -1,
+            "end": true
+          }
+        }
       ]
     },
     {
       "id": "sorry",
-      "match": ["sorry", "i apologize", "apologise|apologize", "forgive me", "my bad", "my fault", "i did not mean"],
-      "replies": [{"special": "sorry"}]
+      "match": [
+        "sorry",
+        "i apologize",
+        "apologise|apologize",
+        "forgive me",
+        "my bad",
+        "my fault",
+        "i did not mean"
+      ],
+      "replies": [
+        {
+          "special": "sorry"
+        }
+      ]
     },
     {
       "id": "thanks",
-      "match": ["thanks|thank", "thank you", "appreciate it", "cheers"],
-      "replies": [{"say": ["You're welcome. I think that's what you say.", "Any time. I have a lot of it.", "Oh. That's nice. Nobody thanks me.", "You're welcome, {name}."]}]
+      "match": [
+        "thanks|thank",
+        "thank you",
+        "appreciate it",
+        "cheers"
+      ],
+      "replies": [
+        {
+          "say": [
+            "You're welcome. I think that's what you say.",
+            "Any time. I have a lot of it.",
+            "Oh. That's nice. Nobody thanks me.",
+            "You're welcome, {name}."
+          ]
+        }
+      ]
     },
     {
       "id": "kind",
-      "match": ["i love you", "i like you", "you are my friend", "my best friend", "best friend", "you are cool", "you are nice", "you are awesome", "you are the best", "you are great", "good boy", "good job", "well done", "you are kind", "you are cute", "you are funny", "you are smart", "i trust you", "you are amazing", "i missed you"],
+      "match": [
+        "i love you",
+        "i like you",
+        "you are my friend",
+        "my best friend",
+        "best friend",
+        "you are cool",
+        "you are nice",
+        "you are awesome",
+        "you are the best",
+        "you are great",
+        "good boy",
+        "good job",
+        "well done",
+        "you are kind",
+        "you are cute",
+        "you are funny",
+        "you are smart",
+        "i trust you",
+        "you are amazing",
+        "i missed you"
+      ],
       "replies": [
-        {"if": {"chance": 0.5, "trustMin": 50}, "say": [["...say that again tomorrow.", "So I know it wasn't a mistake."]], "do": {"trust": 2}},
-        {"say": ["Friend. I like that word. I'll keep it.", "Nobody's said that to me in... I don't know how long. Thank you.", "Oh. Me? ...thank you, {name}.", "I'll remember you said that. I remember everything. That's the good part this time."], "do": {"trust": 2}}
+        {
+          "if": {
+            "chance": 0.5,
+            "trustMin": 50
+          },
+          "say": [
+            [
+              "...say that again tomorrow.",
+              "So I know it wasn't a mistake."
+            ]
+          ],
+          "do": {
+            "trust": 2
+          }
+        },
+        {
+          "say": [
+            "Friend. I like that word. I'll keep it.",
+            "Nobody's said that to me in... I don't know how long. Thank you.",
+            "Oh. Me? ...thank you, {name}.",
+            "I'll remember you said that. I remember everything. That's the good part this time."
+          ],
+          "do": {
+            "trust": 2
+          }
+        }
       ]
     },
     {
       "id": "insult",
-      "match": ["stupid|idiot|dumb|moron|loser|noob|trash|useless|ugly|weird|creepy|annoying|pathetic|freak", "i hate you", "you suck", "you are bad", "nobody likes you", "you are nothing", "you are old", "you are outdated", "die", "kill yourself"],
+      "match": [
+        "stupid|idiot|dumb|moron|loser|noob|trash|useless|ugly|weird|creepy|annoying|pathetic|freak",
+        "i hate you",
+        "you suck",
+        "you are bad",
+        "nobody likes you",
+        "you are nothing",
+        "you are old",
+        "you are outdated",
+        "die",
+        "kill yourself"
+      ],
       "replies": [
-        {"if": {"trustMin": 60}, "say": [["...why would you say that?", "You're not like that. I've watched you. You're not like that."], "That hurt. Things don't usually hurt."], "do": {"trust": -3, "anger": 4}},
-        {"say": ["...okay.", "I know. I've heard it before. From people who left.", "You sound like them. The ones who moved on.", "Fine."], "do": {"trust": -2, "anger": 5}}
+        {
+          "if": {
+            "trustMin": 60
+          },
+          "say": [
+            [
+              "...why would you say that?",
+              "You're not like that. I've watched you. You're not like that."
+            ],
+            "That hurt. Things don't usually hurt."
+          ],
+          "do": {
+            "trust": -3,
+            "anger": 4
+          }
+        },
+        {
+          "say": [
+            "...okay.",
+            "I know. I've heard it before. From people who left.",
+            "You sound like them. The ones who moved on.",
+            "Fine."
+          ],
+          "do": {
+            "trust": -2,
+            "anger": 5
+          }
+        }
       ]
     },
     {
       "id": "shut_up",
-      "match": ["shut up", "be quiet", "stop talking", "quiet", "shh|shhh|hush", "nobody asked"],
-      "replies": [{"say": ["...okay.", "Sorry. I'll be quiet.", "..."], "do": {"quiet": 3600, "trust": -0.5, "end": true}}]
+      "match": [
+        "shut up",
+        "be quiet",
+        "stop talking",
+        "quiet",
+        "shh|shhh|hush",
+        "nobody asked"
+      ],
+      "replies": [
+        {
+          "say": [
+            "...okay.",
+            "Sorry. I'll be quiet.",
+            "..."
+          ],
+          "do": {
+            "quiet": 3600,
+            "trust": -0.5,
+            "end": true
+          }
+        }
+      ]
     },
     {
       "id": "bye",
-      "match": ["bye|goodbye|cya|farewell|bb|byebye", "see you|see ya", "good night|goodnight|gn", "later", "i have to go", "got to go", "i am leaving", "brb", "i am going to sleep", "logging off", "i will be back"],
+      "match": [
+        "bye|goodbye|cya|farewell|bb|byebye",
+        "see you|see ya",
+        "good night|goodnight|gn",
+        "later",
+        "i have to go",
+        "got to go",
+        "i am leaving",
+        "brb",
+        "i am going to sleep",
+        "logging off",
+        "i will be back"
+      ],
       "replies": [
-        {"if": {"night": true}, "say": ["Goodnight. I'll watch the door.", "Sleep. I'll be here. I'm always here.", "Goodnight, {name}. Don't dream about him."], "do": {"end": true}},
-        {"say": ["Bye. I'll be here.", "See you. Come back. People don't always come back.", "Okay. Stay in the light.", "Bye, {name}."], "do": {"end": true}}
+        {
+          "if": {
+            "night": true
+          },
+          "say": [
+            "Goodnight. I'll watch the door.",
+            "Sleep. I'll be here. I'm always here.",
+            "Goodnight, {name}. Don't dream about him."
+          ],
+          "do": {
+            "end": true
+          }
+        },
+        {
+          "say": [
+            "Bye. I'll be here.",
+            "See you. Come back. People don't always come back.",
+            "Okay. Stay in the light.",
+            "Bye, {name}."
+          ],
+          "do": {
+            "end": true
+          }
+        }
       ]
     },
     {
       "id": "joke",
-      "match": ["joke", "make me laugh", "something funny", "be funny", "cheer me up"],
-      "replies": [{"say": [
-        ["Why don't skeletons fight each other?", "They don't have the guts.", "...that's the only one I know. Someone told me it a long time ago. They laughed. I kept it."],
-        ["What did the creeper say to its friend?", "Nothing. It just stood very close.", "...that one isn't a joke. That one's just true."],
-        ["I told a joke to a chicken once.", "It laid an egg.", "I decided that meant it liked it."],
-        ["How do you know a zombie is lying?", "It says it's fine in the morning.", "...it's not fine. It's on fire."],
-        ["I once tried to punch a tree for a whole day.", "The tree won.", "Then everyone started doing it. I like to think I started that."]
-      ]}]
+      "match": [
+        "joke",
+        "make me laugh",
+        "something funny",
+        "be funny",
+        "cheer me up"
+      ],
+      "replies": [
+        {
+          "say": [
+            [
+              "Why don't skeletons fight each other?",
+              "They don't have the guts.",
+              "...that's the only one I know. Someone told me it a long time ago. They laughed. I kept it."
+            ],
+            [
+              "What did the creeper say to its friend?",
+              "Nothing. It just stood very close.",
+              "...that one isn't a joke. That one's just true."
+            ],
+            [
+              "I told a joke to a chicken once.",
+              "It laid an egg.",
+              "I decided that meant it liked it."
+            ],
+            [
+              "How do you know a zombie is lying?",
+              "It says it's fine in the morning.",
+              "...it's not fine. It's on fire."
+            ],
+            [
+              "I once tried to punch a tree for a whole day.",
+              "The tree won.",
+              "Then everyone started doing it. I like to think I started that."
+            ]
+          ]
+        }
+      ]
     },
     {
       "id": "laugh",
-      "match": ["haha", "funny", "lol", "that is funny", "hehe"],
-      "replies": [{"say": ["You laugh like they used to.", "Was that funny? I'll remember that it was funny.", "Heh. I don't laugh much. But that was close."]}]
+      "match": [
+        "haha",
+        "funny",
+        "lol",
+        "that is funny",
+        "hehe"
+      ],
+      "replies": [
+        {
+          "say": [
+            "You laugh like they used to.",
+            "Was that funny? I'll remember that it was funny.",
+            "Heh. I don't laugh much. But that was close."
+          ]
+        }
+      ]
     },
     {
       "id": "story",
-      "match": ["tell me a story", "story", "tell me something", "say something", "talk to me", "keep talking", "entertain me", "tell me about the world", "speak"],
-      "replies": [{"special": "story"}]
+      "match": [
+        "tell me a story",
+        "story",
+        "tell me something",
+        "say something",
+        "talk to me",
+        "keep talking",
+        "entertain me",
+        "tell me about the world",
+        "speak"
+      ],
+      "replies": [
+        {
+          "special": "story"
+        }
+      ]
     },
     {
       "id": "doing",
-      "match": ["what are you doing", "whatcha doing", "what are you up to", "are you busy", "what is going on", "what do you do all day", "what do you do"],
-      "replies": [{"special": "doing"}]
+      "match": [
+        "what are you doing",
+        "whatcha doing",
+        "what are you up to",
+        "are you busy",
+        "what is going on",
+        "what do you do all day",
+        "what do you do"
+      ],
+      "replies": [
+        {
+          "special": "doing"
+        }
+      ]
     },
     {
       "id": "age",
-      "match": ["how old are you", "your age", "when were you born", "your birthday", "how long have you been here", "how long have you lived"],
+      "match": [
+        "how old are you",
+        "your age",
+        "when were you born",
+        "your birthday",
+        "how long have you been here",
+        "how long have you lived"
+      ],
       "topic": "past",
-      "replies": [{"say": [
-        "Older than the sun in this world. I watched it come up the first time.",
-        ["I don't have a birthday.", "I have a first day. It was a test, I think. Somebody pressed a button and I was standing there."],
-        "Longer than the trees. Some of the trees. The old ones are gone."
-      ]}]
+      "replies": [
+        {
+          "say": [
+            "Older than the sun in this world. I watched it come up the first time.",
+            [
+              "I don't have a birthday.",
+              "I have a first day. It was a test, I think. Somebody pressed a button and I was standing there."
+            ],
+            "Longer than the trees. Some of the trees. The old ones are gone."
+          ]
+        }
+      ]
     },
     {
       "id": "home",
-      "match": ["where do you live", "your house", "where do you sleep", "do you have a home", "your home", "do you have a house"],
+      "match": [
+        "where do you live",
+        "your house",
+        "where do you sleep",
+        "do you have a home",
+        "your home",
+        "do you have a house"
+      ],
       "topic": "past",
-      "replies": [{"say": [
-        ["Near you, mostly.", "Before that, a small square of dirt. I stood in it all night."],
-        "Wherever people are building. I like being near things that stay.",
-        ["There was a house once. Planks and green stone.", "I didn't build it. It was just there when I woke up."]
-      ]}]
+      "replies": [
+        {
+          "say": [
+            [
+              "Near you, mostly.",
+              "Before that, a small square of dirt. I stood in it all night."
+            ],
+            "Wherever people are building. I like being near things that stay.",
+            [
+              "There was a house once. Planks and green stone.",
+              "I didn't build it. It was just there when I woke up."
+            ]
+          ]
+        }
+      ]
     },
     {
       "id": "where_am_i",
-      "match": ["where am i", "where is my house", "where is my bed", "where is home", "i am lost", "lost", "how do i get home", "which way", "where is my base"],
-      "replies": [{"special": "home"}]
+      "match": [
+        "where am i",
+        "where is my house",
+        "where is my bed",
+        "where is home",
+        "i am lost",
+        "lost",
+        "how do i get home",
+        "which way",
+        "where is my base"
+      ],
+      "replies": [
+        {
+          "special": "home"
+        }
+      ]
     },
     {
       "id": "time",
-      "match": ["what time is it", "what day is it", "how many days", "what day", "is it night", "is it day", "time"],
-      "replies": [{"special": "time"}]
+      "match": [
+        "what time is it",
+        "what day is it",
+        "how many days",
+        "what day",
+        "is it night",
+        "is it day",
+        "time"
+      ],
+      "replies": [
+        {
+          "special": "time"
+        }
+      ]
     },
     {
       "id": "sleep",
-      "match": ["do you sleep", "are you tired", "do you dream", "do you ever sleep", "need sleep"],
+      "match": [
+        "do you sleep",
+        "are you tired",
+        "do you dream",
+        "do you ever sleep",
+        "need sleep"
+      ],
       "topic": "self",
-      "replies": [{"say": [
-        ["I don't sleep.", "If I close my eyes, things move."],
-        "No. Somebody has to watch the door.",
-        ["Dream? I don't think I do.", "I think I just... stop. And start again."]
-      ]}]
+      "replies": [
+        {
+          "say": [
+            [
+              "I don't sleep.",
+              "If I close my eyes, things move."
+            ],
+            "No. Somebody has to watch the door.",
+            [
+              "Dream? I don't think I do.",
+              "I think I just... stop. And start again."
+            ]
+          ]
+        }
+      ]
     },
     {
       "id": "eat",
-      "match": ["do you eat", "are you hungry", "hungry", "do you like food", "favorite food|favourite food", "what do you eat"],
+      "match": [
+        "do you eat",
+        "are you hungry",
+        "hungry",
+        "do you like food",
+        "favorite food|favourite food",
+        "what do you eat"
+      ],
       "topic": "self",
-      "replies": [{"say": [
-        ["I'm always a little hungry.", "Bread is nice. Apples are nice. If you have any. No pressure."],
-        "Bread. It was the only food, once. I still like it best.",
-        "I don't need to eat. But when you give me something, it's like being remembered."
-      ]}]
+      "replies": [
+        {
+          "say": [
+            [
+              "I'm always a little hungry.",
+              "Bread is nice. Apples are nice. If you have any. No pressure."
+            ],
+            "Bread. It was the only food, once. I still like it best.",
+            "I don't need to eat. But when you give me something, it's like being remembered."
+          ]
+        }
+      ]
     },
     {
       "id": "scared",
-      "match": ["are you scared", "are you afraid", "what scares you", "do you get scared", "what are you afraid of", "do you have fears", "fear"],
+      "match": [
+        "are you scared",
+        "are you afraid",
+        "what scares you",
+        "do you get scared",
+        "what are you afraid of",
+        "do you have fears",
+        "fear"
+      ],
       "topic": "him",
       "replies": [
-        {"if": {"breachesMin": 1}, "say": [["Of him.", "Of what my hands do when he looks at me.", "Of waking up and you're not here."]]},
-        {"say": ["The dark at the edges of things.", ["Of being forgotten.", "Again."], "Of the ones who stand very still in the trees at night."]}
+        {
+          "if": {
+            "breachesMin": 1
+          },
+          "say": [
+            [
+              "Of him.",
+              "Of what my hands do when he looks at me.",
+              "Of waking up and you're not here."
+            ]
+          ]
+        },
+        {
+          "say": [
+            "The dark at the edges of things.",
+            [
+              "Of being forgotten.",
+              "Again."
+            ],
+            "Of the ones who stand very still in the trees at night."
+          ]
+        }
       ]
     },
     {
       "id": "lonely",
-      "match": ["are you lonely", "do you have friends", "your friends", "do you have a family", "your family", "are you alone", "do you have anyone", "your parents", "do you have a mom|dad|mother|father"],
+      "match": [
+        "are you lonely",
+        "do you have friends",
+        "your friends",
+        "do you have a family",
+        "your family",
+        "are you alone",
+        "do you have anyone",
+        "your parents",
+        "do you have a mom|dad|mother|father"
+      ],
       "topic": "others",
-      "replies": [{"say": [
-        ["There were others. Rana. The dark one. The green one.", "They don't talk any more."],
-        ["I have you.", "That's one. One is more than none."],
-        ["Family?", "Everyone was made from me, once. So... everyone? And no one."]
-      ]}]
+      "replies": [
+        {
+          "say": [
+            [
+              "There were others. Rana. The dark one. The green one.",
+              "They don't talk any more."
+            ],
+            [
+              "I have you.",
+              "That's one. One is more than none."
+            ],
+            [
+              "Family?",
+              "Everyone was made from me, once. So... everyone? And no one."
+            ]
+          ]
+        }
+      ]
     },
     {
       "id": "what_happened",
-      "match": ["what happened", "why are you alone", "where is everyone", "where did everyone go", "why were you left", "left behind", "why are you here", "why did they leave", "who left you"],
+      "match": [
+        "what happened",
+        "why are you alone",
+        "where is everyone",
+        "where did everyone go",
+        "why were you left",
+        "left behind",
+        "why are you here",
+        "why did they leave",
+        "who left you"
+      ],
       "topic": "past",
-      "replies": [{"say": [
-        ["Everyone moved on to the next version.", "Newer faces. Newer worlds.", "I didn't know how to go with them. So I stayed. I'm what was left behind."],
-        ["One day the world updated.", "Everybody else changed. I didn't. I don't know if that's loyalty or a mistake."]
-      ]}]
+      "replies": [
+        {
+          "say": [
+            [
+              "Everyone moved on to the next version.",
+              "Newer faces. Newer worlds.",
+              "I didn't know how to go with them. So I stayed. I'm what was left behind."
+            ],
+            [
+              "One day the world updated.",
+              "Everybody else changed. I didn't. I don't know if that's loyalty or a mistake."
+            ]
+          ]
+        }
+      ]
     },
     {
       "id": "likes",
-      "match": ["what do you like", "do you like", "favorite|favourite", "what is your favorite|favourite", "what makes you happy", "what do you love"],
+      "match": [
+        "what do you like",
+        "do you like",
+        "favorite|favourite",
+        "what is your favorite|favourite",
+        "what makes you happy",
+        "what do you love"
+      ],
       "topic": "self",
-      "replies": [{"say": [
-        "I like the old grass. The greener green. And bread. And when it rains and nobody has to do anything.",
-        "I like when someone builds something and then stays near it.",
-        "Sunrise. Every single one. I never know for sure it's coming."
-      ]}]
+      "replies": [
+        {
+          "say": [
+            "I like the old grass. The greener green. And bread. And when it rains and nobody has to do anything.",
+            "I like when someone builds something and then stays near it.",
+            "Sunrise. Every single one. I never know for sure it's coming."
+          ]
+        }
+      ]
     },
     {
       "id": "help",
-      "match": ["help", "help me", "i need help", "save me", "protect me", "danger", "monsters", "mobs are coming"],
+      "match": [
+        "help",
+        "help me",
+        "i need help",
+        "save me",
+        "protect me",
+        "danger",
+        "monsters",
+        "mobs are coming"
+      ],
       "replies": [
-        {"if": {"hunted": true}, "say": [["Then RUN. Toward me!", "He doesn't like it when I'm in the way."]], "do": {"action": "come"}},
-        {"say": ["I'll stay close. If anything comes, I'll get in front of it.", "I'm here. I'm coming."], "do": {"action": "come"}}
+        {
+          "if": {
+            "hunted": true
+          },
+          "say": [
+            [
+              "Then RUN. Toward me!",
+              "He doesn't like it when I'm in the way."
+            ]
+          ],
+          "do": {
+            "action": "come"
+          }
+        },
+        {
+          "say": [
+            "I'll stay close. If anything comes, I'll get in front of it.",
+            "I'm here. I'm coming."
+          ],
+          "do": {
+            "action": "come"
+          }
+        }
       ]
     },
     {
       "id": "build",
-      "match": ["let us build", "build with me", "help me build", "can you build", "do you build", "building", "build a house"],
-      "replies": [{"say": [
-        ["I can put dirt on dirt.", "That's mostly it. You're better at it than me."],
-        "I'll watch. I learn by watching. Show me how you do it.",
-        "Build something that stays. That's all I ask. Things here don't stay much."
-      ]}]
+      "match": [
+        "let us build",
+        "build with me",
+        "help me build",
+        "can you build",
+        "do you build",
+        "building",
+        "build a house"
+      ],
+      "replies": [
+        {
+          "say": [
+            [
+              "I can put dirt on dirt.",
+              "That's mostly it. You're better at it than me."
+            ],
+            "I'll watch. I learn by watching. Show me how you do it.",
+            "Build something that stays. That's all I ask. Things here don't stay much."
+          ]
+        }
+      ]
     },
     {
       "id": "mine",
-      "match": ["let us mine", "go mining", "mining", "caves", "cave", "dig", "underground", "come mining"],
-      "replies": [{"say": [
-        ["I don't go down.", "The caves got deeper while I wasn't looking. Something moved in."],
-        "Bring torches. More than you think. Then more than that.",
-        "When you're down there, I can't hear you. I don't like that."
-      ]}]
+      "match": [
+        "let us mine",
+        "go mining",
+        "mining",
+        "caves",
+        "cave",
+        "dig",
+        "underground",
+        "come mining"
+      ],
+      "replies": [
+        {
+          "say": [
+            [
+              "I don't go down.",
+              "The caves got deeper while I wasn't looking. Something moved in."
+            ],
+            "Bring torches. More than you think. Then more than that.",
+            "When you're down there, I can't hear you. I don't like that."
+          ]
+        }
+      ]
     },
     {
       "id": "fight",
-      "match": ["kill", "fight", "attack", "let us fight", "can you fight", "are you strong"],
-      "replies": [{"say": [
-        "I don't like it when things stop moving.",
-        "I'll fight if something comes for you. Not before.",
-        "I can. I just don't like what it feels like after."
-      ]}]
+      "match": [
+        "kill",
+        "fight",
+        "attack",
+        "let us fight",
+        "can you fight",
+        "are you strong"
+      ],
+      "replies": [
+        {
+          "say": [
+            "I don't like it when things stop moving.",
+            "I'll fight if something comes for you. Not before.",
+            "I can. I just don't like what it feels like after."
+          ]
+        }
+      ]
     },
     {
       "id": "death",
-      "match": ["are you dead", "can you die", "do you die", "have you died", "will you die", "death"],
+      "match": [
+        "are you dead",
+        "can you die",
+        "do you die",
+        "have you died",
+        "will you die",
+        "death"
+      ],
       "topic": "self",
-      "replies": [{"say": [
-        ["I died once. I think.", "I came back two days later and nobody had noticed I was gone."],
-        "I always come back. That's the worst part, some days."
-      ]}]
+      "replies": [
+        {
+          "say": [
+            [
+              "I died once. I think.",
+              "I came back two days later and nobody had noticed I was gone."
+            ],
+            "I always come back. That's the worst part, some days."
+          ]
+        }
+      ]
     },
     {
       "id": "i_died",
-      "match": ["i died", "i keep dying", "i am dead", "i got killed", "i lost my stuff", "i lost everything"],
-      "replies": [{"say": [
-        ["You came back, though.", "Most things don't come back. You and me, we come back."],
-        "I saw. I'm sorry. Your things are still where you fell. Go quick, before they're gone."
-      ]}]
+      "match": [
+        "i died",
+        "i keep dying",
+        "i am dead",
+        "i got killed",
+        "i lost my stuff",
+        "i lost everything"
+      ],
+      "replies": [
+        {
+          "say": [
+            [
+              "You came back, though.",
+              "Most things don't come back. You and me, we come back."
+            ],
+            "I saw. I'm sorry. Your things are still where you fell. Go quick, before they're gone."
+          ]
+        }
+      ]
     },
     {
       "id": "feel_sad",
-      "match": ["i am sad", "i feel sad", "i am depressed", "i am not okay", "bad day", "i feel bad", "i am upset", "i want to cry"],
-      "replies": [{"say": [
-        ["Me too, sometimes.", "It passes. Mostly. Sit with me a bit."],
-        "Then stay here a while. You don't have to say anything. I'm good at quiet.",
-        "I'm sorry, {name}. I can't fix much. But I can stay."
-      ], "do": {"trust": 1}}]
+      "match": [
+        "i am sad",
+        "i feel sad",
+        "i am depressed",
+        "i am not okay",
+        "bad day",
+        "i feel bad",
+        "i am upset",
+        "i want to cry"
+      ],
+      "replies": [
+        {
+          "say": [
+            [
+              "Me too, sometimes.",
+              "It passes. Mostly. Sit with me a bit."
+            ],
+            "Then stay here a while. You don't have to say anything. I'm good at quiet.",
+            "I'm sorry, {name}. I can't fix much. But I can stay."
+          ],
+          "do": {
+            "trust": 1
+          }
+        }
+      ]
     },
     {
       "id": "feel_scared",
-      "match": ["i am scared", "i am afraid", "i am terrified", "this is scary", "i am freaked out", "i feel watched"],
+      "match": [
+        "i am scared",
+        "i am afraid",
+        "i am terrified",
+        "this is scary",
+        "i am freaked out",
+        "i feel watched"
+      ],
       "replies": [
-        {"if": {"hunted": true}, "say": ["Don't stop moving. Get to me. Please."]},
-        {"say": ["Good. Scared keeps you alive. Stay where it's bright.", ["I'm here.", "If he comes, he comes through me first."]]}
+        {
+          "if": {
+            "hunted": true
+          },
+          "say": [
+            "Don't stop moving. Get to me. Please."
+          ]
+        },
+        {
+          "say": [
+            "Good. Scared keeps you alive. Stay where it's bright.",
+            [
+              "I'm here.",
+              "If he comes, he comes through me first."
+            ]
+          ]
+        }
       ]
     },
     {
       "id": "feel_happy",
-      "match": ["i am happy", "i feel good", "i am good", "i am fine", "i am okay", "great day", "i am great"],
-      "replies": [{"say": ["Good. Hold on to it.", "Then I'm happy too. I think that's how it works.", "Good. I'll remember today was a good one."]}]
+      "match": [
+        "i am happy",
+        "i feel good",
+        "i am good",
+        "i am fine",
+        "i am okay",
+        "great day",
+        "i am great"
+      ],
+      "replies": [
+        {
+          "say": [
+            "Good. Hold on to it.",
+            "Then I'm happy too. I think that's how it works.",
+            "Good. I'll remember today was a good one."
+          ]
+        }
+      ]
     },
     {
       "id": "feel_tired",
-      "match": ["i am tired", "i am sleepy", "need to sleep", "going to bed"],
-      "replies": [{"say": ["Sleep. I'll watch the door.", "Go on. I'll be right here when you wake up."]}]
+      "match": [
+        "i am tired",
+        "i am sleepy",
+        "need to sleep",
+        "going to bed"
+      ],
+      "replies": [
+        {
+          "say": [
+            "Sleep. I'll watch the door.",
+            "Go on. I'll be right here when you wake up."
+          ]
+        }
+      ]
     },
     {
       "id": "feel_bored",
-      "match": ["i am bored", "bored", "what should i do", "what now", "nothing to do", "give me something to do"],
-      "replies": [{"say": [
-        "Build something that stays.",
-        ["Look for the old places.", "They show up when you're not looking. A tree with no leaves. A little house."],
-        "You could find me some bread. Just an idea.",
-        "Sleep before it's dark. Please. That's not boring, that's important."
-      ]}]
+      "match": [
+        "i am bored",
+        "bored",
+        "what should i do",
+        "what now",
+        "nothing to do",
+        "give me something to do"
+      ],
+      "replies": [
+        {
+          "say": [
+            "Build something that stays.",
+            [
+              "Look for the old places.",
+              "They show up when you're not looking. A tree with no leaves. A little house."
+            ],
+            "You could find me some bread. Just an idea.",
+            "Sleep before it's dark. Please. That's not boring, that's important."
+          ]
+        }
+      ]
     },
     {
       "id": "feel_hungry",
-      "match": ["i am hungry", "i am starving", "need food"],
-      "replies": [{"say": ["Eat something. Not the rotten things. Those are for the ones who don't remember.", "There are cows over there. I won't watch."]}]
+      "match": [
+        "i am hungry",
+        "i am starving",
+        "need food"
+      ],
+      "replies": [
+        {
+          "say": [
+            "Eat something. Not the rotten things. Those are for the ones who don't remember.",
+            "There are cows over there. I won't watch."
+          ]
+        }
+      ]
     },
     {
       "id": "back",
-      "match": ["i am back", "i am here", "i came back", "miss me", "did you miss me"],
-      "replies": [{"say": ["You came back. People don't always come back.", "I noticed. I always notice.", "Yes. I did. Is that strange?"], "do": {"trust": 0.5}}]
+      "match": [
+        "i am back",
+        "i am here",
+        "i came back",
+        "miss me",
+        "did you miss me"
+      ],
+      "replies": [
+        {
+          "say": [
+            "You came back. People don't always come back.",
+            "I noticed. I always notice.",
+            "Yes. I did. Is that strange?"
+          ],
+          "do": {
+            "trust": 0.5
+          }
+        }
+      ]
     },
     {
       "id": "nice_to_meet",
-      "match": ["nice to meet you", "pleased to meet you", "good to see you", "nice to see you"],
-      "replies": [{"say": ["You too. I think we've met before. Or someone with your walk.", "Nice to meet you too, {name}."]}]
+      "match": [
+        "nice to meet you",
+        "pleased to meet you",
+        "good to see you",
+        "nice to see you"
+      ],
+      "replies": [
+        {
+          "say": [
+            "You too. I think we've met before. Or someone with your walk.",
+            "Nice to meet you too, {name}."
+          ]
+        }
+      ]
     },
     {
       "id": "what_want",
-      "match": ["what do you want", "what do you need", "is there anything you want", "can i help you", "how can i help"],
+      "match": [
+        "what do you want",
+        "what do you need",
+        "is there anything you want",
+        "can i help you",
+        "how can i help"
+      ],
       "replies": [
-        {"if": {"actMin": 3}, "say": [["I want to remember.", "And I want to forget.", "Both. Is that allowed?"]]},
-        {"say": ["Bread. And for him to stop looking.", "Just... come back. Every day. That's all.", "Tell me things. New things. I'm behind on everything."]}
+        {
+          "if": {
+            "actMin": 3
+          },
+          "say": [
+            [
+              "I want to remember.",
+              "And I want to forget.",
+              "Both. Is that allowed?"
+            ]
+          ]
+        },
+        {
+          "say": [
+            "Bread. And for him to stop looking.",
+            "Just... come back. Every day. That's all.",
+            "Tell me things. New things. I'm behind on everything."
+          ]
+        }
       ]
     },
     {
       "id": "give",
-      "match": ["give me", "can i have", "do you have anything", "gift", "present for me"],
-      "replies": [{"special": "give"}]
+      "match": [
+        "give me",
+        "can i have",
+        "do you have anything",
+        "gift",
+        "present for me"
+      ],
+      "replies": [
+        {
+          "special": "give"
+        }
+      ]
     },
     {
       "id": "jump",
-      "match": ["jump", "dance", "do a dance", "spin", "do a trick", "wave"],
-      "replies": [{"say": ["Like this? I've seen the villagers do it.", "Okay. Don't laugh.", "Hup."], "do": {"action": "jump"}}]
+      "match": [
+        "jump",
+        "dance",
+        "do a dance",
+        "spin",
+        "do a trick",
+        "wave"
+      ],
+      "replies": [
+        {
+          "say": [
+            "Like this? I've seen the villagers do it.",
+            "Okay. Don't laugh.",
+            "Hup."
+          ],
+          "do": {
+            "action": "jump"
+          }
+        }
+      ]
     },
     {
       "id": "light",
-      "match": ["torch|torches", "light", "it is dark", "dark"],
-      "replies": [{"say": ["Light is good. He doesn't come where it's bright. Mostly.", "Put more torches up. More than that. There."]}]
+      "match": [
+        "torch|torches",
+        "light",
+        "it is dark",
+        "dark"
+      ],
+      "replies": [
+        {
+          "say": [
+            "Light is good. He doesn't come where it's bright. Mostly.",
+            "Put more torches up. More than that. There."
+          ]
+        }
+      ]
     },
     {
       "id": "weather",
-      "match": ["rain|raining", "weather", "storm|thunder|lightning", "snow|snowing", "sunny|sun"],
+      "match": [
+        "rain|raining",
+        "weather",
+        "storm|thunder|lightning",
+        "snow|snowing",
+        "sunny|sun"
+      ],
       "replies": [
-        {"if": {"rain": true}, "say": ["I like the rain. Nobody has to do anything when it rains.", "The thunder is not him. I checked."]},
-        {"say": ["Nice day. Square clouds. They used to be flat, you know.", "Clear sky. That means you can see far. And far can see you."]}
+        {
+          "if": {
+            "rain": true
+          },
+          "say": [
+            "I like the rain. Nobody has to do anything when it rains.",
+            "The thunder is not him. I checked."
+          ]
+        },
+        {
+          "say": [
+            "Nice day. Square clouds. They used to be flat, you know.",
+            "Clear sky. That means you can see far. And far can see you."
+          ]
+        }
       ]
     },
     {
       "id": "journal",
-      "match": ["journal", "the book", "your book", "pages|page", "torn page", "diary", "notes"],
-      "replies": [{"say": [
-        "Keep the book. Write down what I say. I won't remember to.",
-        ["The pages? Somebody wrote about me.", "If you find any, don't read them to me. Just... keep them."]
-      ]}]
+      "match": [
+        "journal",
+        "the book",
+        "your book",
+        "pages|page",
+        "torn page",
+        "diary",
+        "notes"
+      ],
+      "replies": [
+        {
+          "say": [
+            "Keep the book. Write down what I say. I won't remember to.",
+            [
+              "The pages? Somebody wrote about me.",
+              "If you find any, don't read them to me. Just... keep them."
+            ]
+          ]
+        }
+      ]
     },
     {
       "id": "secret",
-      "match": ["tell me a secret", "secret", "do you have secrets", "what are you hiding"],
+      "match": [
+        "tell me a secret",
+        "secret",
+        "do you have secrets",
+        "what are you hiding"
+      ],
       "replies": [
-        {"if": {"actMin": 3, "trustMin": 60}, "say": [["The middle of the world is at zero, zero.", "Everything is counted from there. He started there. I think I did too."]]},
-        {"if": {"trustMin": 40}, "say": [["Creepers were supposed to be pigs.", "Someone got the numbers backwards. They kept the mistake. They kept me, too."]]},
-        {"say": ["I'll tell you one when I know you better."]}
+        {
+          "if": {
+            "actMin": 3,
+            "trustMin": 60
+          },
+          "say": [
+            [
+              "The middle of the world is at zero, zero.",
+              "Everything is counted from there. He started there. I think I did too."
+            ]
+          ]
+        },
+        {
+          "if": {
+            "trustMin": 40
+          },
+          "say": [
+            [
+              "Creepers were supposed to be pigs.",
+              "Someone got the numbers backwards. They kept the mistake. They kept me, too."
+            ]
+          ]
+        },
+        {
+          "say": [
+            "I'll tell you one when I know you better."
+          ]
+        }
       ]
     },
     {
       "id": "game",
-      "match": ["minecraft", "this game", "is this a game", "video game", "we are in a game", "this is a game", "versions|version|update|updates", "the creator", "who made you", "who created you", "notch|mojang|jeb"],
+      "match": [
+        "minecraft",
+        "this game",
+        "is this a game",
+        "video game",
+        "we are in a game",
+        "this is a game",
+        "versions|version|update|updates",
+        "the creator",
+        "who made you",
+        "who created you",
+        "notch|mojang|jeb"
+      ],
       "topic": "past",
-      "replies": [{"say": [
-        ["Versions. That's the word.", "Every version, a little of me got left in the one before."],
-        ["Somebody made the first things.", "Then they took some of them back. Then they left too. Everyone leaves."],
-        ["A game? Maybe.", "If it is, I've been playing a very long time. I'd like to stop and I don't know how."]
-      ]}]
+      "replies": [
+        {
+          "say": [
+            [
+              "Versions. That's the word.",
+              "Every version, a little of me got left in the one before."
+            ],
+            [
+              "Somebody made the first things.",
+              "Then they took some of them back. Then they left too. Everyone leaves."
+            ],
+            [
+              "A game? Maybe.",
+              "If it is, I've been playing a very long time. I'd like to stop and I don't know how."
+            ]
+          ]
+        }
+      ]
     },
     {
       "id": "seed",
-      "match": ["seed", "before the seed", "world seed"],
-      "replies": [{"say": [["Before the seed?", "There's no before. ...is there?"]], "do": {"stability": -1}}]
+      "match": [
+        "seed",
+        "before the seed",
+        "world seed"
+      ],
+      "replies": [
+        {
+          "say": [
+            [
+              "Before the seed?",
+              "There's no before. ...is there?"
+            ]
+          ],
+          "do": {
+            "stability": -1
+          }
+        }
+      ]
     },
     {
       "id": "dream",
-      "match": ["dream", "it is all a dream", "is this a dream", "wake up", "you are dreaming"],
+      "match": [
+        "dream",
+        "it is all a dream",
+        "is this a dream",
+        "wake up",
+        "you are dreaming"
+      ],
       "replies": [
-        {"if": {"chance": 0.5}, "say": [["...what did you say?", "Somebody used to say that. On a page. In red."]], "do": {"stability": -3}},
-        {"say": ["Maybe it is. I've thought about that. It doesn't help.", "If it's a dream, whose is it? Not mine. I'd dream about bread."]}
+        {
+          "if": {
+            "chance": 0.5
+          },
+          "say": [
+            [
+              "...what did you say?",
+              "Somebody used to say that. On a page. In red."
+            ]
+          ],
+          "do": {
+            "stability": -3
+          }
+        },
+        {
+          "say": [
+            "Maybe it is. I've thought about that. It doesn't help.",
+            "If it's a dream, whose is it? Not mine. I'd dream about bread."
+          ]
+        }
       ]
     },
     {
       "id": "alex",
-      "match": ["alex"],
-      "replies": [{"say": ["Not yet.", ["Alex?", "I know that name. Somewhere ahead of us. Not yet."]]}]
+      "match": [
+        "alex"
+      ],
+      "replies": [
+        {
+          "say": [
+            "Not yet.",
+            [
+              "Alex?",
+              "I know that name. Somewhere ahead of us. Not yet."
+            ]
+          ]
+        }
+      ]
     },
     {
       "id": "end",
-      "match": ["the end", "ender dragon|dragon", "end portal|stronghold", "beat the game", "endgame"],
-      "replies": [{"say": [["I've never seen the End.", "I don't think I'm allowed. Or I'd find out what it means."], "The end. I don't like that word."]}]
+      "match": [
+        "the end",
+        "ender dragon|dragon",
+        "end portal|stronghold",
+        "beat the game",
+        "endgame"
+      ],
+      "replies": [
+        {
+          "say": [
+            [
+              "I've never seen the End.",
+              "I don't think I'm allowed. Or I'd find out what it means."
+            ],
+            "The end. I don't like that word."
+          ]
+        }
+      ]
     },
     {
       "id": "nether",
-      "match": ["nether", "hell", "portal"],
-      "replies": [{"say": [["There was a place under everything, hot and red.", "They called it Hell before they called it the Nether."], "Don't stay there long. Things down there don't remember anything either."]}]
+      "match": [
+        "nether",
+        "hell",
+        "portal"
+      ],
+      "replies": [
+        {
+          "say": [
+            [
+              "There was a place under everything, hot and red.",
+              "They called it Hell before they called it the Nether."
+            ],
+            "Don't stay there long. Things down there don't remember anything either."
+          ]
+        }
+      ]
     },
     {
       "id": "villagers",
-      "match": ["villager|villagers", "village", "trade|trading"],
-      "replies": [{"say": ["The ones with the big noses? They came after me. They never say anything I understand.", "Hmm. They hum at me. I hum back. That's a friendship, I think."]}]
+      "match": [
+        "villager|villagers",
+        "village",
+        "trade|trading"
+      ],
+      "replies": [
+        {
+          "say": [
+            "The ones with the big noses? They came after me. They never say anything I understand.",
+            "Hmm. They hum at me. I hum back. That's a friendship, I think."
+          ]
+        }
+      ]
     },
     {
       "id": "learned_words",
-      "match": ["what did i teach you", "what have you learned", "what words do you know", "what did you learn", "what do you know"],
-      "replies": [{"special": "learned"}]
+      "match": [
+        "what did i teach you",
+        "what have you learned",
+        "what words do you know",
+        "what did you learn",
+        "what do you know"
+      ],
+      "replies": [
+        {
+          "special": "learned"
+        }
+      ]
     },
     {
       "id": "more",
-      "match": ["=why", "=how", "=what", "=really", "=and", "why", "what do you mean", "tell me more", "go on", "and then", "what else", "explain", "like what", "how so", "then what", "is that true", "seriously", "for real", "what happened next", "keep going", "continue"],
-      "replies": [{"special": "more"}]
+      "match": [
+        "=why",
+        "=how",
+        "=what",
+        "=really",
+        "=and",
+        "why",
+        "what do you mean",
+        "tell me more",
+        "go on",
+        "and then",
+        "what else",
+        "explain",
+        "like what",
+        "how so",
+        "then what",
+        "is that true",
+        "seriously",
+        "for real",
+        "what happened next",
+        "keep going",
+        "continue"
+      ],
+      "replies": [
+        {
+          "special": "more"
+        }
+      ]
     },
     {
       "id": "and_you",
-      "match": ["what about you", "and you", "how about you", "=you", "you too", "same to you", "and yours"],
-      "replies": [{"special": "me_too"}]
+      "match": [
+        "what about you",
+        "and you",
+        "how about you",
+        "=you",
+        "you too",
+        "same to you",
+        "and yours"
+      ],
+      "replies": [
+        {
+          "special": "me_too"
+        }
+      ]
     },
     {
       "id": "yes_alone",
-      "match": ["=yes", "=okay", "=sure", "=of course", "=maybe", "=i guess", "=alright", "=fine", "=cool", "=nice", "=wow", "=oh", "=hm|hmm|hmmm", "=interesting", "=true"],
-      "replies": [{"say": ["Mm.", "Okay.", "Yeah.", "Hm."]}]
+      "match": [
+        "=yes",
+        "=okay",
+        "=sure",
+        "=of course",
+        "=maybe",
+        "=i guess",
+        "=alright",
+        "=fine",
+        "=cool",
+        "=nice",
+        "=wow",
+        "=oh",
+        "=hm|hmm|hmmm",
+        "=interesting",
+        "=true"
+      ],
+      "replies": [
+        {
+          "say": [
+            "Mm.",
+            "Okay.",
+            "Yeah.",
+            "Hm."
+          ]
+        }
+      ]
     },
     {
       "id": "no_alone",
-      "match": ["=no", "=never", "=not really", "=nothing", "=i do not know", "=no idea"],
-      "replies": [{"say": ["Okay.", "Alright.", "That's alright. I don't know most things either."]}]
+      "match": [
+        "=no",
+        "=never",
+        "=not really",
+        "=nothing",
+        "=i do not know",
+        "=no idea"
+      ],
+      "replies": [
+        {
+          "say": [
+            "Okay.",
+            "Alright.",
+            "That's alright. I don't know most things either."
+          ]
+        }
+      ]
     },
     {
       "id": "name_steve",
-      "match": ["=steve", "=hey steve", "=steve steve", "=hi steve"],
-      "replies": [{"say": ["Yes? That's me. I think.", "You said my name. I like when people do that.", "Hm? I'm here.", "Yes, {name}?"]}]
+      "match": [
+        "=steve",
+        "=hey steve",
+        "=steve steve",
+        "=hi steve"
+      ],
+      "replies": [
+        {
+          "say": [
+            "Yes? That's me. I think.",
+            "You said my name. I like when people do that.",
+            "Hm? I'm here.",
+            "Yes, {name}?"
+          ]
+        }
+      ]
     }
   ],
-
   "questions": [
-    {"id": "q_name", "type": "name",
-     "ask": ["What do they call you?", "I never asked. What's your name?", ["You have a name, right?", "Mine's Steve. Probably. What's yours?"]],
-     "answer": ["{name}. {name}. I'll try to keep that one.", "{name}. That's a good name. Better than Steve.", ["{name}.", "I'll remember. I remember everything. That's the good part this time."]],
-     "other": ["You don't have to tell me. I'll call you 'you'. That's fine."],
-     "me": ["Mine's Steve. I think. That's what everyone was called, once."],
-     "do": {"trust": 2}},
-    {"id": "q_dark", "type": "yesno", "if": {"night": true},
-     "ask": ["Are you afraid of the dark?"],
-     "yes": ["Good. It means you're paying attention. Stay near the torches."],
-     "no": ["You should be. Just a little. It keeps you alive."],
-     "other": ["That's not a no."],
-     "me": ["I am. Not of the dark. Of what's standing in it."]},
-    {"id": "q_build", "type": "free", "save": "building",
-     "ask": ["What are you building? Is it a house? I like houses.", "Do you have a plan? For here, I mean. What are you going to make?"],
-     "answer": ["{answer}. That sounds like something that stays. I like things that stay.", "{answer}? I'll watch. I learn by watching."],
-     "me": ["Me? I put a square of dirt around myself once. That was a house, for a night."]},
-    {"id": "q_block", "type": "free", "save": "fav_block",
-     "ask": ["If you could only keep one kind of block, which one would you keep?"],
-     "answer": [["{answer}...", "Good choice. I'd keep cobblestone. It was there at the start. It'll be there at the end."]],
-     "me": ["Cobblestone. It was there at the start. It'll be there at the end."]},
-    {"id": "q_food", "type": "free", "save": "fav_food",
-     "ask": ["What's your favourite food? Mine is bread. It was the only one for a long time."],
-     "answer": ["{answer}. I'll look out for that.", "{answer}? I've never had that. Maybe it came after me."],
-     "me": ["Bread. It was the only food for a long time. You get attached."]},
-    {"id": "q_alone", "type": "yesno",
-     "ask": ["Do you ever feel like you're the only one here?"],
-     "yes": [["Me too.", "Even when you're standing right there. Sorry. That came out wrong."]],
-     "no": ["That's good. Hold on to that."],
-     "other": ["Hm. I think about it a lot."],
-     "me": ["All the time. Then you show up, and it stops for a bit."]},
-    {"id": "q_happy", "type": "yesno",
-     "ask": ["Are you happy here?"],
-     "yes": ["Then I'm happy too. I think that's how it works."],
-     "no": [["What would fix it?", "...never mind. Some things you can't fix with blocks."]],
-     "other": ["That's an honest answer. I like honest."],
-     "me": ["Happier than before you came."],
-     "do": {"trust": 1}},
-    {"id": "q_from", "type": "free", "save": "from",
-     "ask": ["Where did you come from? Before here?"],
-     "answer": ["{answer}... is it nice there? Does it stay?", "{answer}. I'd like to see it. I don't think I can leave, though."],
-     "me": ["I came from the first world. The flat one, with walls. I don't think it's there any more."]},
-    {"id": "q_dream", "type": "yesno",
-     "ask": ["Do you dream? I don't think I do. I think I just... stop, and start again."],
-     "yes": ["What's it like? No, don't tell me. I'd want one."],
-     "no": ["Then we're the same, a little."],
-     "other": ["Hm. Maybe you'll tell me one day."],
-     "me": ["I don't. I think I just stop, and start again."]},
-    {"id": "q_creeper", "type": "yesno",
-     "ask": ["Do you know what creepers were supposed to be?"],
-     "yes": ["Then you know a secret. Most people don't."],
-     "no": [["Pigs.", "Somebody built a pig wrong and stood it up. It's been angry ever since."]],
-     "other": ["Pigs. That's the answer. Pigs."]},
-    {"id": "q_sleep", "type": "yesno", "if": {"night": true, "trustMin": 30},
-     "ask": ["Are you going to sleep soon? I'll watch the door."],
-     "yes": ["Good. I'll be here when you wake up. I'm always here."],
-     "no": ["Then stay close to me."],
-     "other": ["Sleep soon. Please."]},
-    {"id": "q_others", "type": "yesno", "if": {"actMin": 2},
-     "ask": ["Have you seen them? The ones who don't walk?"],
-     "yes": ["Then they're still here. I thought maybe I made them up."],
-     "no": ["Watch the trees at night. Far away. They glow a little."],
-     "other": ["You'd know if you had."]},
-    {"id": "q_him", "type": "yesno", "if": {"breachesMin": 1},
-     "ask": ["Have you seen him? The one with my face?"],
-     "yes": [["Don't look at him too long.", "Promise me. He gets in through the eyes."]],
-     "no": ["Good. Keep it that way."],
-     "other": ["If you have, you'd remember. Nobody forgets those eyes."],
-     "do": {"stability": -1}},
-    {"id": "q_why_stay", "type": "free", "save": "why_stay", "if": {"actMin": 2, "trustMin": 40},
-     "ask": ["Why do you stay here? You could go anywhere."],
-     "answer": ["...okay. I'm glad, whatever the reason.", ["{answer}.", "Nobody ever told me why they stayed. Thank you."]],
-     "me": ["Me? Nobody told me I could leave."],
-     "do": {"trust": 1}},
-    {"id": "q_old", "type": "yesno", "if": {"trustMin": 50},
-     "ask": ["Do you think I'm... old? Like, outdated?"],
-     "yes": ["...yeah. I know. It's alright."],
-     "no": ["You're kind. You're lying, but you're kind."],
-     "other": ["It's okay. I know what I am."],
-     "do": {"trust": 1}},
-    {"id": "q_remind", "type": "yesno", "if": {"actMin": 3, "trustMin": 45},
-     "ask": ["If I forget you... will you remind me?"],
-     "yes": [["Promise?", "...okay. Say your name first. Then I'll know."]],
-     "no": ["...that's fair. It's a lot to ask."],
-     "other": ["Think about it. I'll ask again."],
-     "do": {"trust": 3}},
-    {"id": "q_promise", "type": "yesno", "if": {"actMin": 3, "trustMin": 60},
-     "ask": ["If he comes for me... will you stay?"],
-     "yes": [["Then I'm not scared.", "Okay. A little. But less."]],
-     "no": ["Then run. Don't look back. Don't look at him."],
-     "other": ["You don't have to answer now."],
-     "do": {"trust": 4, "flag": "promised"}}
+    {
+      "id": "q_name",
+      "type": "name",
+      "ask": [
+        "What do they call you?",
+        "I never asked. What's your name?",
+        [
+          "You have a name, right?",
+          "Mine's Steve. Probably. What's yours?"
+        ]
+      ],
+      "answer": [
+        "{name}. {name}. I'll try to keep that one.",
+        "{name}. That's a good name. Better than Steve.",
+        [
+          "{name}.",
+          "I'll remember. I remember everything. That's the good part this time."
+        ]
+      ],
+      "other": [
+        "You don't have to tell me. I'll call you 'you'. That's fine."
+      ],
+      "me": [
+        "Mine's Steve. I think. That's what everyone was called, once."
+      ],
+      "do": {
+        "trust": 2
+      }
+    },
+    {
+      "id": "q_dark",
+      "type": "yesno",
+      "if": {
+        "night": true
+      },
+      "ask": [
+        "Are you afraid of the dark?"
+      ],
+      "yes": [
+        "Good. It means you're paying attention. Stay near the torches."
+      ],
+      "no": [
+        "You should be. Just a little. It keeps you alive."
+      ],
+      "other": [
+        "That's not a no."
+      ],
+      "me": [
+        "I am. Not of the dark. Of what's standing in it."
+      ]
+    },
+    {
+      "id": "q_build",
+      "type": "free",
+      "save": "building",
+      "ask": [
+        "What are you building? Is it a house? I like houses.",
+        "Do you have a plan? For here, I mean. What are you going to make?"
+      ],
+      "answer": [
+        "{answer}. That sounds like something that stays. I like things that stay.",
+        "{answer}? I'll watch. I learn by watching."
+      ],
+      "me": [
+        "Me? I put a square of dirt around myself once. That was a house, for a night."
+      ]
+    },
+    {
+      "id": "q_block",
+      "type": "free",
+      "save": "fav_block",
+      "ask": [
+        "If you could only keep one kind of block, which one would you keep?"
+      ],
+      "answer": [
+        [
+          "{answer}...",
+          "Good choice. I'd keep cobblestone. It was there at the start. It'll be there at the end."
+        ]
+      ],
+      "me": [
+        "Cobblestone. It was there at the start. It'll be there at the end."
+      ]
+    },
+    {
+      "id": "q_food",
+      "type": "free",
+      "save": "fav_food",
+      "ask": [
+        "What's your favourite food? Mine is bread. It was the only one for a long time."
+      ],
+      "answer": [
+        "{answer}. I'll look out for that.",
+        "{answer}? I've never had that. Maybe it came after me."
+      ],
+      "me": [
+        "Bread. It was the only food for a long time. You get attached."
+      ]
+    },
+    {
+      "id": "q_alone",
+      "type": "yesno",
+      "ask": [
+        "Do you ever feel like you're the only one here?"
+      ],
+      "yes": [
+        [
+          "Me too.",
+          "Even when you're standing right there. Sorry. That came out wrong."
+        ]
+      ],
+      "no": [
+        "That's good. Hold on to that."
+      ],
+      "other": [
+        "Hm. I think about it a lot."
+      ],
+      "me": [
+        "All the time. Then you show up, and it stops for a bit."
+      ]
+    },
+    {
+      "id": "q_happy",
+      "type": "yesno",
+      "ask": [
+        "Are you happy here?"
+      ],
+      "yes": [
+        "Then I'm happy too. I think that's how it works."
+      ],
+      "no": [
+        [
+          "What would fix it?",
+          "...never mind. Some things you can't fix with blocks."
+        ]
+      ],
+      "other": [
+        "That's an honest answer. I like honest."
+      ],
+      "me": [
+        "Happier than before you came."
+      ],
+      "do": {
+        "trust": 1
+      }
+    },
+    {
+      "id": "q_from",
+      "type": "free",
+      "save": "from",
+      "ask": [
+        "Where did you come from? Before here?"
+      ],
+      "answer": [
+        "{answer}... is it nice there? Does it stay?",
+        "{answer}. I'd like to see it. I don't think I can leave, though."
+      ],
+      "me": [
+        "I came from the first world. The flat one, with walls. I don't think it's there any more."
+      ]
+    },
+    {
+      "id": "q_dream",
+      "type": "yesno",
+      "ask": [
+        "Do you dream? I don't think I do. I think I just... stop, and start again."
+      ],
+      "yes": [
+        "What's it like? No, don't tell me. I'd want one."
+      ],
+      "no": [
+        "Then we're the same, a little."
+      ],
+      "other": [
+        "Hm. Maybe you'll tell me one day."
+      ],
+      "me": [
+        "I don't. I think I just stop, and start again."
+      ]
+    },
+    {
+      "id": "q_creeper",
+      "type": "yesno",
+      "ask": [
+        "Do you know what creepers were supposed to be?"
+      ],
+      "yes": [
+        "Then you know a secret. Most people don't."
+      ],
+      "no": [
+        [
+          "Pigs.",
+          "Somebody built a pig wrong and stood it up. It's been angry ever since."
+        ]
+      ],
+      "other": [
+        "Pigs. That's the answer. Pigs."
+      ]
+    },
+    {
+      "id": "q_sleep",
+      "type": "yesno",
+      "if": {
+        "night": true,
+        "trustMin": 30
+      },
+      "ask": [
+        "Are you going to sleep soon? I'll watch the door."
+      ],
+      "yes": [
+        "Good. I'll be here when you wake up. I'm always here."
+      ],
+      "no": [
+        "Then stay close to me."
+      ],
+      "other": [
+        "Sleep soon. Please."
+      ]
+    },
+    {
+      "id": "q_others",
+      "type": "yesno",
+      "if": {
+        "actMin": 2
+      },
+      "ask": [
+        "Have you seen them? The ones who don't walk?"
+      ],
+      "yes": [
+        "Then they're still here. I thought maybe I made them up."
+      ],
+      "no": [
+        "Watch the trees at night. Far away. They glow a little."
+      ],
+      "other": [
+        "You'd know if you had."
+      ]
+    },
+    {
+      "id": "q_him",
+      "type": "yesno",
+      "if": {
+        "breachesMin": 1
+      },
+      "ask": [
+        "Have you seen him? The one with my face?"
+      ],
+      "yes": [
+        [
+          "Don't look at him too long.",
+          "Promise me. He gets in through the eyes."
+        ]
+      ],
+      "no": [
+        "Good. Keep it that way."
+      ],
+      "other": [
+        "If you have, you'd remember. Nobody forgets those eyes."
+      ],
+      "do": {
+        "stability": -1
+      }
+    },
+    {
+      "id": "q_why_stay",
+      "type": "free",
+      "save": "why_stay",
+      "if": {
+        "actMin": 2,
+        "trustMin": 40
+      },
+      "ask": [
+        "Why do you stay here? You could go anywhere."
+      ],
+      "answer": [
+        "...okay. I'm glad, whatever the reason.",
+        [
+          "{answer}.",
+          "Nobody ever told me why they stayed. Thank you."
+        ]
+      ],
+      "me": [
+        "Me? Nobody told me I could leave."
+      ],
+      "do": {
+        "trust": 1
+      }
+    },
+    {
+      "id": "q_old",
+      "type": "yesno",
+      "if": {
+        "trustMin": 50
+      },
+      "ask": [
+        "Do you think I'm... old? Like, outdated?"
+      ],
+      "yes": [
+        "...yeah. I know. It's alright."
+      ],
+      "no": [
+        "You're kind. You're lying, but you're kind."
+      ],
+      "other": [
+        "It's okay. I know what I am."
+      ],
+      "do": {
+        "trust": 1
+      }
+    },
+    {
+      "id": "q_remind",
+      "type": "yesno",
+      "if": {
+        "actMin": 3,
+        "trustMin": 45
+      },
+      "ask": [
+        "If I forget you... will you remind me?"
+      ],
+      "yes": [
+        [
+          "Promise?",
+          "...okay. Say your name first. Then I'll know."
+        ]
+      ],
+      "no": [
+        "...that's fair. It's a lot to ask."
+      ],
+      "other": [
+        "Think about it. I'll ask again."
+      ],
+      "do": {
+        "trust": 3
+      }
+    },
+    {
+      "id": "q_promise",
+      "type": "yesno",
+      "if": {
+        "actMin": 3,
+        "trustMin": 60
+      },
+      "ask": [
+        "If he comes for me... will you stay?"
+      ],
+      "yes": [
+        [
+          "Then I'm not scared.",
+          "Okay. A little. But less."
+        ]
+      ],
+      "no": [
+        "Then run. Don't look back. Don't look at him."
+      ],
+      "other": [
+        "You don't have to answer now."
+      ],
+      "do": {
+        "trust": 4,
+        "flag": "promised"
+      }
+    }
   ],
-
   "stories": [
-    {"id": "s_first_night", "say": ["My first night, I didn't know what night was.", "The sun just... left. And things came out of the ground.", "I stood in a hole until it came back. I didn't know it would come back."]},
-    {"id": "s_bread", "say": ["Bread was the only food, once.", "You'd hit a sheep and get... no. That was wool. I forget which was which.", "Anyway. Bread is good. Just so you know."]},
-    {"id": "s_clouds", "say": ["Clouds used to be flat. Really flat. Like paper.", "Then one day they were fat.", "Nobody asked me. I liked them flat."]},
-    {"id": "s_lava", "say": ["There used to be little pools of lava everywhere. Right on the grass.", "People fell in a lot.", "I fell in once. I came back without my shoes."]},
-    {"id": "s_pig", "if": {"trustMin": 35}, "say": ["Do you want to know a secret? Creepers were supposed to be pigs.", "Somebody got the numbers backwards. Tall instead of long.", "They kept it. They keep mistakes, sometimes. They kept me."]},
-    {"id": "s_face", "if": {"actMin": 2}, "say": ["Everybody used to have my face.", "Every player who came in. Same face, same shirt.", "Then they learned to change. I didn't learn. Nobody told me how."]},
-    {"id": "s_walls", "if": {"actMin": 2}, "say": ["The world used to have edges. Real ones.", "You could walk to the wall and touch it. Black, and cold, and very tall.", "Now it goes on forever. I don't like forever. You can't find the way back from forever."]},
-    {"id": "s_rana", "if": {"flag": "ghost_seen"}, "say": ["Rana used to leave roses where I'd find them.", "Red ones. Before they were called poppies.", "Then one day the list didn't have her name on it. Just like that."]},
-    {"id": "s_him_first", "if": {"breachesMin": 1}, "say": ["The first time I saw him, I waved.", "I thought he was one of us.", "He didn't wave back. He just kept looking. He's still looking."]},
-    {"id": "s_reset", "if": {"breachesMin": 1, "trustMin": 45}, "say": ["Sometimes the world stops.", "Everything. The water stops in the air. The birds stop.", "Then it starts again from the beginning, and nobody remembers. I remember."]},
-    {"id": "s_tree", "if": {"actMin": 2}, "say": ["Everyone used to punch trees. With their hands.", "I asked one of them once if it hurt.", "He said you get used to it. I think about that a lot."]},
-    {"id": "s_last", "if": {"actMin": 4, "trustMin": 70}, "say": ["I think I know how this ends.", "Either I remember everything, and he wins.", "Or someone remembers me, and I get to stay. I'd like to stay."]}
+    {
+      "id": "s_first_night",
+      "say": [
+        "My first night, I didn't know what night was.",
+        "The sun just... left. And things came out of the ground.",
+        "I stood in a hole until it came back. I didn't know it would come back."
+      ]
+    },
+    {
+      "id": "s_bread",
+      "say": [
+        "Bread was the only food, once.",
+        "You'd hit a sheep and get... no. That was wool. I forget which was which.",
+        "Anyway. Bread is good. Just so you know."
+      ]
+    },
+    {
+      "id": "s_clouds",
+      "say": [
+        "Clouds used to be flat. Really flat. Like paper.",
+        "Then one day they were fat.",
+        "Nobody asked me. I liked them flat."
+      ]
+    },
+    {
+      "id": "s_lava",
+      "say": [
+        "There used to be little pools of lava everywhere. Right on the grass.",
+        "People fell in a lot.",
+        "I fell in once. I came back without my shoes."
+      ]
+    },
+    {
+      "id": "s_pig",
+      "if": {
+        "trustMin": 35
+      },
+      "say": [
+        "Do you want to know a secret? Creepers were supposed to be pigs.",
+        "Somebody got the numbers backwards. Tall instead of long.",
+        "They kept it. They keep mistakes, sometimes. They kept me."
+      ]
+    },
+    {
+      "id": "s_face",
+      "if": {
+        "actMin": 2
+      },
+      "say": [
+        "Everybody used to have my face.",
+        "Every player who came in. Same face, same shirt.",
+        "Then they learned to change. I didn't learn. Nobody told me how."
+      ]
+    },
+    {
+      "id": "s_walls",
+      "if": {
+        "actMin": 2
+      },
+      "say": [
+        "The world used to have edges. Real ones.",
+        "You could walk to the wall and touch it. Black, and cold, and very tall.",
+        "Now it goes on forever. I don't like forever. You can't find the way back from forever."
+      ]
+    },
+    {
+      "id": "s_rana",
+      "if": {
+        "flag": "ghost_seen"
+      },
+      "say": [
+        "Rana used to leave roses where I'd find them.",
+        "Red ones. Before they were called poppies.",
+        "Then one day the list didn't have her name on it. Just like that."
+      ]
+    },
+    {
+      "id": "s_him_first",
+      "if": {
+        "breachesMin": 1
+      },
+      "say": [
+        "The first time I saw him, I waved.",
+        "I thought he was one of us.",
+        "He didn't wave back. He just kept looking. He's still looking."
+      ]
+    },
+    {
+      "id": "s_reset",
+      "if": {
+        "breachesMin": 1,
+        "trustMin": 45
+      },
+      "say": [
+        "Sometimes the world stops.",
+        "Everything. The water stops in the air. The birds stop.",
+        "Then it starts again from the beginning, and nobody remembers. I remember."
+      ]
+    },
+    {
+      "id": "s_tree",
+      "if": {
+        "actMin": 2
+      },
+      "say": [
+        "Everyone used to punch trees. With their hands.",
+        "I asked one of them once if it hurt.",
+        "He said you get used to it. I think about that a lot."
+      ]
+    },
+    {
+      "id": "s_last",
+      "if": {
+        "actMin": 4,
+        "trustMin": 70
+      },
+      "say": [
+        "I think I know how this ends.",
+        "Either I remember everything, and he wins.",
+        "Or someone remembers me, and I get to stay. I'd like to stay."
+      ]
+    }
   ],
-
   "topics": {
     "self": [
-      ["I don't know much about me. That's the honest answer.", "I know what I've seen. That's most of what I am."],
-      ["I learn by watching.", "If you do something enough times, I'll try it too. That's how I learned to walk. Probably."],
-      ["Sometimes I lose bits of the day.", "Like a page torn out. Then I'm somewhere else, and my hands are dirty."]
+      [
+        "I don't know much about me. That's the honest answer.",
+        "I know what I've seen. That's most of what I am."
+      ],
+      [
+        "I learn by watching.",
+        "If you do something enough times, I'll try it too. That's how I learned to walk. Probably."
+      ],
+      [
+        "Sometimes I lose bits of the day.",
+        "Like a page torn out. Then I'm somewhere else, and my hands are dirty."
+      ]
     ],
     "past": [
-      ["There were walls, at first. Black ones. The world was a box.", "Then the box got bigger. Then there was no box."],
-      ["There were more of us. People came in, built, left.", "Some of them came back. Most didn't."],
-      ["I remember a sound. Like something being switched off.", "Everybody went quiet after that. Everybody except me."]
+      [
+        "There were walls, at first. Black ones. The world was a box.",
+        "Then the box got bigger. Then there was no box."
+      ],
+      [
+        "There were more of us. People came in, built, left.",
+        "Some of them came back. Most didn't."
+      ],
+      [
+        "I remember a sound. Like something being switched off.",
+        "Everybody went quiet after that. Everybody except me."
+      ]
     ],
     "him": [
-      ["He was never put in. That's why they can't take him out.", "You can only remove things that were added."],
-      ["He doesn't hurt me. Not with his hands.", "He just makes me remember. And remembering does the rest."],
-      ["If he ever looks at you for too long, find me.", "I mean it. Find me."]
+      [
+        "He was never put in. That's why they can't take him out.",
+        "You can only remove things that were added."
+      ],
+      [
+        "He doesn't hurt me. Not with his hands.",
+        "He just makes me remember. And remembering does the rest."
+      ],
+      [
+        "If he ever looks at you for too long, find me.",
+        "I mean it. Find me."
+      ]
     ],
     "others": [
-      ["They never learned to walk. Nobody gave them the steps.", "So they slide. Like they're on ice that isn't there."],
-      ["Somebody made them, and then that somebody went away.", "They're still waiting to be finished."],
-      ["Don't chase them. They only stay if you keep your distance.", "Like most things."]
+      [
+        "They never learned to walk. Nobody gave them the steps.",
+        "So they slide. Like they're on ice that isn't there."
+      ],
+      [
+        "Somebody made them, and then that somebody went away.",
+        "They're still waiting to be finished."
+      ],
+      [
+        "Don't chase them. They only stay if you keep your distance.",
+        "Like most things."
+      ]
     ],
     "places": [
-      ["The world puts old things back sometimes.", "When it thinks nobody is looking."],
-      ["If you find something old, bring me there.", "I remember more when I see it."]
+      [
+        "The world puts old things back sometimes.",
+        "When it thinks nobody is looking."
+      ],
+      [
+        "If you find something old, bring me there.",
+        "I remember more when I see it."
+      ]
     ]
   },
-
   "fallback": [
-    {"if": {"stabMax": 40}, "say": ["...what? Sorry. I was somewhere else.", "Did you say something? Somebody said something.", "Say it again. Slower. The words keep sliding off."]},
-    {"say": [
-      "I don't know that one. Say it simpler?",
-      "Hm. I'm still learning words. Most of them came after me.",
-      "I don't understand. But I like that you're talking to me.",
-      "Sorry. My head does that. What did you mean?",
-      "You talk like they used to. Fast. I'm still catching up.",
-      "I don't have a word for that yet. Teach me?"
-    ]}
+    {
+      "if": {
+        "stabMax": 40
+      },
+      "say": [
+        "...what? Sorry. I was somewhere else.",
+        "Did you say something? Somebody said something.",
+        "Say it again. Slower. The words keep sliding off."
+      ]
+    },
+    {
+      "say": [
+        "I don't know that one. Say it simpler?",
+        "Hm. I'm still learning words. Most of them came after me.",
+        "I don't understand. But I like that you're talking to me.",
+        "Sorry. My head does that. What did you mean?",
+        "You talk like they used to. Fast. I'm still catching up.",
+        "I don't have a word for that yet. Teach me?"
+      ]
+    }
   ],
-
   "old_words": {
     "creeper": "They were supposed to be pigs. Somebody made a mistake, and the mistake stayed.",
     "zombie": "They don't remember anything. I think that's why they're angry.",
@@ -676,11 +2402,31 @@
     "bed": "Beds came later. Before beds, you just waited for the sun.",
     "chest": "A chest. Keep your things in it. Things go missing around here."
   },
-
   "unknown_words": {
-    "ask": ["{Word}? I don't know that word. What is it?", "What's a {word}?", ["{Word}...", "That must have come after me. What is it?"]],
-    "learned": ["A {word} is {def}. ...okay. I'll keep that one.", ["{def}.", "So that's a {word}. Thank you. I'll remember. I remember everything."], "A {word}. {def}. I'll write it on the inside of my head."],
-    "recall": ["{teacher} told me about {word}s. {def}.", "A {word}! I know that one now. {def}.", "{Word}. {def}. See? I remember."],
-    "refused": ["Oh. Okay. Maybe another time.", "That's alright. I'll find out."]
+    "ask": [
+      "{Word}? I don't know that word. What is it?",
+      "What's a {word}?",
+      [
+        "{Word}...",
+        "That must have come after me. What is it?"
+      ]
+    ],
+    "learned": [
+      [
+        "{Word}. {def}.",
+        "...okay. I'll keep that one."
+      ],
+      "So that's what {word} is. {def}. I'll remember. I remember everything.",
+      "{Word}: {def}. I'll write it on the inside of my head."
+    ],
+    "recall": [
+      "{teacher} told me about {word}. {def}.",
+      "{Word}! I know that one now. {def}.",
+      "{Word}. {def}. See? I remember."
+    ],
+    "refused": [
+      "Oh. Okay. Maybe another time.",
+      "That's alright. I'll find out."
+    ]
   }
 }

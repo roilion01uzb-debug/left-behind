@@ -20,8 +20,8 @@ import org.jspecify.annotations.Nullable;
 
 /**
  * Everything Steve (and Herobrine) says goes through here.
- * A line shows above the speaker's head, as a subtitle on the screen of everyone close enough to hear,
- * and in chat so it can be scrolled back. Lines from one speaker queue up so they never talk over themselves.
+ * A line shows above the speaker's head, and as a subtitle on the screen of everyone close enough to hear
+ * (in chat instead, for players without the mod). Lines from one speaker queue up so they never talk over themselves.
  */
 public final class SteveVoice {
     public static final int STEVE_COLOR = 0x55FFFF;
@@ -71,8 +71,9 @@ public final class SteveVoice {
                 .append(Component.literal(line).withStyle(ChatFormatting.WHITE));
         for (ServerPlayer player : level.players()) {
             if (player.distanceToSqr(speaker) > HEARING * HEARING) continue;
+            // Players with the mod see it above his head and as a subtitle; chat is only for anyone without it.
             if (ServerPlayNetworking.canSend(player, SpeechPayload.TYPE)) ServerPlayNetworking.send(player, payload);
-            player.sendSystemMessage(chat);
+            else player.sendSystemMessage(chat);
         }
     }
 
@@ -127,6 +128,7 @@ public final class SteveVoice {
         int ticks = speakingTicks(line) + 50;
         if (ServerPlayNetworking.canSend(player, SpeechPayload.TYPE)) {
             ServerPlayNetworking.send(player, new SpeechPayload(from == null ? -1 : from.getId(), name, color, line, ticks, SpeechPayload.WHISPER));
+            return;
         }
         player.sendSystemMessage(Component.literal(name + ": ").withStyle(s -> s.withColor(TextColor.fromRgb(color)))
                 .append(Component.literal(line).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC)));
