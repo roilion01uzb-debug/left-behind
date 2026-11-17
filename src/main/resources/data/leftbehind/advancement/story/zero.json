@@ -1,0 +1,23 @@
+{
+  "parent": "leftbehind:story/relic",
+  "display": {
+    "icon": {
+      "id": "minecraft:obsidian"
+    },
+    "title": {
+      "translate": "advancements.leftbehind.zero.title"
+    },
+    "description": {
+      "translate": "advancements.leftbehind.zero.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

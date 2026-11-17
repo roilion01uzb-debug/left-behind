@@ -1,0 +1,23 @@
+{
+  "parent": "leftbehind:story/watched",
+  "display": {
+    "icon": {
+      "id": "minecraft:name_tag"
+    },
+    "title": {
+      "translate": "advancements.leftbehind.spoke.title"
+    },
+    "description": {
+      "translate": "advancements.leftbehind.spoke.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": true
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

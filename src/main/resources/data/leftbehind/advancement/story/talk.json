@@ -1,0 +1,23 @@
+{
+  "parent": "leftbehind:story/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:oak_sign"
+    },
+    "title": {
+      "translate": "advancements.leftbehind.talk.title"
+    },
+    "description": {
+      "translate": "advancements.leftbehind.talk.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

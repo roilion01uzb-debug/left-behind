@@ -141,7 +141,7 @@ public class Herobrine extends PathfinderMob {
     @Override
     public void tick() {
         super.tick();
-        if (!(level() instanceof ServerLevel level)) return;
+        if (!(level() instanceof ServerLevel level) || !isAlive()) return;
         switch (mode) {
             case HUNT -> huntTick(level);
             case WATCH_PLAYER -> watchPlayerTick(level);

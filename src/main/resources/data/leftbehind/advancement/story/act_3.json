@@ -1,0 +1,23 @@
+{
+  "parent": "leftbehind:story/act_2",
+  "display": {
+    "icon": {
+      "id": "minecraft:ender_eye"
+    },
+    "title": {
+      "translate": "advancements.leftbehind.act_3.title"
+    },
+    "description": {
+      "translate": "advancements.leftbehind.act_3.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

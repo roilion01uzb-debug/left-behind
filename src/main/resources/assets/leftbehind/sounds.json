@@ -1,0 +1,154 @@
+{
+  "ambient.dread": {
+    "subtitle": "subtitles.leftbehind.ambient.dread",
+    "sounds": [
+      {
+        "name": "leftbehind:ambient/dread_1",
+        "stream": true
+      },
+      {
+        "name": "leftbehind:ambient/dread_2",
+        "stream": true
+      },
+      {
+        "name": "leftbehind:ambient/dread_3",
+        "stream": true
+      }
+    ]
+  },
+  "ambient.wind_howl": {
+    "subtitle": "subtitles.leftbehind.ambient.wind_howl",
+    "sounds": [
+      {
+        "name": "leftbehind:ambient/wind_howl",
+        "stream": true
+      }
+    ]
+  },
+  "ambient.static": {
+    "subtitle": "subtitles.leftbehind.ambient.static",
+    "sounds": [
+      "leftbehind:ambient/static"
+    ]
+  },
+  "ambient.knock": {
+    "subtitle": "subtitles.leftbehind.ambient.knock",
+    "sounds": [
+      "leftbehind:ambient/knock"
+    ]
+  },
+  "ambient.page": {
+    "subtitle": "subtitles.leftbehind.ambient.page",
+    "sounds": [
+      "leftbehind:ambient/page"
+    ]
+  },
+  "herobrine.presence": {
+    "subtitle": "subtitles.leftbehind.herobrine.presence",
+    "sounds": [
+      "leftbehind:herobrine/presence"
+    ]
+  },
+  "herobrine.heartbeat": {
+    "subtitle": "subtitles.leftbehind.herobrine.heartbeat",
+    "sounds": [
+      "leftbehind:herobrine/heartbeat"
+    ]
+  },
+  "herobrine.sting": {
+    "subtitle": "subtitles.leftbehind.herobrine.sting",
+    "sounds": [
+      "leftbehind:herobrine/sting"
+    ]
+  },
+  "herobrine.chase": {
+    "subtitle": "subtitles.leftbehind.herobrine.chase",
+    "sounds": [
+      {
+        "name": "leftbehind:herobrine/chase",
+        "stream": true
+      }
+    ]
+  },
+  "herobrine.vanish": {
+    "subtitle": "subtitles.leftbehind.herobrine.vanish",
+    "sounds": [
+      "leftbehind:herobrine/vanish"
+    ]
+  },
+  "herobrine.whisper": {
+    "subtitle": "subtitles.leftbehind.herobrine.whisper",
+    "sounds": [
+      "leftbehind:herobrine/whisper_1",
+      "leftbehind:herobrine/whisper_2",
+      "leftbehind:herobrine/whisper_3"
+    ]
+  },
+  "herobrine.breath": {
+    "subtitle": "subtitles.leftbehind.herobrine.breath",
+    "sounds": [
+      "leftbehind:herobrine/breath"
+    ]
+  },
+  "herobrine.kill": {
+    "subtitle": "subtitles.leftbehind.herobrine.kill",
+    "sounds": [
+      "leftbehind:herobrine/kill"
+    ]
+  },
+  "steve.breach": {
+    "subtitle": "subtitles.leftbehind.steve.breach",
+    "sounds": [
+      "leftbehind:steve/breach"
+    ]
+  },
+  "steve.panic_breath": {
+    "subtitle": "subtitles.leftbehind.steve.panic_breath",
+    "sounds": [
+      "leftbehind:steve/panic_breath"
+    ]
+  },
+  "steve.mutter": {
+    "subtitle": "subtitles.leftbehind.steve.mutter",
+    "sounds": [
+      "leftbehind:steve/mutter_1",
+      "leftbehind:steve/mutter_2"
+    ]
+  },
+  "steve.talk": {
+    "subtitle": "subtitles.leftbehind.steve.talk",
+    "sounds": [
+      "leftbehind:steve/talk_1",
+      "leftbehind:steve/talk_2",
+      "leftbehind:steve/talk_3",
+      "leftbehind:steve/talk_4"
+    ]
+  },
+  "ghost.appear": {
+    "subtitle": "subtitles.leftbehind.ghost.appear",
+    "sounds": [
+      "leftbehind:ghost/appear"
+    ]
+  },
+  "ghost.hum": {
+    "subtitle": "subtitles.leftbehind.ghost.hum",
+    "sounds": [
+      "leftbehind:ghost/hum"
+    ]
+  },
+  "memory.fragment": {
+    "subtitle": "subtitles.leftbehind.memory.fragment",
+    "sounds": [
+      "leftbehind:memory/fragment"
+    ]
+  },
+  "memory.theme": {
+    "subtitle": "subtitles.leftbehind.memory.theme",
+    "sounds": [
+      {
+        "name": "leftbehind:memory/theme",
+        "stream": true
+      }
+    ]
+  }
+}

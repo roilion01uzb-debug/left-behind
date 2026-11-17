@@ -1,0 +1,23 @@
+{
+  "parent": "leftbehind:story/act_3",
+  "display": {
+    "icon": {
+      "id": "minecraft:skeleton_skull"
+    },
+    "title": {
+      "translate": "advancements.leftbehind.hunted.title"
+    },
+    "description": {
+      "translate": "advancements.leftbehind.hunted.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

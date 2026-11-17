@@ -1,0 +1,23 @@
+{
+  "parent": "leftbehind:story/page",
+  "display": {
+    "icon": {
+      "id": "minecraft:writable_book"
+    },
+    "title": {
+      "translate": "advancements.leftbehind.all_pages.title"
+    },
+    "description": {
+      "translate": "advancements.leftbehind.all_pages.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

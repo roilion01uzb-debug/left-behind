@@ -67,6 +67,17 @@ public final class LeftBehindCommand {
                                 .then(Commands.argument("value", FloatArgumentType.floatArg(0, 100))
                                         .executes(ctx -> setTrust(ctx.getSource(), EntityArgument.getPlayer(ctx, "player"),
                                                 FloatArgumentType.getFloat(ctx, "value"))))))
+                .then(Commands.literal("sense")
+                        .then(Commands.argument("player", EntityArgument.player())
+                                .then(Commands.argument("value", FloatArgumentType.floatArg(0, 100))
+                                        .executes(ctx -> {
+                                            ServerPlayer target = EntityArgument.getPlayer(ctx, "player");
+                                            float value = FloatArgumentType.getFloat(ctx, "value");
+                                            Sense.set(target, value);
+                                            ctx.getSource().sendSuccess(() -> Component.literal(
+                                                    "Herobrine's sense of " + target.getGameProfile().name() + " set to " + Math.round(value) + "%"), true);
+                                            return 1;
+                                        }))))
                 .then(Commands.literal("stability")
                         .then(Commands.argument("value", FloatArgumentType.floatArg(0, 100))
                                 .executes(ctx -> setStability(ctx.getSource(), FloatArgumentType.getFloat(ctx, "value")))))
@@ -74,6 +85,32 @@ public final class LeftBehindCommand {
                         .then(setting("hunt", "set_no_hunt", "Herobrine hunting players"))
                         .then(setting("creative_kill", "set_no_creative_kill", "Herobrine killing players in creative mode"))
                         .then(setting("griefing", "set_no_grief", "Steve and the story changing blocks")))
+                .then(Commands.literal("debug")
+                        .then(Commands.literal("talk").executes(ctx -> {
+                            ServerPlayer player = playerFor(ctx.getSource());
+                            OriginalSteve steve = StoryDirector.findSteve(ctx.getSource().getServer().overworld());
+                            if (player == null || steve == null) return 0;
+                            Dialogue.open(steve, player);
+                            return 1;
+                        }))
+                        .then(Commands.literal("pose")
+                                .then(Commands.argument("pose", IntegerArgumentType.integer(-1, 4))
+                                        .executes(ctx -> {
+                                            OriginalSteve steve = StoryDirector.findSteve(ctx.getSource().getServer().overworld());
+                                            if (steve == null) return 0;
+                                            steve.setDebugPose(IntegerArgumentType.getInteger(ctx, "pose"));
+                                            return 1;
+                                        })))
+                        .then(Commands.literal("fx")
+                                .then(Commands.argument("kind", IntegerArgumentType.integer(0, 4))
+                                        .then(Commands.argument("value", FloatArgumentType.floatArg(0, 1000))
+                                                .executes(ctx -> {
+                                                    ServerPlayer player = playerFor(ctx.getSource());
+                                                    if (player == null) return 0;
+                                                    dev.leftbehind.fx.Fx.screen(player, IntegerArgumentType.getInteger(ctx, "kind"),
+                                                            FloatArgumentType.getFloat(ctx, "value"));
+                                                    return 1;
+                                                })))))
                 .then(Commands.literal("reset").executes(ctx -> reset(ctx.getSource()))));
 
         dispatcher.register(Commands.literal("steve")

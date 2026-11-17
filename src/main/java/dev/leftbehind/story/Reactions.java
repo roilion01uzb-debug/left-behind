@@ -72,7 +72,7 @@ public final class Reactions {
     /** Once a second: things he notices about players who are close to him. */
     public static void watchPlayers(ServerLevel level, OriginalSteve steve, SteveMemory memory) {
         for (ServerPlayer player : level.players()) {
-            if (player.isSpectator() || player.distanceToSqr(steve) > 12 * 12 || !steve.hasLineOfSight(player)) continue;
+            if (player.isSpectator() || !player.isAlive() || player.distanceToSqr(steve) > 12 * 12 || !steve.hasLineOfSight(player)) continue;
             if (memory.anger(player.getUUID()).atLeast(AngerStage.RESENTMENT)) continue;
             UUID id = player.getUUID();
             Vec3 last = LAST_POSITION.put(id, player.position());

@@ -96,6 +96,8 @@ public class OriginalSteve extends PathfinderMob {
     private @Nullable BlockPos traumaSpot;
     private @Nullable BlockPos smashTarget;
     private @Nullable Vec3 lastRampagePos;
+    /** Testing only: holds him in one pose. */
+    private int debugPose = -1;
 
     public OriginalSteve(EntityType<? extends OriginalSteve> type, Level level) {
         super(type, level);
@@ -124,6 +126,10 @@ public class OriginalSteve extends PathfinderMob {
 
     public void setState(int state) {
         if (getState() != state) this.entityData.set(DATA_STATE, state);
+    }
+
+    public void setDebugPose(int pose) {
+        this.debugPose = pose;
     }
 
     @Override
@@ -214,6 +220,11 @@ public class OriginalSteve extends PathfinderMob {
         if (idleLineCooldown > 0) idleLineCooldown--;
         if (talkTicks > 0) talkTicks--;
         if (memory == null) return;
+        if (debugPose >= 0) {
+            setState(debugPose);
+            getNavigation().stop();
+            return;
+        }
         boolean episode = memory.mood().inEpisode();
         if (!episode) {
             if (getState() != STATE_NORMAL) setState(STATE_NORMAL);
@@ -527,12 +538,21 @@ public class OriginalSteve extends PathfinderMob {
                 setState(STATE_NORMAL);
                 getNavigation().stop();
                 if (tickCount % 14 == 0 && traumaSpot != null) {
+                    // A wall on three sides. The side facing whoever is watching stays open: he never finishes it.
                     int[][] ring = {{1, 0}, {1, 1}, {0, 1}, {-1, 1}, {-1, 0}, {-1, -1}, {0, -1}, {1, -1}};
                     if (buildIndex < ring.length) {
-                        BlockPos pos = blockPosition().offset(ring[buildIndex][0], 0, ring[buildIndex][1]);
+                        int[] offset = ring[buildIndex];
+                        BlockPos pos = blockPosition().offset(offset[0], 0, offset[1]);
                         buildIndex++;
+                        ServerPlayer watcher = nearestPlayer(level);
+                        boolean facesWatcher = false;
+                        if (watcher != null) {
+                            Vec3 toWatcher = watcher.position().subtract(position());
+                            facesWatcher = toWatcher.x * offset[0] + toWatcher.z * offset[1] > 0.25 * toWatcher.horizontalDistance();
+                        }
                         BlockState at = level.getBlockState(pos);
-                        if (canGrief(level) && at.canBeReplaced() && at.getFluidState().isEmpty() && level.getBlockState(pos.below()).isSolid()) {
+                        if (!facesWatcher && canGrief(level) && at.canBeReplaced() && at.getFluidState().isEmpty()
+                                && level.getBlockState(pos.below()).isSolid()) {
                             level.setBlock(pos, Blocks.DIRT.defaultBlockState(), 3);
                             level.playSound(null, pos, SoundEvents.GRAVEL_PLACE, SoundSource.BLOCKS, 0.8f, 0.8f);
                             getLookControl().setLookAt(Vec3.atCenterOf(pos));

@@ -361,6 +361,31 @@ def mutter(seed):
     return fade(reverb(out, 1.4, 0.45, rng, tone=2200, tail=True), 0.05, 0.5)
 
 
+def talk(seed):
+    """Steve's stand-in voice: a short, soft, wordless murmur of two to four syllables."""
+    rng = np.random.default_rng(seed)
+    syllables = int(rng.integers(2, 5))
+    seconds = 0.2 * syllables + 0.15
+    n = int(SR * seconds)
+    tt = np.arange(n) / SR
+    pitch = 118 + 14 * np.sin(2 * np.pi * (0.8 + 0.2 * syllables) * tt + rng.uniform(0, 6)) - 10 * tt / seconds
+    phase = 2 * np.pi * np.cumsum(pitch) / SR
+    src = signal.sawtooth(phase) * 0.7 + 0.12 * rng.standard_normal(n)
+    vowels = [(700, 1220, 2600), (400, 1900, 2550), (550, 880, 2500), (350, 800, 2300), (600, 1700, 2500)]
+    rng.shuffle(vowels)
+    seg = n // syllables
+    out = np.zeros(n)
+    for i in range(syllables):
+        f1, f2, f3 = vowels[i % len(vowels)]
+        a, b = i * seg, n if i == syllables - 1 else (i + 1) * seg
+        chunk = src[a:b]
+        part = bp(chunk, f1 * 0.85, f1 * 1.15) + 0.55 * bp(chunk, f2 * 0.9, f2 * 1.1) + 0.2 * bp(chunk, f3 * 0.93, f3 * 1.07)
+        env = np.sin(np.pi * np.linspace(0, 1, len(part))) ** 0.6
+        out[a:b] = part * env
+    out = lp(out, 3000)
+    return fade(reverb(out, 0.5, 0.15, rng, tone=2600, tail=True), 0.01, 0.12)
+
+
 # ------------------------------------------------------------------ ghosts and memory
 A4 = 440.0
 
@@ -464,6 +489,8 @@ if __name__ == "__main__":
     save("steve/panic_breath", panic_breath(311), peak=0.7)
     save("steve/mutter_1", mutter(321), peak=0.6)
     save("steve/mutter_2", mutter(322), peak=0.6)
+    for i in range(4):
+        save(f"steve/talk_{i + 1}", talk(330 + i), peak=0.5)
     save("ghost/appear", ghost_appear(401), peak=0.7)
     save("ghost/hum", ghost_hum(411), quality=3, peak=0.6)
     save("memory/fragment", memory_fragment(501), peak=0.75)

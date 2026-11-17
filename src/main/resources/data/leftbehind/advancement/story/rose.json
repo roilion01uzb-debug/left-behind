@@ -1,0 +1,23 @@
+{
+  "parent": "leftbehind:story/ghost",
+  "display": {
+    "icon": {
+      "id": "minecraft:poppy"
+    },
+    "title": {
+      "translate": "advancements.leftbehind.rose.title"
+    },
+    "description": {
+      "translate": "advancements.leftbehind.rose.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "parent": "leftbehind:story/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:flint_and_steel"
+    },
+    "title": {
+      "translate": "advancements.leftbehind.angry.title"
+    },
+    "description": {
+      "translate": "advancements.leftbehind.angry.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": true
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

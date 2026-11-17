@@ -1,0 +1,23 @@
+{
+  "parent": "leftbehind:story/hunted",
+  "display": {
+    "icon": {
+      "id": "minecraft:wither_skeleton_skull"
+    },
+    "title": {
+      "translate": "advancements.leftbehind.removed.title"
+    },
+    "description": {
+      "translate": "advancements.leftbehind.removed.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": true
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

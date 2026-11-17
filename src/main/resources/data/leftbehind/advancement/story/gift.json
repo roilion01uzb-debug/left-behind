@@ -1,0 +1,23 @@
+{
+  "parent": "leftbehind:story/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:bread"
+    },
+    "title": {
+      "translate": "advancements.leftbehind.gift.title"
+    },
+    "description": {
+      "translate": "advancements.leftbehind.gift.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

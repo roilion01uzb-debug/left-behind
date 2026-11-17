@@ -1,0 +1,23 @@
+{
+  "parent": "leftbehind:story/act_3",
+  "display": {
+    "icon": {
+      "id": "minecraft:cracked_stone_bricks"
+    },
+    "title": {
+      "translate": "advancements.leftbehind.breach.title"
+    },
+    "description": {
+      "translate": "advancements.leftbehind.breach.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}
