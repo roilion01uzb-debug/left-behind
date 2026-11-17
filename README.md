@@ -7,7 +7,7 @@ Herobrine is always one step ahead of both of you, and he knows exactly which me
 
 ## Download
 
-`downloads/left-behind-0.2.0.jar`. Put it in your `mods` folder together with Fabric API.
+`downloads/left-behind-0.2.1.jar`. Put it in your `mods` folder together with Fabric API.
 
 ## What's in 0.2
 
@@ -52,7 +52,7 @@ When Herobrine holds Steve's eyes, a memory breaks. Steve no longer disappears.
 
 ### Herobrine
 
-- He has **his own model and skin now**, with blank white eyes that glow in the dark.
+- He has the **original Herobrine look**: Steve's own skin with blank white eyes that glow in the dark.
   (In 0.1 the game was drawing him as a plain player. That is fixed.)
 - **He senses you.** Looking at him, standing near him and running near him all fill a hidden meter.
   Sneaking halves it. Your screen darkens at the edges and your heart gets louder as it fills.

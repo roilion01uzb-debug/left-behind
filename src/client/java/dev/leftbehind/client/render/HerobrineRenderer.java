@@ -14,15 +14,19 @@ import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.Identifier;
+import net.minecraft.util.LightCoordsUtil;
 
 /**
- * Herobrine has his own skin, with the blank white eyes painted on, so he looks right under any shader pack.
- * A second, tiny model draws just the two eyes again at full brightness, so they glow in the dark.
+ * The original Herobrine: Steve's own skin, with nothing behind the eyes.
+ * He wears whatever the game's Steve skin is, so a resource pack that changes Steve changes him too.
+ * A second, tiny model covers the two eyes with plain white at full brightness, then again with the
+ * game's glowing-eyes effect (like an enderman's), so they stay white by day and glow at night under any shader pack.
  */
 public class HerobrineRenderer extends HumanoidMobRenderer<Herobrine, PersonRenderState, PersonModel> {
-    private static final Identifier SKIN = Identifier.fromNamespaceAndPath(LeftBehind.MOD_ID, "textures/entity/herobrine.png");
-    private static final RenderType EYES = RenderTypes.eyes(
-            Identifier.fromNamespaceAndPath(LeftBehind.MOD_ID, "textures/entity/herobrine_eyes.png"));
+    private static final Identifier SKIN = Identifier.withDefaultNamespace("textures/entity/player/wide/steve.png");
+    private static final Identifier WHITE = Identifier.fromNamespaceAndPath(LeftBehind.MOD_ID, "textures/entity/herobrine_eyes.png");
+    private static final RenderType BLANK = RenderTypes.entityCutout(WHITE);
+    private static final RenderType GLOW = RenderTypes.eyes(WHITE);
 
     public HerobrineRenderer(EntityRendererProvider.Context context) {
         super(context, new PersonModel(context.bakeLayer(ModelLayers.PLAYER)), 0.5F);
@@ -49,7 +53,8 @@ public class HerobrineRenderer extends HumanoidMobRenderer<Herobrine, PersonRend
 
         @Override
         public void submit(PoseStack poseStack, SubmitNodeCollector collector, int lightCoords, PersonRenderState state, float yRot, float xRot) {
-            collector.order(1).submitModel(this.eyes, state, poseStack, EYES, lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor);
+            collector.order(1).submitModel(this.eyes, state, poseStack, BLANK, LightCoordsUtil.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, state.outlineColor);
+            collector.order(2).submitModel(this.eyes, state, poseStack, GLOW, lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor);
         }
     }
 }

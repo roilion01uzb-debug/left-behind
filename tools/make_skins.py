@@ -92,66 +92,8 @@ def limbs(s, part_r, part_l, painter):
 
 
 # ---------------------------------------------------------------- Herobrine
-def herobrine():
-    s = Skin(seed=11)
-    skin, skin_d = (142, 100, 82), (112, 76, 62)
-    hair = (38, 27, 17)
-    shirt, shirt_d = (14, 112, 118), (9, 84, 92)
-    pants, pants_d = (52, 44, 112), (40, 33, 88)
-    shoe = (62, 62, 66)
-
-    s.box("head", skin)
-    s.fill("head", "top", hair)
-    s.fill("head", "back", hair)
-    s.rect("head", "back", 1, 7, 6, 7, skin_d)
-    for side in ("right", "left"):
-        s.rect("head", side, 0, 0, 7, 2, hair)
-        s.rect("head", side, 0, 3, (4 if side == "right" else 7), 5, hair)
-        if side == "left":
-            s.rect("head", side, 0, 3, 2, 5, skin)
-        else:
-            s.rect("head", side, 5, 3, 7, 5, skin)
-    s.fill("head", "bottom", skin_d)
-    # face: hairline, sunken brow, blank eyes, mouth set in a line, short beard
-    s.rect("head", "front", 0, 0, 7, 1, hair)
-    s.px("head", "front", 0, 2, hair); s.px("head", "front", 7, 2, hair)
-    s.rect("head", "front", 1, 3, 6, 3, skin_d, 3)          # brow shadow
-    for x in (1, 2, 5, 6):
-        s.px("head", "front", x, 4, (255, 255, 255))          # the eyes: nothing behind them
-    s.px("head", "front", 0, 4, skin_d); s.px("head", "front", 7, 4, skin_d)
-    s.rect("head", "front", 3, 5, 4, 5, (104, 66, 52), 2)    # nose
-    s.rect("head", "front", 2, 6, 5, 6, (58, 30, 18), 2)     # mouth
-    s.px("head", "front", 1, 6, (86, 52, 36)); s.px("head", "front", 6, 6, (86, 52, 36))
-    s.rect("head", "front", 2, 7, 5, 7, (74, 42, 26), 3)     # beard
-    s.px("head", "front", 3, 7, (58, 30, 18)); s.px("head", "front", 4, 7, (58, 30, 18))
-
-    s.box("body", shirt)
-    s.rect("body", "front", 3, 0, 4, 1, skin_d, 3)           # collar notch
-    s.px("body", "front", 2, 0, skin_d); s.px("body", "front", 5, 0, skin_d)
-    s.band("body", 10, 11, shirt_d)
-    s.rect("body", "front", 5, 9, 7, 11, shirt, 4)           # untucked corner
-    s.fill("body", "bottom", pants_d)
-
-    def arm(part):
-        s.box(part, skin)
-        s.band(part, 0, 3, shirt)
-        s.band(part, 3, 3, shirt_d)
-        s.fill(part, "top", shirt)
-        s.band(part, 10, 11, skin_d, 4)
-        s.fill(part, "bottom", skin_d)
-    arm("rarm"); arm("larm")
-
-    def leg(part):
-        s.box(part, pants)
-        s.band(part, 9, 11, shoe)
-        s.band(part, 8, 8, pants_d)
-        s.fill(part, "bottom", (44, 44, 48))
-    leg("rleg"); leg("lleg")
-
-    for part in ("body", "rarm", "larm", "rleg", "lleg"):
-        s.darken_gradient(part, 0.22)                         # like something left in the ground
-    s.save("herobrine")
-    return s
+# Herobrine has no skin of his own: the game draws him with its own Steve skin and the mod covers the eyes
+# (see HerobrineRenderer). Only the white eye texture is made here, by eyes_texture().
 
 
 # ---------------------------------------------------------------- Rana
@@ -399,7 +341,7 @@ def eyes_texture():
 
 
 if __name__ == "__main__":
-    skins = [herobrine(), rana(), black_steve(), beast_boy()]
+    skins = [rana(), black_steve(), beast_boy()]
     eyes_texture()
     sheet = Image.new("RGBA", (36 * 8 * len(skins), 34 * 8), (0, 0, 0, 255))
     for i, s in enumerate(skins):
