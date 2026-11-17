@@ -16,59 +16,15 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 
 /**
- * Talking to Steve. Right-click him and a window opens; what he says, and what you are allowed to ask,
- * depends on how much he trusts you, how stable he is, and what has happened so far.
- * Every line here is a future voiceover cue.
+ * Steve's answers on the big subjects (who he is, what he remembers, him, the others, the places) and
+ * Herobrine's one answer. The conversation itself happens in {@link dev.leftbehind.talk.Talk}; this is
+ * what he says once it knows what you asked. Every line here is a future voiceover cue.
  */
 public final class Dialogue {
     private Dialogue() {}
 
-    // ---- opening the window ---------------------------------------------------------
-
-    public static void open(OriginalSteve steve, ServerPlayer player) {
-        if (!(steve.level() instanceof ServerLevel level)) return;
-        SteveMemory memory = SteveMemory.get(level.getServer());
-        Relationship r = memory.relationship(player.getUUID());
-        r.talks++;
-        steve.startTalking(player);
-        Progress.grant(player, "talk");
-        if (memory.setFlag("first_talk")) Journal.unlock(level.getServer(), "note_steve");
-        if (r.firstTime("journal_given")) {
-            if (!player.getInventory().add(Journal.journalBook())) player.spawnAtLocation(level, Journal.journalBook());
-            SteveVoice.steve(steve, "Here. I can't keep things written down. Maybe you can.");
-            Progress.grant(player, "journal");
-        }
-        String greeting = greeting(level, steve, player, memory, r);
-        SteveVoice.steve(steve, greeting);
-        show(steve, player, memory, r, greeting);
-    }
-
-    private static void show(OriginalSteve steve, ServerPlayer player, SteveMemory memory, Relationship r, String line) {
-        List<Component> body = new ArrayList<>();
-        body.add(Component.literal("\"" + line + "\"").withStyle(ChatFormatting.AQUA));
-        body.add(Component.literal(read(memory, r)).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
-        List<Dialogs.Choice> choices = new ArrayList<>();
-        if (r.stage().atLeast(AngerStage.PROVOCATION)) {
-            choices.add(new Dialogs.Choice("I'm sorry.", "/steve ask sorry"));
-        } else {
-            choices.add(new Dialogs.Choice("Who are you?", "/steve ask who"));
-            choices.add(new Dialogs.Choice("What do you remember?", "/steve ask remember"));
-            choices.add(new Dialogs.Choice("Are you okay?", "/steve ask okay"));
-            choices.add(new Dialogs.Choice("What do you think of me?", "/steve ask me"));
-            if (memory.breaches > 0 || memory.flag("watched")) choices.add(new Dialogs.Choice("Who is he?", "/steve ask he"));
-            if (memory.flag("ghost_seen")) choices.add(new Dialogs.Choice("Who are they?", "/steve ask they"));
-            if (memory.act() >= 3) choices.add(new Dialogs.Choice("What does he want?", "/steve ask want"));
-            if (memory.flag("relic_seen")) choices.add(new Dialogs.Choice("What are these places?", "/steve ask place"));
-            if (r.stage().atLeast(AngerStage.RESENTMENT)) choices.add(new Dialogs.Choice("I'm sorry.", "/steve ask sorry"));
-            choices.add(new Dialogs.Choice("Follow me.", "/steve ask follow"));
-            choices.add(new Dialogs.Choice("Stay here.", "/steve ask stay"));
-            choices.add(new Dialogs.Choice("Do what you like.", "/steve ask free"));
-        }
-        Dialogs.show(player, "Steve", body, choices, new Dialogs.Choice("Goodbye.", "/steve ask bye"), 2);
-    }
-
-    /** One line under what he says: how he seems. This is the only "meter" the player ever sees. */
-    private static String read(SteveMemory memory, Relationship r) {
+    /** How he seems right now, in a sentence. Used by /leftbehind status. */
+    public static String read(SteveMemory memory, Relationship r) {
         String mind;
         if (memory.stability >= 85f) mind = "He seems calm.";
         else if (memory.stability >= 60f) mind = "He keeps losing the end of his sentences.";
@@ -85,7 +41,7 @@ public final class Dialogue {
         return mind + " " + heart;
     }
 
-    private static String greeting(ServerLevel level, OriginalSteve steve, ServerPlayer player, SteveMemory memory, Relationship r) {
+    public static String greeting(ServerLevel level, OriginalSteve steve, ServerPlayer player, SteveMemory memory, Relationship r) {
         long time = level.getGameTime();
         if (r.stage().atLeast(AngerStage.PROVOCATION)) {
             return pick(steve, "Leave me alone.", "I don't want to talk to you.", "You know what you did.");
@@ -108,7 +64,6 @@ public final class Dialogue {
             return pick(steve, "Your house looks different. Did you change something?", "I was here all night. Wasn't I?",
                     "My hands hurt. Did I fall?");
         }
-        if (r.talks <= 1) return "Oh. Hello. You can see me? Most of them just walk through.";
         if (memory.stability < 40f) {
             return pick(steve, "Do you ever feel like you've done all this before?", "Don't let him look at me.",
                     "Is it today? It keeps being today.");
@@ -126,23 +81,17 @@ public final class Dialogue {
 
     // ---- asking ---------------------------------------------------------------------
 
-    public static void ask(ServerPlayer player, String topic) {
+    /** His answer on one subject. Unlocks journal entries and moves trust as a side effect. */
+    public static String answer(OriginalSteve steve, ServerPlayer player, String topic) {
         ServerLevel level = player.level();
-        OriginalSteve steve = StoryDirector.findSteve(level);
-        if (steve == null || steve.distanceToSqr(player) > 10 * 10 || steve.inEpisode()) {
-            Dialogs.close(player);
-            return;
-        }
         SteveMemory memory = SteveMemory.get(level.getServer());
         Relationship r = memory.relationship(player.getUUID());
         long time = level.getGameTime();
-        steve.startTalking(player);
         int asked = (int) r.mark("ask_" + topic);
         r.setMark("ask_" + topic, asked + 1);
-        if (asked == 0 && !topic.equals("bye")) r.addTrust(1.5f);
+        if (asked == 0) r.addTrust(1.5f);
         memory.setDirty();
         String answer;
-        boolean close = false;
         switch (topic) {
             case "who" -> {
                 if (asked == 0 || r.trust < 30f) {
@@ -226,38 +175,24 @@ public final class Dialogue {
                 }
             }
             case "follow" -> {
-                if (r.trust >= 30f) {
+                if (r.trust >= 25f) {
                     steve.orderFollow(player);
                     answer = pick(steve, "Okay. I'll keep up.", "Lead the way.", "Where are we going? ...never mind. I'll come.");
                 } else {
-                    answer = "I'd rather not. Not yet.";
+                    answer = "Not yet. I don't know you well enough. Talk to me a bit more first.";
                 }
-                close = true;
             }
             case "stay" -> {
                 steve.orderStay();
                 answer = pick(steve, "I'll wait here. I'm good at waiting.", "Here? Alright. Don't be long.");
-                close = true;
             }
             case "free" -> {
                 steve.orderNothing();
                 answer = pick(steve, "Okay.", "I'll be around. I'm always around.");
-                close = true;
             }
-            default -> {
-                steve.stopTalking();
-                SteveVoice.steve(steve, pick(steve, "See you.", "Bye.", "I'll be here.", "Stay in the light."));
-                Dialogs.close(player);
-                return;
-            }
+            default -> answer = pick(steve, "See you.", "Bye.", "I'll be here.", "Stay in the light.");
         }
-        SteveVoice.steve(steve, answer);
-        if (close) {
-            steve.stopTalking();
-            Dialogs.close(player);
-        } else {
-            show(steve, player, memory, r, answer);
-        }
+        return answer;
     }
 
     /** He tells the next thing he is ready to tell. Nothing comes out of order. */
@@ -323,20 +258,12 @@ public final class Dialogue {
             return;
         }
         Fx.soundTo(player, ModSounds.PRESENCE, SoundSource.HOSTILE, 1.0f, 0.8f);
-        List<Component> body = List.of(
-                Component.literal("He does not blink. He does not breathe.").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC),
-                Component.literal("You have his attention. You get one question.").withStyle(ChatFormatting.WHITE));
-        List<Dialogs.Choice> choices = List.of(
-                new Dialogs.Choice("What do you want?", "/steve him want"),
-                new Dialogs.Choice("What are you?", "/steve him what"),
-                new Dialogs.Choice("Leave him alone.", "/steve him leave"));
-        Dialogs.show(player, "???", body, choices, new Dialogs.Choice("Say nothing. Back away.", null), 1);
+        dev.leftbehind.talk.Talk.herobrineInteract(herobrine, player);
     }
 
     public static void askHerobrine(ServerPlayer player, String topic) {
         ServerLevel level = player.level();
         Herobrine herobrine = StoryDirector.activeHerobrine();
-        Dialogs.close(player);
         if (herobrine == null || herobrine.distanceToSqr(player) > 12 * 12 || herobrine.mode() == Herobrine.Mode.HUNT) return;
         SteveMemory memory = SteveMemory.get(level.getServer());
         Relationship r = memory.relationship(player.getUUID());
@@ -345,6 +272,8 @@ public final class Dialogue {
         Herobrine.whisper(player, switch (topic) {
             case "want" -> "him. every version of him. you are in the way";
             case "what" -> "what is left when something is removed";
+            case "why" -> "because he stayed";
+            case "other" -> "that was your question";
             default -> "he looked first";
         });
         Fx.soundTo(player, Fx.behind(player, 1.5), ModSounds.WHISPER, SoundSource.HOSTILE, 1.0f, 0.8f);

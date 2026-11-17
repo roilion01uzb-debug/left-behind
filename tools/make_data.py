@@ -36,7 +36,6 @@ SOUNDS = {
     "steve.breach": (["steve/breach"], "Steve remembers", False),
     "steve.panic_breath": (["steve/panic_breath"], "Steve gasps", False),
     "steve.mutter": (["steve/mutter_1", "steve/mutter_2"], "Steve mutters", False),
-    "steve.talk": (["steve/talk_1", "steve/talk_2", "steve/talk_3", "steve/talk_4"], "Steve speaks", False),
     "ghost.appear": (["ghost/appear"], "Someone is here", False),
     "ghost.hum": (["ghost/hum"], "A faint hum", False),
     "memory.fragment": (["memory/fragment"], "A memory surfaces", False),

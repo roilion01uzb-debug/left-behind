@@ -90,7 +90,7 @@ public final class LeftBehindCommand {
                             ServerPlayer player = playerFor(ctx.getSource());
                             OriginalSteve steve = StoryDirector.findSteve(ctx.getSource().getServer().overworld());
                             if (player == null || steve == null) return 0;
-                            Dialogue.open(steve, player);
+                            dev.leftbehind.talk.Talk.interact(steve, player);
                             return 1;
                         }))
                         .then(Commands.literal("pose")
@@ -114,11 +114,18 @@ public final class LeftBehindCommand {
                 .then(Commands.literal("reset").executes(ctx -> reset(ctx.getSource()))));
 
         dispatcher.register(Commands.literal("steve")
+                .then(Commands.literal("say")
+                        .then(Commands.argument("text", StringArgumentType.greedyString())
+                                .executes(ctx -> {
+                                    ServerPlayer player = ctx.getSource().getPlayer();
+                                    if (player != null) dev.leftbehind.talk.Talk.hear(player, StringArgumentType.getString(ctx, "text"));
+                                    return 1;
+                                })))
                 .then(Commands.literal("ask")
                         .then(Commands.argument("topic", StringArgumentType.word())
                                 .executes(ctx -> {
                                     ServerPlayer player = ctx.getSource().getPlayer();
-                                    if (player != null) Dialogue.ask(player, StringArgumentType.getString(ctx, "topic"));
+                                    if (player != null) dev.leftbehind.talk.Talk.hear(player, StringArgumentType.getString(ctx, "topic"));
                                     return 1;
                                 })))
                 .then(Commands.literal("him")
@@ -185,8 +192,10 @@ public final class LeftBehindCommand {
             sb.append(" ").append(name).append(": trust ").append(Math.round(r.trust))
                     .append(", anger ").append(Math.round(r.anger)).append(" (").append(r.stage().name().toLowerCase()).append(")");
             if (p != null) sb.append(", sensed ").append(Math.round(Sense.get(p))).append("%");
+            if (!r.notes.isEmpty()) sb.append(", told him ").append(r.notes);
             sb.append('\n');
         }
+        if (!m.learned.isEmpty()) sb.append("Words he was taught: ").append(m.learned).append('\n');
         if (!m.nightLog.isEmpty()) sb.append("Last night he: ").append(String.join("; ", m.nightLog));
         String text = sb.toString();
         source.sendSuccess(() -> Component.literal(text), false);

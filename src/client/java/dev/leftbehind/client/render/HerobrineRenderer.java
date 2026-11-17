@@ -1,5 +1,7 @@
 package dev.leftbehind.client.render;
 
+import net.minecraft.client.renderer.state.level.CameraRenderState;
+import dev.leftbehind.client.talk.SpeechBubble;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.leftbehind.LeftBehind;
 import dev.leftbehind.entity.Herobrine;
@@ -42,6 +44,19 @@ public class HerobrineRenderer extends HumanoidMobRenderer<Herobrine, PersonRend
     public Identifier getTextureLocation(PersonRenderState state) {
         return SKIN;
     }
+
+    @Override
+    public void extractRenderState(Herobrine entity, PersonRenderState state, float partialTicks) {
+        super.extractRenderState(entity, state, partialTicks);
+        SpeechBubble.extract(entity, state, partialTicks);
+    }
+
+    @Override
+    protected void submitNameDisplay(PersonRenderState state, PoseStack poseStack, SubmitNodeCollector collector, CameraRenderState camera) {
+        super.submitNameDisplay(state, poseStack, collector, camera);
+        SpeechBubble.submit(state, poseStack, collector, camera);
+    }
+
 
     static class GlowingEyes extends RenderLayer<PersonRenderState, PersonModel> {
         private final HumanoidModel<PersonRenderState> eyes;

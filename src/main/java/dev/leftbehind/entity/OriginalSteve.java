@@ -198,6 +198,14 @@ public class OriginalSteve extends PathfinderMob {
         followId = null;
     }
 
+    public @Nullable UUID followingId() {
+        return followId;
+    }
+
+    public boolean isStaying() {
+        return stayAt != null;
+    }
+
     public void orderNothing() {
         followId = null;
         stayAt = null;
@@ -342,7 +350,7 @@ public class OriginalSteve extends PathfinderMob {
         if (!stack.isEmpty() && !player.isShiftKeyDown() && Reactions.item(this, serverPlayer, memory, r, stack)) {
             return InteractionResult.SUCCESS_SERVER;
         }
-        Dialogue.open(this, serverPlayer);
+        dev.leftbehind.talk.Talk.interact(this, serverPlayer);
         return InteractionResult.SUCCESS_SERVER;
     }
 

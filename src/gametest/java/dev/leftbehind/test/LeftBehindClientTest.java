@@ -52,20 +52,36 @@ public class LeftBehindClientTest implements FabricClientGameTest {
             server.runCommand("time set noon");
             server.runCommand("leftbehind settings hunt false");
 
-            // Steve, and talking to him.
+            // Steve, and talking to him by typing in chat.
             server.runCommand("leftbehind summon");
-            context.waitTicks(30);
-            server.runCommand("execute at " + STEVE + " anchored eyes run tp @a ^ ^ ^3.5 facing entity " + STEVE + " eyes");
-            context.waitTicks(20);
-            context.takeScreenshot("01_steve");
-            server.runCommand("leftbehind debug talk");
-            context.waitTicks(30);
-            context.takeScreenshot("02_dialogue");
-            server.runCommand("execute as @a run steve ask who");
-            context.waitTicks(20);
-            context.takeScreenshot("03_answer");
-            server.runCommand("execute as @a run steve ask bye");
             context.waitTicks(10);
+            server.runCommand("execute at " + STEVE + " anchored eyes run tp @a ^ ^ ^4 facing entity " + STEVE + " eyes");
+            context.waitTicks(50);
+            context.takeScreenshot("01_steve_greets");
+            // He asks your name by himself a few seconds after meeting you.
+            context.waitTicks(200);
+            context.takeScreenshot("02_steve_asks");
+            String[][] conversation = {
+                    {"I'm Temur", "03_name"},
+                    {"who are you?", "04_who"},
+                    {"why?", "05_why"},
+                    {"have you seen netherite?", "06_new_word"},
+                    {"it's a super strong black metal from the nether", "07_learned"},
+                    {"tell me a joke", "08_joke"},
+                    {"what is netherite", "09_recall"},
+                    {"u ok?", "10_okay"},
+                    {"follow me", "11_follow"},
+            };
+            for (String[] line : conversation) {
+                server.runCommand("execute at " + STEVE + " anchored eyes run tp @a ^ ^ ^4 facing entity " + STEVE + " eyes");
+                context.runOnClient(client -> client.player.connection.sendChat(line[0]));
+                context.waitTicks(70);
+                context.takeScreenshot(line[1]);
+                context.waitTicks(Math.min(140, 40 + line[0].length() * 2));
+            }
+            server.runCommand("leftbehind status");
+            server.runCommand("execute as @a run steve say bye");
+            context.waitTicks(60);
             // The poses he falls into during an episode.
             hud(context, false);
             String[] poses = {"cower", "stare", "panic", "rampage"};

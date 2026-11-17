@@ -44,6 +44,7 @@ public final class Reactions {
         if (memory == null) return false;
         long time = steve.level().getGameTime();
         if (time < memory.counter("cd_remark_any")) return false;
+        if (dev.leftbehind.talk.Talk.inConversation(time)) return false;
         if (!memory.cooldown("remark_" + key, time, cooldownSeconds * 20L)) return false;
         memory.setCounter("cd_remark_any", time + 70);
         SteveVoice.steve(steve, steve.getRandom(), lines);
@@ -216,82 +217,6 @@ public final class Reactions {
     }
 
     // ---- chat -----------------------------------------------------------------------
-
-    /** He listens when people talk near him. */
-    public static void chat(ServerPlayer player, String raw) {
-        ServerLevel level = player.level();
-        if (level != level.getServer().overworld()) return;
-        String text = " " + raw.toLowerCase(Locale.ROOT).replaceAll("[^a-z0-9 ]", " ") + " ";
-        SteveMemory memory = SteveMemory.get(level.getServer());
-        long time = level.getGameTime();
-
-        // Saying his name where he can hear it is a bad idea.
-        if (text.contains("herobrine")) {
-            Herobrine herobrine = StoryDirector.activeHerobrine();
-            if (herobrine != null && herobrine.distanceToSqr(player) < 72 * 72 && herobrine.mode() != Herobrine.Mode.HUNT) {
-                Sense.add(player, 25f);
-                Herobrine.whisper(player, "yes");
-            }
-        }
-        OriginalSteve steve = StoryDirector.findSteve(level);
-        if (steve == null || steve.distanceToSqr(player) > 16 * 16 || steve.inEpisode()) return;
-        if (!memory.cooldown("chat_reply", time, 50)) return;
-        Relationship r = memory.relationship(player.getUUID());
-        steve.getLookControl().setLookAt(player, 30f, 30f);
-        if (r.stage().atLeast(AngerStage.PROVOCATION)) {
-            if (has(text, "sorry", "apolog", "forgive")) {
-                if (memory.cooldown("sorry_" + player.getUUID(), time, 1200)) r.addAnger(-10f);
-                SteveVoice.steve(steve, "...you always say that.");
-            }
-            return;
-        }
-        if (text.contains("herobrine")) {
-            memory.addStability(-2f);
-            SteveVoice.steve(steve, steve.getRandom(), "Don't say it. He hears his name.", "Shh. Not out loud.");
-        } else if (has(text, "sorry", "apolog", "forgive")) {
-            if (memory.cooldown("sorry_" + player.getUUID(), time, 1200)) r.addAnger(-10f);
-            SteveVoice.steve(steve, steve.getRandom(), "...okay.", "It's alright. Mostly.");
-        } else if (has(text, " follow", " come with", " come here", " come on")) {
-            Dialogue.ask(player, "follow");
-        } else if (has(text, " stay", " wait here", " wait ")) {
-            Dialogue.ask(player, "stay");
-        } else if (has(text, "wake up")) {
-            memory.addStability(-5f);
-            SteveVoice.steve(steve, "...what did you say? Somebody used to say that. On a page. In red.");
-        } else if (has(text, "left behind")) {
-            SteveVoice.steve(steve, "That's what happened. Everyone moved on to the next version. I'm what was left behind.");
-        } else if (has(text, " seed")) {
-            SteveVoice.steve(steve, "Before the seed? There's no before. ...is there?");
-        } else if (has(text, " dream")) {
-            SteveVoice.steve(steve, "Maybe it is. I've thought about that. It doesn't help.");
-        } else if (has(text, "notch")) {
-            SteveVoice.steve(steve, "He made the first things. Then he took some of them back.");
-        } else if (has(text, " alex")) {
-            SteveVoice.steve(steve, "Not yet.");
-        } else if (has(text, "rana", "beast boy", "black steve", " dock ")) {
-            SteveVoice.steve(steve, "You know their names? ...nobody knows their names.");
-        } else if (has(text, "who are you", "your name", "what are you")) {
-            Dialogue.ask(player, "who");
-        } else if (has(text, "are you ok", "you okay", "you alright", "how are you")) {
-            Dialogue.ask(player, "okay");
-        } else if (has(text, "thank")) {
-            SteveVoice.steve(steve, steve.getRandom(), "You're welcome. I think that's what you say.", "Any time. I have a lot of it.");
-        } else if (has(text, " friend", " love you", " like you")) {
-            if (memory.cooldown("friend_" + player.getUUID(), time, 6000)) r.addTrust(2f);
-            SteveVoice.steve(steve, steve.getRandom(), "Friend. I like that word.", "...say that again tomorrow. So I know it wasn't a mistake.");
-        } else if (has(text, " bye", "goodnight", "good night", " gn ")) {
-            SteveVoice.steve(steve, steve.getRandom(), "Goodnight. I'll watch the door.", "Bye. I'll be here. I'm always here.");
-        } else if (has(text, " help")) {
-            SteveVoice.steve(steve, "Stay in the light. Don't look at him. And feed me sometimes.");
-        } else if (has(text, " steve")) {
-            SteveVoice.steve(steve, steve.getRandom(), "Yes? That's me. I think.", "You said my name.", "Hm?");
-        } else if (has(text, " hello", " hi ", " hey", " yo ", " sup ")) {
-            SteveVoice.steve(steve, steve.getRandom(), "Hi.", "Hello. You came back.", "Hey.");
-        } else if (text.trim().endsWith("?") || raw.trim().endsWith("?")) {
-            SteveVoice.steve(steve, steve.getRandom(), "I don't know. I don't know a lot of things.", "Ask me up close. I think better up close.");
-        }
-        memory.setDirty();
-    }
 
     private static boolean has(String text, String... words) {
         for (String word : words) if (text.contains(word)) return true;

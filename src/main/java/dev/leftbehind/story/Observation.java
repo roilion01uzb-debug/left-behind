@@ -148,7 +148,7 @@ public final class Observation {
                     "You just lie down and the night goes away? That's not fair.");
         });
 
-        ServerMessageEvents.CHAT_MESSAGE.register((message, sender, params) -> Reactions.chat(sender, message.signedContent()));
+        ServerMessageEvents.CHAT_MESSAGE.register((message, sender, params) -> dev.leftbehind.talk.Talk.hear(sender, message.signedContent()));
     }
 
     private static void onBreak(ServerLevel level, ServerPlayer player, BlockState state) {

@@ -115,15 +115,6 @@
       "leftbehind:steve/mutter_2"
     ]
   },
-  "steve.talk": {
-    "subtitle": "subtitles.leftbehind.steve.talk",
-    "sounds": [
-      "leftbehind:steve/talk_1",
-      "leftbehind:steve/talk_2",
-      "leftbehind:steve/talk_3",
-      "leftbehind:steve/talk_4"
-    ]
-  },
   "ghost.appear": {
     "subtitle": "subtitles.leftbehind.ghost.appear",
     "sounds": [

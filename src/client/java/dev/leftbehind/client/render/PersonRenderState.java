@@ -1,6 +1,10 @@
 package dev.leftbehind.client.render;
 
+import java.util.List;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.phys.Vec3;
+import org.jspecify.annotations.Nullable;
 
 /**
  * What the renderer knows about Steve, Herobrine or one of the removed ones for one frame.
@@ -14,4 +18,7 @@ public class PersonRenderState extends HumanoidRenderState {
     public int variant;
     /** Ghosts only: 0 while present, rising to 1 as it fades out. */
     public float fade;
+    /** What they are saying right now, one row per line, or null. */
+    public @Nullable List<Component> speech;
+    public @Nullable Vec3 speechAttachment;
 }
