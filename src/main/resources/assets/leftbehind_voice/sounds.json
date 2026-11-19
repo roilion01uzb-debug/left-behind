@@ -1,0 +1,5610 @@
+{
+ "herobrine.1a4d4e6f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:herobrine/1a4d4e6f"
+   }
+  ]
+ },
+ "herobrine.268b329c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:herobrine/268b329c"
+   }
+  ]
+ },
+ "herobrine.2a2da0f8": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:herobrine/2a2da0f8"
+   }
+  ]
+ },
+ "herobrine.31973cdf": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:herobrine/31973cdf"
+   }
+  ]
+ },
+ "herobrine.46ed6ac2": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:herobrine/46ed6ac2"
+   }
+  ]
+ },
+ "herobrine.5aa1dc28": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:herobrine/5aa1dc28"
+   }
+  ]
+ },
+ "herobrine.6d9d33dc": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:herobrine/6d9d33dc"
+   }
+  ]
+ },
+ "herobrine.a790c2c6": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:herobrine/a790c2c6"
+   }
+  ]
+ },
+ "herobrine.cb461447": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:herobrine/cb461447"
+   }
+  ]
+ },
+ "herobrine.e6bc2e96": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:herobrine/e6bc2e96"
+   }
+  ]
+ },
+ "herobrine.fc7a2059": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:herobrine/fc7a2059"
+   }
+  ]
+ },
+ "steve.00828c97": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/00828c97"
+   }
+  ]
+ },
+ "steve.019a95f9": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/019a95f9"
+   }
+  ]
+ },
+ "steve.02055e86": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/02055e86"
+   }
+  ]
+ },
+ "steve.02906c26": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/02906c26"
+   }
+  ]
+ },
+ "steve.02a1fcf6": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/02a1fcf6"
+   }
+  ]
+ },
+ "steve.0314bc40": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/0314bc40"
+   }
+  ]
+ },
+ "steve.03280dc5": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/03280dc5"
+   }
+  ]
+ },
+ "steve.040ee837": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/040ee837"
+   }
+  ]
+ },
+ "steve.043eeb77": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/043eeb77"
+   }
+  ]
+ },
+ "steve.045f1796": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/045f1796"
+   }
+  ]
+ },
+ "steve.04a898b1": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/04a898b1"
+   }
+  ]
+ },
+ "steve.0569340c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/0569340c"
+   }
+  ]
+ },
+ "steve.058292d4": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/058292d4"
+   }
+  ]
+ },
+ "steve.05b21f6e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/05b21f6e"
+   }
+  ]
+ },
+ "steve.05e1b032": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/05e1b032"
+   }
+  ]
+ },
+ "steve.05ed83c4": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/05ed83c4"
+   }
+  ]
+ },
+ "steve.05f7c412": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/05f7c412"
+   }
+  ]
+ },
+ "steve.0619280f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/0619280f"
+   }
+  ]
+ },
+ "steve.06cf6d7f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/06cf6d7f"
+   }
+  ]
+ },
+ "steve.074b0d45": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/074b0d45"
+   }
+  ]
+ },
+ "steve.081c989b": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/081c989b"
+   }
+  ]
+ },
+ "steve.0893e361": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/0893e361"
+   }
+  ]
+ },
+ "steve.08b7bf20": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/08b7bf20"
+   }
+  ]
+ },
+ "steve.09a9b2f7": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/09a9b2f7"
+   }
+  ]
+ },
+ "steve.09cf3350": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/09cf3350"
+   }
+  ]
+ },
+ "steve.0a4b39fc": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/0a4b39fc"
+   }
+  ]
+ },
+ "steve.0a7c27cb": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/0a7c27cb"
+   }
+  ]
+ },
+ "steve.0b629867": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/0b629867"
+   }
+  ]
+ },
+ "steve.0ba846fa": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/0ba846fa"
+   }
+  ]
+ },
+ "steve.0bab5375": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/0bab5375"
+   }
+  ]
+ },
+ "steve.0beb0aec": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/0beb0aec"
+   }
+  ]
+ },
+ "steve.0c09e171": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/0c09e171"
+   }
+  ]
+ },
+ "steve.0c30c21c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/0c30c21c"
+   }
+  ]
+ },
+ "steve.0c86ab85": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/0c86ab85"
+   }
+  ]
+ },
+ "steve.0cb4cb98": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/0cb4cb98"
+   }
+  ]
+ },
+ "steve.0cdb816c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/0cdb816c"
+   }
+  ]
+ },
+ "steve.0cef0924": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/0cef0924"
+   }
+  ]
+ },
+ "steve.0d075d1a": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/0d075d1a"
+   }
+  ]
+ },
+ "steve.0d6921b1": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/0d6921b1"
+   }
+  ]
+ },
+ "steve.0dd1e144": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/0dd1e144"
+   }
+  ]
+ },
+ "steve.0e046b22": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/0e046b22"
+   }
+  ]
+ },
+ "steve.0e89ce14": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/0e89ce14"
+   }
+  ]
+ },
+ "steve.0ebe8e5d": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/0ebe8e5d"
+   }
+  ]
+ },
+ "steve.0ebea8c6": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/0ebea8c6"
+   }
+  ]
+ },
+ "steve.0ec3525d": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/0ec3525d"
+   }
+  ]
+ },
+ "steve.0efe4f75": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/0efe4f75"
+   }
+  ]
+ },
+ "steve.0f354d39": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/0f354d39"
+   }
+  ]
+ },
+ "steve.0fe8f5f5": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/0fe8f5f5"
+   }
+  ]
+ },
+ "steve.1010783c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/1010783c"
+   }
+  ]
+ },
+ "steve.107bee60": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/107bee60"
+   }
+  ]
+ },
+ "steve.10fbe032": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/10fbe032"
+   }
+  ]
+ },
+ "steve.11038057": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/11038057"
+   }
+  ]
+ },
+ "steve.118ff7f2": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/118ff7f2"
+   }
+  ]
+ },
+ "steve.119baa75": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/119baa75"
+   }
+  ]
+ },
+ "steve.11e9ed12": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/11e9ed12"
+   }
+  ]
+ },
+ "steve.1237416c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/1237416c"
+   }
+  ]
+ },
+ "steve.127075bd": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/127075bd"
+   }
+  ]
+ },
+ "steve.13035d41": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/13035d41"
+   }
+  ]
+ },
+ "steve.130b492f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/130b492f"
+   }
+  ]
+ },
+ "steve.13a021eb": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/13a021eb"
+   }
+  ]
+ },
+ "steve.14b1d7af": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/14b1d7af"
+   }
+  ]
+ },
+ "steve.15179e4c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/15179e4c"
+   }
+  ]
+ },
+ "steve.15bf9f5d": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/15bf9f5d"
+   }
+  ]
+ },
+ "steve.165294ec": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/165294ec"
+   }
+  ]
+ },
+ "steve.16a34715": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/16a34715"
+   }
+  ]
+ },
+ "steve.1711f1ed": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/1711f1ed"
+   }
+  ]
+ },
+ "steve.17240a5a": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/17240a5a"
+   }
+  ]
+ },
+ "steve.17cc07d9": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/17cc07d9"
+   }
+  ]
+ },
+ "steve.1854fdce": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/1854fdce"
+   }
+  ]
+ },
+ "steve.18743595": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/18743595"
+   }
+  ]
+ },
+ "steve.18eb0a32": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/18eb0a32"
+   }
+  ]
+ },
+ "steve.1908f212": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/1908f212"
+   }
+  ]
+ },
+ "steve.19352af6": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/19352af6"
+   }
+  ]
+ },
+ "steve.19cf082f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/19cf082f"
+   }
+  ]
+ },
+ "steve.19f53716": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/19f53716"
+   }
+  ]
+ },
+ "steve.1a75f206": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/1a75f206"
+   }
+  ]
+ },
+ "steve.1aa66583": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/1aa66583"
+   }
+  ]
+ },
+ "steve.1ac81e1f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/1ac81e1f"
+   }
+  ]
+ },
+ "steve.1aca1e02": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/1aca1e02"
+   }
+  ]
+ },
+ "steve.1bf7eaaa": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/1bf7eaaa"
+   }
+  ]
+ },
+ "steve.1c62f035": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/1c62f035"
+   }
+  ]
+ },
+ "steve.1ca5e826": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/1ca5e826"
+   }
+  ]
+ },
+ "steve.1ccbe33e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/1ccbe33e"
+   }
+  ]
+ },
+ "steve.1d2528de": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/1d2528de"
+   }
+  ]
+ },
+ "steve.1d8f6b7e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/1d8f6b7e"
+   }
+  ]
+ },
+ "steve.1db63d46": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/1db63d46"
+   }
+  ]
+ },
+ "steve.1de67c67": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/1de67c67"
+   }
+  ]
+ },
+ "steve.1e0a6f7a": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/1e0a6f7a"
+   }
+  ]
+ },
+ "steve.1e136b08": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/1e136b08"
+   }
+  ]
+ },
+ "steve.1e2a1ad2": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/1e2a1ad2"
+   }
+  ]
+ },
+ "steve.1e5c17d5": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/1e5c17d5"
+   }
+  ]
+ },
+ "steve.1e612b1e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/1e612b1e"
+   }
+  ]
+ },
+ "steve.1e7c2f35": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/1e7c2f35"
+   }
+  ]
+ },
+ "steve.1e801371": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/1e801371"
+   }
+  ]
+ },
+ "steve.1e9fd23e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/1e9fd23e"
+   }
+  ]
+ },
+ "steve.1f09faaa": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/1f09faaa"
+   }
+  ]
+ },
+ "steve.1f0ee946": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/1f0ee946"
+   }
+  ]
+ },
+ "steve.1f1db21e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/1f1db21e"
+   }
+  ]
+ },
+ "steve.1f227443": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/1f227443"
+   }
+  ]
+ },
+ "steve.1fe1660a": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/1fe1660a"
+   }
+  ]
+ },
+ "steve.1ff6fc90": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/1ff6fc90"
+   }
+  ]
+ },
+ "steve.1ff92c2a": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/1ff92c2a"
+   }
+  ]
+ },
+ "steve.1ffc8844": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/1ffc8844"
+   }
+  ]
+ },
+ "steve.21a09e8f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/21a09e8f"
+   }
+  ]
+ },
+ "steve.21ade123": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/21ade123"
+   }
+  ]
+ },
+ "steve.22296c2e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/22296c2e"
+   }
+  ]
+ },
+ "steve.229c9833": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/229c9833"
+   }
+  ]
+ },
+ "steve.231f0dc9": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/231f0dc9"
+   }
+  ]
+ },
+ "steve.23ed438a": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/23ed438a"
+   }
+  ]
+ },
+ "steve.245f3355": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/245f3355"
+   }
+  ]
+ },
+ "steve.24aa97f9": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/24aa97f9"
+   }
+  ]
+ },
+ "steve.24ccc678": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/24ccc678"
+   }
+  ]
+ },
+ "steve.24ddf0a2": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/24ddf0a2"
+   }
+  ]
+ },
+ "steve.25232141": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/25232141"
+   }
+  ]
+ },
+ "steve.255d9860": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/255d9860"
+   }
+  ]
+ },
+ "steve.25ba4319": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/25ba4319"
+   }
+  ]
+ },
+ "steve.261c8281": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/261c8281"
+   }
+  ]
+ },
+ "steve.2626e773": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/2626e773"
+   }
+  ]
+ },
+ "steve.273e7f7e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/273e7f7e"
+   }
+  ]
+ },
+ "steve.27be9c36": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/27be9c36"
+   }
+  ]
+ },
+ "steve.28248006": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/28248006"
+   }
+  ]
+ },
+ "steve.28256bcf": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/28256bcf"
+   }
+  ]
+ },
+ "steve.28559b51": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/28559b51"
+   }
+  ]
+ },
+ "steve.29892045": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/29892045"
+   }
+  ]
+ },
+ "steve.298c3b29": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/298c3b29"
+   }
+  ]
+ },
+ "steve.2a6b8829": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/2a6b8829"
+   }
+  ]
+ },
+ "steve.2acf0601": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/2acf0601"
+   }
+  ]
+ },
+ "steve.2b5cf4fc": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/2b5cf4fc"
+   }
+  ]
+ },
+ "steve.2b8aaa05": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/2b8aaa05"
+   }
+  ]
+ },
+ "steve.2bd01f56": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/2bd01f56"
+   }
+  ]
+ },
+ "steve.2c5d1c26": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/2c5d1c26"
+   }
+  ]
+ },
+ "steve.2c7ab27e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/2c7ab27e"
+   }
+  ]
+ },
+ "steve.2cc75c46": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/2cc75c46"
+   }
+  ]
+ },
+ "steve.2cf1620e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/2cf1620e"
+   }
+  ]
+ },
+ "steve.2d1cde8c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/2d1cde8c"
+   }
+  ]
+ },
+ "steve.2d5e0794": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/2d5e0794"
+   }
+  ]
+ },
+ "steve.2d6bbdea": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/2d6bbdea"
+   }
+  ]
+ },
+ "steve.2dfdb3fd": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/2dfdb3fd"
+   }
+  ]
+ },
+ "steve.2e189b4d": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/2e189b4d"
+   }
+  ]
+ },
+ "steve.2e1e78e3": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/2e1e78e3"
+   }
+  ]
+ },
+ "steve.2e2c23d6": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/2e2c23d6"
+   }
+  ]
+ },
+ "steve.2ee2021f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/2ee2021f"
+   }
+  ]
+ },
+ "steve.2f764ef1": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/2f764ef1"
+   }
+  ]
+ },
+ "steve.2f856db7": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/2f856db7"
+   }
+  ]
+ },
+ "steve.2fd2caff": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/2fd2caff"
+   }
+  ]
+ },
+ "steve.306d19af": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/306d19af"
+   }
+  ]
+ },
+ "steve.30a7e4c3": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/30a7e4c3"
+   }
+  ]
+ },
+ "steve.320eb5d1": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/320eb5d1"
+   }
+  ]
+ },
+ "steve.3237e019": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/3237e019"
+   }
+  ]
+ },
+ "steve.324116ca": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/324116ca"
+   }
+  ]
+ },
+ "steve.32828771": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/32828771"
+   }
+  ]
+ },
+ "steve.32bbd1c8": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/32bbd1c8"
+   }
+  ]
+ },
+ "steve.3384f6a7": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/3384f6a7"
+   }
+  ]
+ },
+ "steve.33c3f92f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/33c3f92f"
+   }
+  ]
+ },
+ "steve.34697541": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/34697541"
+   }
+  ]
+ },
+ "steve.34d9da1d": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/34d9da1d"
+   }
+  ]
+ },
+ "steve.34d9dc7e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/34d9dc7e"
+   }
+  ]
+ },
+ "steve.350b7b14": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/350b7b14"
+   }
+  ]
+ },
+ "steve.35e30be8": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/35e30be8"
+   }
+  ]
+ },
+ "steve.362bc6a6": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/362bc6a6"
+   }
+  ]
+ },
+ "steve.37730402": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/37730402"
+   }
+  ]
+ },
+ "steve.3800c53c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/3800c53c"
+   }
+  ]
+ },
+ "steve.38261d11": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/38261d11"
+   }
+  ]
+ },
+ "steve.3839118b": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/3839118b"
+   }
+  ]
+ },
+ "steve.39294c29": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/39294c29"
+   }
+  ]
+ },
+ "steve.395691e0": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/395691e0"
+   }
+  ]
+ },
+ "steve.3963e08e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/3963e08e"
+   }
+  ]
+ },
+ "steve.399ea367": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/399ea367"
+   }
+  ]
+ },
+ "steve.3a19a40f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/3a19a40f"
+   }
+  ]
+ },
+ "steve.3acd4634": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/3acd4634"
+   }
+  ]
+ },
+ "steve.3afe7171": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/3afe7171"
+   }
+  ]
+ },
+ "steve.3b21fb27": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/3b21fb27"
+   }
+  ]
+ },
+ "steve.3bbc3046": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/3bbc3046"
+   }
+  ]
+ },
+ "steve.3bcd5d55": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/3bcd5d55"
+   }
+  ]
+ },
+ "steve.3bd3fca9": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/3bd3fca9"
+   }
+  ]
+ },
+ "steve.3bf6170d": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/3bf6170d"
+   }
+  ]
+ },
+ "steve.3d09f1f8": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/3d09f1f8"
+   }
+  ]
+ },
+ "steve.3dcf2daf": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/3dcf2daf"
+   }
+  ]
+ },
+ "steve.3debf35e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/3debf35e"
+   }
+  ]
+ },
+ "steve.3e2368b2": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/3e2368b2"
+   }
+  ]
+ },
+ "steve.3e270077": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/3e270077"
+   }
+  ]
+ },
+ "steve.3e562a87": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/3e562a87"
+   }
+  ]
+ },
+ "steve.3eefb75c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/3eefb75c"
+   }
+  ]
+ },
+ "steve.3f533ddc": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/3f533ddc"
+   }
+  ]
+ },
+ "steve.406468bb": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/406468bb"
+   }
+  ]
+ },
+ "steve.40650fca": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/40650fca"
+   }
+  ]
+ },
+ "steve.40959188": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/40959188"
+   }
+  ]
+ },
+ "steve.40e59628": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/40e59628"
+   }
+  ]
+ },
+ "steve.410213c0": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/410213c0"
+   }
+  ]
+ },
+ "steve.4195a7c4": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/4195a7c4"
+   }
+  ]
+ },
+ "steve.41b9553b": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/41b9553b"
+   }
+  ]
+ },
+ "steve.41e53aa8": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/41e53aa8"
+   }
+  ]
+ },
+ "steve.42063db9": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/42063db9"
+   }
+  ]
+ },
+ "steve.420dc9fa": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/420dc9fa"
+   }
+  ]
+ },
+ "steve.43017c63": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/43017c63"
+   }
+  ]
+ },
+ "steve.431bc528": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/431bc528"
+   }
+  ]
+ },
+ "steve.43498ccd": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/43498ccd"
+   }
+  ]
+ },
+ "steve.43c81cbe": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/43c81cbe"
+   }
+  ]
+ },
+ "steve.4400d6e9": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/4400d6e9"
+   }
+  ]
+ },
+ "steve.440e9535": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/440e9535"
+   }
+  ]
+ },
+ "steve.4452a164": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/4452a164"
+   }
+  ]
+ },
+ "steve.445b76e6": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/445b76e6"
+   }
+  ]
+ },
+ "steve.44e23b49": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/44e23b49"
+   }
+  ]
+ },
+ "steve.458db12b": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/458db12b"
+   }
+  ]
+ },
+ "steve.45ce6f1b": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/45ce6f1b"
+   }
+  ]
+ },
+ "steve.46934ec1": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/46934ec1"
+   }
+  ]
+ },
+ "steve.48b5684e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/48b5684e"
+   }
+  ]
+ },
+ "steve.491e24e0": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/491e24e0"
+   }
+  ]
+ },
+ "steve.49675341": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/49675341"
+   }
+  ]
+ },
+ "steve.49de1be6": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/49de1be6"
+   }
+  ]
+ },
+ "steve.4a750549": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/4a750549"
+   }
+  ]
+ },
+ "steve.4b235f0a": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/4b235f0a"
+   }
+  ]
+ },
+ "steve.4c3eb235": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/4c3eb235"
+   }
+  ]
+ },
+ "steve.4c9a973f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/4c9a973f"
+   }
+  ]
+ },
+ "steve.4d014183": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/4d014183"
+   }
+  ]
+ },
+ "steve.4d6bc4f7": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/4d6bc4f7"
+   }
+  ]
+ },
+ "steve.4db47a13": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/4db47a13"
+   }
+  ]
+ },
+ "steve.4dc290df": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/4dc290df"
+   }
+  ]
+ },
+ "steve.4dcea708": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/4dcea708"
+   }
+  ]
+ },
+ "steve.4dd7f810": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/4dd7f810"
+   }
+  ]
+ },
+ "steve.4df9ead9": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/4df9ead9"
+   }
+  ]
+ },
+ "steve.4e1b7d3a": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/4e1b7d3a"
+   }
+  ]
+ },
+ "steve.4efdde43": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/4efdde43"
+   }
+  ]
+ },
+ "steve.4f108e6d": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/4f108e6d"
+   }
+  ]
+ },
+ "steve.4f3f5ee7": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/4f3f5ee7"
+   }
+  ]
+ },
+ "steve.4fa982fa": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/4fa982fa"
+   }
+  ]
+ },
+ "steve.4fafb346": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/4fafb346"
+   }
+  ]
+ },
+ "steve.4fde9206": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/4fde9206"
+   }
+  ]
+ },
+ "steve.506d0717": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/506d0717"
+   }
+  ]
+ },
+ "steve.50d767d7": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/50d767d7"
+   }
+  ]
+ },
+ "steve.50d99212": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/50d99212"
+   }
+  ]
+ },
+ "steve.51157952": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/51157952"
+   }
+  ]
+ },
+ "steve.51d7e059": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/51d7e059"
+   }
+  ]
+ },
+ "steve.51ffc7e1": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/51ffc7e1"
+   }
+  ]
+ },
+ "steve.52467c9c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/52467c9c"
+   }
+  ]
+ },
+ "steve.52484203": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/52484203"
+   }
+  ]
+ },
+ "steve.52ab98c3": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/52ab98c3"
+   }
+  ]
+ },
+ "steve.531bcc43": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/531bcc43"
+   }
+  ]
+ },
+ "steve.534e2050": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/534e2050"
+   }
+  ]
+ },
+ "steve.53e15b00": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/53e15b00"
+   }
+  ]
+ },
+ "steve.5509e27f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/5509e27f"
+   }
+  ]
+ },
+ "steve.5516a2a9": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/5516a2a9"
+   }
+  ]
+ },
+ "steve.559c83e2": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/559c83e2"
+   }
+  ]
+ },
+ "steve.55f8c68f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/55f8c68f"
+   }
+  ]
+ },
+ "steve.560a0b22": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/560a0b22"
+   }
+  ]
+ },
+ "steve.563971d1": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/563971d1"
+   }
+  ]
+ },
+ "steve.5665aa18": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/5665aa18"
+   }
+  ]
+ },
+ "steve.567e1a8e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/567e1a8e"
+   }
+  ]
+ },
+ "steve.56ea0cba": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/56ea0cba"
+   }
+  ]
+ },
+ "steve.575b1d3a": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/575b1d3a"
+   }
+  ]
+ },
+ "steve.57740fd9": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/57740fd9"
+   }
+  ]
+ },
+ "steve.57814f0f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/57814f0f"
+   }
+  ]
+ },
+ "steve.57f4d96b": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/57f4d96b"
+   }
+  ]
+ },
+ "steve.5801d390": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/5801d390"
+   }
+  ]
+ },
+ "steve.5855f8fa": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/5855f8fa"
+   }
+  ]
+ },
+ "steve.588dc5f2": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/588dc5f2"
+   }
+  ]
+ },
+ "steve.5894c609": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/5894c609"
+   }
+  ]
+ },
+ "steve.58b33956": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/58b33956"
+   }
+  ]
+ },
+ "steve.5926b575": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/5926b575"
+   }
+  ]
+ },
+ "steve.59464cd5": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/59464cd5"
+   }
+  ]
+ },
+ "steve.5969e098": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/5969e098"
+   }
+  ]
+ },
+ "steve.5a010677": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/5a010677"
+   }
+  ]
+ },
+ "steve.5a52cb63": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/5a52cb63"
+   }
+  ]
+ },
+ "steve.5ad509da": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/5ad509da"
+   }
+  ]
+ },
+ "steve.5d25d753": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/5d25d753"
+   }
+  ]
+ },
+ "steve.5dec553f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/5dec553f"
+   }
+  ]
+ },
+ "steve.5e157e47": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/5e157e47"
+   }
+  ]
+ },
+ "steve.5e2a479b": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/5e2a479b"
+   }
+  ]
+ },
+ "steve.5ec6e77f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/5ec6e77f"
+   }
+  ]
+ },
+ "steve.602c1d57": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/602c1d57"
+   }
+  ]
+ },
+ "steve.603b8af8": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/603b8af8"
+   }
+  ]
+ },
+ "steve.618560cc": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/618560cc"
+   }
+  ]
+ },
+ "steve.618b5aa7": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/618b5aa7"
+   }
+  ]
+ },
+ "steve.63166802": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/63166802"
+   }
+  ]
+ },
+ "steve.633f5291": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/633f5291"
+   }
+  ]
+ },
+ "steve.634c2947": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/634c2947"
+   }
+  ]
+ },
+ "steve.636d1938": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/636d1938"
+   }
+  ]
+ },
+ "steve.6375464b": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/6375464b"
+   }
+  ]
+ },
+ "steve.6408bc6c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/6408bc6c"
+   }
+  ]
+ },
+ "steve.64f89020": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/64f89020"
+   }
+  ]
+ },
+ "steve.651512c5": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/651512c5"
+   }
+  ]
+ },
+ "steve.65b56b07": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/65b56b07"
+   }
+  ]
+ },
+ "steve.65cbeba7": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/65cbeba7"
+   }
+  ]
+ },
+ "steve.65d53497": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/65d53497"
+   }
+  ]
+ },
+ "steve.6647b013": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/6647b013"
+   }
+  ]
+ },
+ "steve.67866e40": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/67866e40"
+   }
+  ]
+ },
+ "steve.67df6df3": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/67df6df3"
+   }
+  ]
+ },
+ "steve.68273133": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/68273133"
+   }
+  ]
+ },
+ "steve.693aae2f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/693aae2f"
+   }
+  ]
+ },
+ "steve.69a32f04": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/69a32f04"
+   }
+  ]
+ },
+ "steve.69bad712": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/69bad712"
+   }
+  ]
+ },
+ "steve.6a789ab8": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/6a789ab8"
+   }
+  ]
+ },
+ "steve.6afce641": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/6afce641"
+   }
+  ]
+ },
+ "steve.6b421e33": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/6b421e33"
+   }
+  ]
+ },
+ "steve.6bb7ef2f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/6bb7ef2f"
+   }
+  ]
+ },
+ "steve.6bda80e8": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/6bda80e8"
+   }
+  ]
+ },
+ "steve.6beb37a6": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/6beb37a6"
+   }
+  ]
+ },
+ "steve.6d021fd8": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/6d021fd8"
+   }
+  ]
+ },
+ "steve.6da7b904": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/6da7b904"
+   }
+  ]
+ },
+ "steve.6dcae546": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/6dcae546"
+   }
+  ]
+ },
+ "steve.6e47d28a": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/6e47d28a"
+   }
+  ]
+ },
+ "steve.6e5d5e75": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/6e5d5e75"
+   }
+  ]
+ },
+ "steve.6e6ebd50": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/6e6ebd50"
+   }
+  ]
+ },
+ "steve.6f06cfa3": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/6f06cfa3"
+   }
+  ]
+ },
+ "steve.6f2a8785": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/6f2a8785"
+   }
+  ]
+ },
+ "steve.6f618816": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/6f618816"
+   }
+  ]
+ },
+ "steve.6fd639a5": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/6fd639a5"
+   }
+  ]
+ },
+ "steve.6ffa64e5": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/6ffa64e5"
+   }
+  ]
+ },
+ "steve.703688bf": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/703688bf"
+   }
+  ]
+ },
+ "steve.705a32f0": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/705a32f0"
+   }
+  ]
+ },
+ "steve.70a17c8e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/70a17c8e"
+   }
+  ]
+ },
+ "steve.710e6218": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/710e6218"
+   }
+  ]
+ },
+ "steve.711a9917": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/711a9917"
+   }
+  ]
+ },
+ "steve.717df6db": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/717df6db"
+   }
+  ]
+ },
+ "steve.71949fd3": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/71949fd3"
+   }
+  ]
+ },
+ "steve.72315220": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/72315220"
+   }
+  ]
+ },
+ "steve.736f1a9e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/736f1a9e"
+   }
+  ]
+ },
+ "steve.7375794b": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/7375794b"
+   }
+  ]
+ },
+ "steve.74590b6f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/74590b6f"
+   }
+  ]
+ },
+ "steve.74d8cc93": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/74d8cc93"
+   }
+  ]
+ },
+ "steve.7537599f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/7537599f"
+   }
+  ]
+ },
+ "steve.75735f9f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/75735f9f"
+   }
+  ]
+ },
+ "steve.757e6cb6": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/757e6cb6"
+   }
+  ]
+ },
+ "steve.7583cae0": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/7583cae0"
+   }
+  ]
+ },
+ "steve.75a92e00": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/75a92e00"
+   }
+  ]
+ },
+ "steve.75c65831": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/75c65831"
+   }
+  ]
+ },
+ "steve.75ef205e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/75ef205e"
+   }
+  ]
+ },
+ "steve.75f130fb": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/75f130fb"
+   }
+  ]
+ },
+ "steve.7605501e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/7605501e"
+   }
+  ]
+ },
+ "steve.763e741f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/763e741f"
+   }
+  ]
+ },
+ "steve.76aac9ca": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/76aac9ca"
+   }
+  ]
+ },
+ "steve.773c85bd": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/773c85bd"
+   }
+  ]
+ },
+ "steve.77a67401": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/77a67401"
+   }
+  ]
+ },
+ "steve.77afee9b": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/77afee9b"
+   }
+  ]
+ },
+ "steve.77f39d2a": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/77f39d2a"
+   }
+  ]
+ },
+ "steve.78bf16f4": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/78bf16f4"
+   }
+  ]
+ },
+ "steve.78e8e6de": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/78e8e6de"
+   }
+  ]
+ },
+ "steve.79857d66": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/79857d66"
+   }
+  ]
+ },
+ "steve.7af637aa": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/7af637aa"
+   }
+  ]
+ },
+ "steve.7b3f0617": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/7b3f0617"
+   }
+  ]
+ },
+ "steve.7c0500d8": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/7c0500d8"
+   }
+  ]
+ },
+ "steve.7c3d5613": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/7c3d5613"
+   }
+  ]
+ },
+ "steve.7cd9acce": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/7cd9acce"
+   }
+  ]
+ },
+ "steve.7d596e5a": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/7d596e5a"
+   }
+  ]
+ },
+ "steve.7d606019": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/7d606019"
+   }
+  ]
+ },
+ "steve.7dc19c29": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/7dc19c29"
+   }
+  ]
+ },
+ "steve.7dfbc2d0": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/7dfbc2d0"
+   }
+  ]
+ },
+ "steve.7e726c18": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/7e726c18"
+   }
+  ]
+ },
+ "steve.7eead3ac": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/7eead3ac"
+   }
+  ]
+ },
+ "steve.7fc1ab93": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/7fc1ab93"
+   }
+  ]
+ },
+ "steve.7ff9bcec": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/7ff9bcec"
+   }
+  ]
+ },
+ "steve.80b8c141": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/80b8c141"
+   }
+  ]
+ },
+ "steve.80c652c7": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/80c652c7"
+   }
+  ]
+ },
+ "steve.818cfa88": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/818cfa88"
+   }
+  ]
+ },
+ "steve.819d19de": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/819d19de"
+   }
+  ]
+ },
+ "steve.81d80a70": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/81d80a70"
+   }
+  ]
+ },
+ "steve.82234f4d": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/82234f4d"
+   }
+  ]
+ },
+ "steve.82b8d89c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/82b8d89c"
+   }
+  ]
+ },
+ "steve.82ffea1a": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/82ffea1a"
+   }
+  ]
+ },
+ "steve.83638d7c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/83638d7c"
+   }
+  ]
+ },
+ "steve.83aba954": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/83aba954"
+   }
+  ]
+ },
+ "steve.84371d4b": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/84371d4b"
+   }
+  ]
+ },
+ "steve.8461807b": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/8461807b"
+   }
+  ]
+ },
+ "steve.84f551f0": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/84f551f0"
+   }
+  ]
+ },
+ "steve.85620437": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/85620437"
+   }
+  ]
+ },
+ "steve.8656a15b": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/8656a15b"
+   }
+  ]
+ },
+ "steve.86740b9d": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/86740b9d"
+   }
+  ]
+ },
+ "steve.86e7fd0c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/86e7fd0c"
+   }
+  ]
+ },
+ "steve.876a6db9": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/876a6db9"
+   }
+  ]
+ },
+ "steve.8784353a": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/8784353a"
+   }
+  ]
+ },
+ "steve.87a7daf5": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/87a7daf5"
+   }
+  ]
+ },
+ "steve.882b89ff": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/882b89ff"
+   }
+  ]
+ },
+ "steve.88ef6839": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/88ef6839"
+   }
+  ]
+ },
+ "steve.8912596c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/8912596c"
+   }
+  ]
+ },
+ "steve.8922e946": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/8922e946"
+   }
+  ]
+ },
+ "steve.89829cb0": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/89829cb0"
+   }
+  ]
+ },
+ "steve.8a3b1d22": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/8a3b1d22"
+   }
+  ]
+ },
+ "steve.8a87bf95": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/8a87bf95"
+   }
+  ]
+ },
+ "steve.8ac53ee7": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/8ac53ee7"
+   }
+  ]
+ },
+ "steve.8b1f1be1": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/8b1f1be1"
+   }
+  ]
+ },
+ "steve.8b52fec0": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/8b52fec0"
+   }
+  ]
+ },
+ "steve.8b593db7": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/8b593db7"
+   }
+  ]
+ },
+ "steve.8b6d1869": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/8b6d1869"
+   }
+  ]
+ },
+ "steve.8dcc95d3": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/8dcc95d3"
+   }
+  ]
+ },
+ "steve.8e3f1c69": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/8e3f1c69"
+   }
+  ]
+ },
+ "steve.8e5209aa": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/8e5209aa"
+   }
+  ]
+ },
+ "steve.8e651f52": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/8e651f52"
+   }
+  ]
+ },
+ "steve.8f48b9f8": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/8f48b9f8"
+   }
+  ]
+ },
+ "steve.8ffec8cf": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/8ffec8cf"
+   }
+  ]
+ },
+ "steve.9029ca1b": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/9029ca1b"
+   }
+  ]
+ },
+ "steve.902aedd3": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/902aedd3"
+   }
+  ]
+ },
+ "steve.91511083": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/91511083"
+   }
+  ]
+ },
+ "steve.91658e1b": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/91658e1b"
+   }
+  ]
+ },
+ "steve.916dd489": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/916dd489"
+   }
+  ]
+ },
+ "steve.91f59ca4": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/91f59ca4"
+   }
+  ]
+ },
+ "steve.9259cbbb": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/9259cbbb"
+   }
+  ]
+ },
+ "steve.92b5c81b": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/92b5c81b"
+   }
+  ]
+ },
+ "steve.92f035ed": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/92f035ed"
+   }
+  ]
+ },
+ "steve.9339bf43": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/9339bf43"
+   }
+  ]
+ },
+ "steve.944e018a": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/944e018a"
+   }
+  ]
+ },
+ "steve.9464cb6e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/9464cb6e"
+   }
+  ]
+ },
+ "steve.9499b0f3": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/9499b0f3"
+   }
+  ]
+ },
+ "steve.94da6275": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/94da6275"
+   }
+  ]
+ },
+ "steve.9547589f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/9547589f"
+   }
+  ]
+ },
+ "steve.966426d7": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/966426d7"
+   }
+  ]
+ },
+ "steve.9693b233": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/9693b233"
+   }
+  ]
+ },
+ "steve.96a49fd5": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/96a49fd5"
+   }
+  ]
+ },
+ "steve.9779662e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/9779662e"
+   }
+  ]
+ },
+ "steve.98431519": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/98431519"
+   }
+  ]
+ },
+ "steve.989826f9": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/989826f9"
+   }
+  ]
+ },
+ "steve.991851b5": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/991851b5"
+   }
+  ]
+ },
+ "steve.99267098": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/99267098"
+   }
+  ]
+ },
+ "steve.995001fd": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/995001fd"
+   }
+  ]
+ },
+ "steve.99b16896": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/99b16896"
+   }
+  ]
+ },
+ "steve.9a5f71bc": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/9a5f71bc"
+   }
+  ]
+ },
+ "steve.9a7debec": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/9a7debec"
+   }
+  ]
+ },
+ "steve.9ae03487": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/9ae03487"
+   }
+  ]
+ },
+ "steve.9ae6ef4c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/9ae6ef4c"
+   }
+  ]
+ },
+ "steve.9baf91cc": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/9baf91cc"
+   }
+  ]
+ },
+ "steve.9d66c359": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/9d66c359"
+   }
+  ]
+ },
+ "steve.9d98ba52": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/9d98ba52"
+   }
+  ]
+ },
+ "steve.9deb7c9d": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/9deb7c9d"
+   }
+  ]
+ },
+ "steve.9eebcd1e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/9eebcd1e"
+   }
+  ]
+ },
+ "steve.9f4170e6": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/9f4170e6"
+   }
+  ]
+ },
+ "steve.a1164b90": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/a1164b90"
+   }
+  ]
+ },
+ "steve.a1f4941f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/a1f4941f"
+   }
+  ]
+ },
+ "steve.a2291b79": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/a2291b79"
+   }
+  ]
+ },
+ "steve.a2702cae": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/a2702cae"
+   }
+  ]
+ },
+ "steve.a2d45269": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/a2d45269"
+   }
+  ]
+ },
+ "steve.a325e61f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/a325e61f"
+   }
+  ]
+ },
+ "steve.a3544841": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/a3544841"
+   }
+  ]
+ },
+ "steve.a4d9d528": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/a4d9d528"
+   }
+  ]
+ },
+ "steve.a63132f9": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/a63132f9"
+   }
+  ]
+ },
+ "steve.a675e4d5": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/a675e4d5"
+   }
+  ]
+ },
+ "steve.a67d3ffb": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/a67d3ffb"
+   }
+  ]
+ },
+ "steve.a6a6db3a": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/a6a6db3a"
+   }
+  ]
+ },
+ "steve.a6bbaf1c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/a6bbaf1c"
+   }
+  ]
+ },
+ "steve.a75c257e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/a75c257e"
+   }
+  ]
+ },
+ "steve.a808d03d": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/a808d03d"
+   }
+  ]
+ },
+ "steve.a808ebbd": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/a808ebbd"
+   }
+  ]
+ },
+ "steve.a833d7e5": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/a833d7e5"
+   }
+  ]
+ },
+ "steve.a88933b7": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/a88933b7"
+   }
+  ]
+ },
+ "steve.a918e550": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/a918e550"
+   }
+  ]
+ },
+ "steve.a968ada5": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/a968ada5"
+   }
+  ]
+ },
+ "steve.a97937da": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/a97937da"
+   }
+  ]
+ },
+ "steve.a9a8770e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/a9a8770e"
+   }
+  ]
+ },
+ "steve.aa0d3330": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/aa0d3330"
+   }
+  ]
+ },
+ "steve.aa121100": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/aa121100"
+   }
+  ]
+ },
+ "steve.aabf0198": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/aabf0198"
+   }
+  ]
+ },
+ "steve.ab1c1ccc": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/ab1c1ccc"
+   }
+  ]
+ },
+ "steve.ac021019": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/ac021019"
+   }
+  ]
+ },
+ "steve.ac104c4c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/ac104c4c"
+   }
+  ]
+ },
+ "steve.ac4d3c05": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/ac4d3c05"
+   }
+  ]
+ },
+ "steve.ac741eb8": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/ac741eb8"
+   }
+  ]
+ },
+ "steve.acaa9bcc": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/acaa9bcc"
+   }
+  ]
+ },
+ "steve.ad3435a7": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/ad3435a7"
+   }
+  ]
+ },
+ "steve.adac05d4": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/adac05d4"
+   }
+  ]
+ },
+ "steve.ae250441": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/ae250441"
+   }
+  ]
+ },
+ "steve.aeda9881": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/aeda9881"
+   }
+  ]
+ },
+ "steve.af07791a": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/af07791a"
+   }
+  ]
+ },
+ "steve.afcbf3fd": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/afcbf3fd"
+   }
+  ]
+ },
+ "steve.b04ba1b7": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/b04ba1b7"
+   }
+  ]
+ },
+ "steve.b0786626": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/b0786626"
+   }
+  ]
+ },
+ "steve.b0a86c40": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/b0a86c40"
+   }
+  ]
+ },
+ "steve.b0bcee5f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/b0bcee5f"
+   }
+  ]
+ },
+ "steve.b19ed6c2": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/b19ed6c2"
+   }
+  ]
+ },
+ "steve.b1ed149c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/b1ed149c"
+   }
+  ]
+ },
+ "steve.b255f942": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/b255f942"
+   }
+  ]
+ },
+ "steve.b2cfa7d5": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/b2cfa7d5"
+   }
+  ]
+ },
+ "steve.b36b3065": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/b36b3065"
+   }
+  ]
+ },
+ "steve.b3bea417": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/b3bea417"
+   }
+  ]
+ },
+ "steve.b42d65b8": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/b42d65b8"
+   }
+  ]
+ },
+ "steve.b43fedcb": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/b43fedcb"
+   }
+  ]
+ },
+ "steve.b45ad4a0": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/b45ad4a0"
+   }
+  ]
+ },
+ "steve.b4c2e6a2": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/b4c2e6a2"
+   }
+  ]
+ },
+ "steve.b54e33ae": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/b54e33ae"
+   }
+  ]
+ },
+ "steve.b5d87a82": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/b5d87a82"
+   }
+  ]
+ },
+ "steve.b5dbab88": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/b5dbab88"
+   }
+  ]
+ },
+ "steve.b5eb8c5f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/b5eb8c5f"
+   }
+  ]
+ },
+ "steve.b5efe595": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/b5efe595"
+   }
+  ]
+ },
+ "steve.b6824806": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/b6824806"
+   }
+  ]
+ },
+ "steve.b7e46eaf": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/b7e46eaf"
+   }
+  ]
+ },
+ "steve.b8088d6e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/b8088d6e"
+   }
+  ]
+ },
+ "steve.b8a284dc": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/b8a284dc"
+   }
+  ]
+ },
+ "steve.b8b2a5a8": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/b8b2a5a8"
+   }
+  ]
+ },
+ "steve.b8f08000": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/b8f08000"
+   }
+  ]
+ },
+ "steve.b919d92c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/b919d92c"
+   }
+  ]
+ },
+ "steve.b94e49ce": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/b94e49ce"
+   }
+  ]
+ },
+ "steve.b9511976": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/b9511976"
+   }
+  ]
+ },
+ "steve.b9c7956b": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/b9c7956b"
+   }
+  ]
+ },
+ "steve.ba615b23": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/ba615b23"
+   }
+  ]
+ },
+ "steve.bae8b183": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/bae8b183"
+   }
+  ]
+ },
+ "steve.bb2a5465": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/bb2a5465"
+   }
+  ]
+ },
+ "steve.bb8db66d": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/bb8db66d"
+   }
+  ]
+ },
+ "steve.bbca702c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/bbca702c"
+   }
+  ]
+ },
+ "steve.bc723c70": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/bc723c70"
+   }
+  ]
+ },
+ "steve.bd09a1cc": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/bd09a1cc"
+   }
+  ]
+ },
+ "steve.bd451990": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/bd451990"
+   }
+  ]
+ },
+ "steve.bd4f4c29": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/bd4f4c29"
+   }
+  ]
+ },
+ "steve.bd771f49": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/bd771f49"
+   }
+  ]
+ },
+ "steve.bd914b26": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/bd914b26"
+   }
+  ]
+ },
+ "steve.be426843": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/be426843"
+   }
+  ]
+ },
+ "steve.be976629": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/be976629"
+   }
+  ]
+ },
+ "steve.beaa49cb": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/beaa49cb"
+   }
+  ]
+ },
+ "steve.beea0624": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/beea0624"
+   }
+  ]
+ },
+ "steve.bf233919": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/bf233919"
+   }
+  ]
+ },
+ "steve.bf6237ef": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/bf6237ef"
+   }
+  ]
+ },
+ "steve.bf84c3f4": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/bf84c3f4"
+   }
+  ]
+ },
+ "steve.c17c2038": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/c17c2038"
+   }
+  ]
+ },
+ "steve.c1cc485a": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/c1cc485a"
+   }
+  ]
+ },
+ "steve.c232aea0": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/c232aea0"
+   }
+  ]
+ },
+ "steve.c29ee8be": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/c29ee8be"
+   }
+  ]
+ },
+ "steve.c2a5b9fe": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/c2a5b9fe"
+   }
+  ]
+ },
+ "steve.c335f80a": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/c335f80a"
+   }
+  ]
+ },
+ "steve.c3519bc5": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/c3519bc5"
+   }
+  ]
+ },
+ "steve.c367d6dc": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/c367d6dc"
+   }
+  ]
+ },
+ "steve.c398799d": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/c398799d"
+   }
+  ]
+ },
+ "steve.c3a240bb": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/c3a240bb"
+   }
+  ]
+ },
+ "steve.c48aa433": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/c48aa433"
+   }
+  ]
+ },
+ "steve.c5513147": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/c5513147"
+   }
+  ]
+ },
+ "steve.c5ad1bc7": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/c5ad1bc7"
+   }
+  ]
+ },
+ "steve.c5f99697": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/c5f99697"
+   }
+  ]
+ },
+ "steve.c62b88cb": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/c62b88cb"
+   }
+  ]
+ },
+ "steve.c68e9dd3": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/c68e9dd3"
+   }
+  ]
+ },
+ "steve.c69bd719": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/c69bd719"
+   }
+  ]
+ },
+ "steve.c8d73f2e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/c8d73f2e"
+   }
+  ]
+ },
+ "steve.c91bc662": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/c91bc662"
+   }
+  ]
+ },
+ "steve.c9638434": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/c9638434"
+   }
+  ]
+ },
+ "steve.c98999f1": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/c98999f1"
+   }
+  ]
+ },
+ "steve.c9df37f6": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/c9df37f6"
+   }
+  ]
+ },
+ "steve.cb7dc39c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/cb7dc39c"
+   }
+  ]
+ },
+ "steve.cc8430da": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/cc8430da"
+   }
+  ]
+ },
+ "steve.cc99c3ea": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/cc99c3ea"
+   }
+  ]
+ },
+ "steve.cca21a4e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/cca21a4e"
+   }
+  ]
+ },
+ "steve.cd4e55c5": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/cd4e55c5"
+   }
+  ]
+ },
+ "steve.cd7504de": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/cd7504de"
+   }
+  ]
+ },
+ "steve.cda83b9d": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/cda83b9d"
+   }
+  ]
+ },
+ "steve.ce35bc44": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/ce35bc44"
+   }
+  ]
+ },
+ "steve.ced9ffa9": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/ced9ffa9"
+   }
+  ]
+ },
+ "steve.cef75d23": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/cef75d23"
+   }
+  ]
+ },
+ "steve.cf50dd8e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/cf50dd8e"
+   }
+  ]
+ },
+ "steve.cf641ce0": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/cf641ce0"
+   }
+  ]
+ },
+ "steve.d0421716": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d0421716"
+   }
+  ]
+ },
+ "steve.d070269f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d070269f"
+   }
+  ]
+ },
+ "steve.d0a1c5bc": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d0a1c5bc"
+   }
+  ]
+ },
+ "steve.d0b4885b": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d0b4885b"
+   }
+  ]
+ },
+ "steve.d0e62720": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d0e62720"
+   }
+  ]
+ },
+ "steve.d1211e0c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d1211e0c"
+   }
+  ]
+ },
+ "steve.d2331c41": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d2331c41"
+   }
+  ]
+ },
+ "steve.d28adb47": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d28adb47"
+   }
+  ]
+ },
+ "steve.d2c73ad1": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d2c73ad1"
+   }
+  ]
+ },
+ "steve.d31928f6": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d31928f6"
+   }
+  ]
+ },
+ "steve.d31b6bfa": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d31b6bfa"
+   }
+  ]
+ },
+ "steve.d3422277": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d3422277"
+   }
+  ]
+ },
+ "steve.d3d9b438": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d3d9b438"
+   }
+  ]
+ },
+ "steve.d444dc51": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d444dc51"
+   }
+  ]
+ },
+ "steve.d4494255": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d4494255"
+   }
+  ]
+ },
+ "steve.d4680938": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d4680938"
+   }
+  ]
+ },
+ "steve.d4a991d3": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d4a991d3"
+   }
+  ]
+ },
+ "steve.d4e804c5": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d4e804c5"
+   }
+  ]
+ },
+ "steve.d4ecbca3": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d4ecbca3"
+   }
+  ]
+ },
+ "steve.d500f41c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d500f41c"
+   }
+  ]
+ },
+ "steve.d5571056": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d5571056"
+   }
+  ]
+ },
+ "steve.d5b8ec5d": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d5b8ec5d"
+   }
+  ]
+ },
+ "steve.d60e57a4": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d60e57a4"
+   }
+  ]
+ },
+ "steve.d64591b2": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d64591b2"
+   }
+  ]
+ },
+ "steve.d658b1cb": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d658b1cb"
+   }
+  ]
+ },
+ "steve.d7060bda": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d7060bda"
+   }
+  ]
+ },
+ "steve.d7ba5046": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d7ba5046"
+   }
+  ]
+ },
+ "steve.d7ed93ea": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d7ed93ea"
+   }
+  ]
+ },
+ "steve.d80f48f3": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d80f48f3"
+   }
+  ]
+ },
+ "steve.d8367ed0": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d8367ed0"
+   }
+  ]
+ },
+ "steve.d8a4959a": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d8a4959a"
+   }
+  ]
+ },
+ "steve.d8ba87a6": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d8ba87a6"
+   }
+  ]
+ },
+ "steve.d9105121": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d9105121"
+   }
+  ]
+ },
+ "steve.d953eaf2": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d953eaf2"
+   }
+  ]
+ },
+ "steve.d975c131": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d975c131"
+   }
+  ]
+ },
+ "steve.d9fd1384": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d9fd1384"
+   }
+  ]
+ },
+ "steve.da168598": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/da168598"
+   }
+  ]
+ },
+ "steve.da608e5a": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/da608e5a"
+   }
+  ]
+ },
+ "steve.da81199d": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/da81199d"
+   }
+  ]
+ },
+ "steve.da8fea3c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/da8fea3c"
+   }
+  ]
+ },
+ "steve.dab7a0f5": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/dab7a0f5"
+   }
+  ]
+ },
+ "steve.dadb91b6": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/dadb91b6"
+   }
+  ]
+ },
+ "steve.db040c30": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/db040c30"
+   }
+  ]
+ },
+ "steve.db4faaed": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/db4faaed"
+   }
+  ]
+ },
+ "steve.dc22276d": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/dc22276d"
+   }
+  ]
+ },
+ "steve.dcdce231": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/dcdce231"
+   }
+  ]
+ },
+ "steve.dd043ae6": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/dd043ae6"
+   }
+  ]
+ },
+ "steve.dd20429b": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/dd20429b"
+   }
+  ]
+ },
+ "steve.ddde14dc": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/ddde14dc"
+   }
+  ]
+ },
+ "steve.df235bb4": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/df235bb4"
+   }
+  ]
+ },
+ "steve.df39df13": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/df39df13"
+   }
+  ]
+ },
+ "steve.df574981": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/df574981"
+   }
+  ]
+ },
+ "steve.df8e3339": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/df8e3339"
+   }
+  ]
+ },
+ "steve.df92f78b": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/df92f78b"
+   }
+  ]
+ },
+ "steve.dfa7a4a3": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/dfa7a4a3"
+   }
+  ]
+ },
+ "steve.dfeab6b5": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/dfeab6b5"
+   }
+  ]
+ },
+ "steve.e0a259da": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e0a259da"
+   }
+  ]
+ },
+ "steve.e0b5b3e3": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e0b5b3e3"
+   }
+  ]
+ },
+ "steve.e0ea8e49": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e0ea8e49"
+   }
+  ]
+ },
+ "steve.e177fa31": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e177fa31"
+   }
+  ]
+ },
+ "steve.e182802e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e182802e"
+   }
+  ]
+ },
+ "steve.e1c542a4": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e1c542a4"
+   }
+  ]
+ },
+ "steve.e22cffec": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e22cffec"
+   }
+  ]
+ },
+ "steve.e23f3df9": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e23f3df9"
+   }
+  ]
+ },
+ "steve.e2802857": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e2802857"
+   }
+  ]
+ },
+ "steve.e36eaa6b": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e36eaa6b"
+   }
+  ]
+ },
+ "steve.e39d949f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e39d949f"
+   }
+  ]
+ },
+ "steve.e3ffab4f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e3ffab4f"
+   }
+  ]
+ },
+ "steve.e43094d6": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e43094d6"
+   }
+  ]
+ },
+ "steve.e4898197": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e4898197"
+   }
+  ]
+ },
+ "steve.e48f0bc8": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e48f0bc8"
+   }
+  ]
+ },
+ "steve.e4fbaad7": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e4fbaad7"
+   }
+  ]
+ },
+ "steve.e5052bf5": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e5052bf5"
+   }
+  ]
+ },
+ "steve.e5aa043a": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e5aa043a"
+   }
+  ]
+ },
+ "steve.e676dbd9": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e676dbd9"
+   }
+  ]
+ },
+ "steve.e7780315": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e7780315"
+   }
+  ]
+ },
+ "steve.e7c788ea": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e7c788ea"
+   }
+  ]
+ },
+ "steve.e818b05d": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e818b05d"
+   }
+  ]
+ },
+ "steve.e83a25fa": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e83a25fa"
+   }
+  ]
+ },
+ "steve.e84b12da": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e84b12da"
+   }
+  ]
+ },
+ "steve.e8ee24e0": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e8ee24e0"
+   }
+  ]
+ },
+ "steve.e93eec87": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e93eec87"
+   }
+  ]
+ },
+ "steve.e95ba83d": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e95ba83d"
+   }
+  ]
+ },
+ "steve.e967d297": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e967d297"
+   }
+  ]
+ },
+ "steve.e97411a6": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e97411a6"
+   }
+  ]
+ },
+ "steve.e9f578e1": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e9f578e1"
+   }
+  ]
+ },
+ "steve.e9fa97bb": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e9fa97bb"
+   }
+  ]
+ },
+ "steve.ea1d6c3a": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/ea1d6c3a"
+   }
+  ]
+ },
+ "steve.ea23d8d1": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/ea23d8d1"
+   }
+  ]
+ },
+ "steve.ea9ec3ae": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/ea9ec3ae"
+   }
+  ]
+ },
+ "steve.ebc5a166": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/ebc5a166"
+   }
+  ]
+ },
+ "steve.ebcb3256": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/ebcb3256"
+   }
+  ]
+ },
+ "steve.ebcfddf1": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/ebcfddf1"
+   }
+  ]
+ },
+ "steve.ebdbd364": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/ebdbd364"
+   }
+  ]
+ },
+ "steve.ebdd87f3": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/ebdd87f3"
+   }
+  ]
+ },
+ "steve.ec722c64": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/ec722c64"
+   }
+  ]
+ },
+ "steve.ecc2e18c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/ecc2e18c"
+   }
+  ]
+ },
+ "steve.ecf78768": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/ecf78768"
+   }
+  ]
+ },
+ "steve.ed1a7133": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/ed1a7133"
+   }
+  ]
+ },
+ "steve.ee9e6e93": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/ee9e6e93"
+   }
+  ]
+ },
+ "steve.eead0cc5": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/eead0cc5"
+   }
+  ]
+ },
+ "steve.eeb53a9a": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/eeb53a9a"
+   }
+  ]
+ },
+ "steve.ef85447a": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/ef85447a"
+   }
+  ]
+ },
+ "steve.f027bb6c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f027bb6c"
+   }
+  ]
+ },
+ "steve.f082e587": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f082e587"
+   }
+  ]
+ },
+ "steve.f087ae43": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f087ae43"
+   }
+  ]
+ },
+ "steve.f1372a92": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f1372a92"
+   }
+  ]
+ },
+ "steve.f27386bd": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f27386bd"
+   }
+  ]
+ },
+ "steve.f29f885e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f29f885e"
+   }
+  ]
+ },
+ "steve.f2a84562": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f2a84562"
+   }
+  ]
+ },
+ "steve.f2cfa616": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f2cfa616"
+   }
+  ]
+ },
+ "steve.f2e7355e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f2e7355e"
+   }
+  ]
+ },
+ "steve.f3b212cf": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f3b212cf"
+   }
+  ]
+ },
+ "steve.f3f16889": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f3f16889"
+   }
+  ]
+ },
+ "steve.f446d0b3": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f446d0b3"
+   }
+  ]
+ },
+ "steve.f477f775": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f477f775"
+   }
+  ]
+ },
+ "steve.f4856c3f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f4856c3f"
+   }
+  ]
+ },
+ "steve.f4a491cc": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f4a491cc"
+   }
+  ]
+ },
+ "steve.f4dbd70e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f4dbd70e"
+   }
+  ]
+ },
+ "steve.f509d607": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f509d607"
+   }
+  ]
+ },
+ "steve.f5309e11": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f5309e11"
+   }
+  ]
+ },
+ "steve.f5537d08": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f5537d08"
+   }
+  ]
+ },
+ "steve.f5c0ded3": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f5c0ded3"
+   }
+  ]
+ },
+ "steve.f6282620": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f6282620"
+   }
+  ]
+ },
+ "steve.f6af7965": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f6af7965"
+   }
+  ]
+ },
+ "steve.f6cf0ebd": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f6cf0ebd"
+   }
+  ]
+ },
+ "steve.f765bef9": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f765bef9"
+   }
+  ]
+ },
+ "steve.f77d70d9": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f77d70d9"
+   }
+  ]
+ },
+ "steve.f7c99c10": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f7c99c10"
+   }
+  ]
+ },
+ "steve.f8222450": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f8222450"
+   }
+  ]
+ },
+ "steve.f87a13bf": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f87a13bf"
+   }
+  ]
+ },
+ "steve.f893cf15": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f893cf15"
+   }
+  ]
+ },
+ "steve.f94a9364": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f94a9364"
+   }
+  ]
+ },
+ "steve.f965f94f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f965f94f"
+   }
+  ]
+ },
+ "steve.f9a0b22b": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f9a0b22b"
+   }
+  ]
+ },
+ "steve.fa363661": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/fa363661"
+   }
+  ]
+ },
+ "steve.faa5a1f7": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/faa5a1f7"
+   }
+  ]
+ },
+ "steve.fab9166c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/fab9166c"
+   }
+  ]
+ },
+ "steve.fc802a79": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/fc802a79"
+   }
+  ]
+ },
+ "steve.fc8284a9": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/fc8284a9"
+   }
+  ]
+ },
+ "steve.fc861ccc": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/fc861ccc"
+   }
+  ]
+ },
+ "steve.fd3d5678": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/fd3d5678"
+   }
+  ]
+ },
+ "steve.fdccbe45": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/fdccbe45"
+   }
+  ]
+ },
+ "steve.fdd534e3": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/fdd534e3"
+   }
+  ]
+ },
+ "steve.fde0a68d": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/fde0a68d"
+   }
+  ]
+ },
+ "steve.fe1b1bce": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/fe1b1bce"
+   }
+  ]
+ },
+ "steve.fe48eaf2": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/fe48eaf2"
+   }
+  ]
+ },
+ "steve.ff903480": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/ff903480"
+   }
+  ]
+ }
+}
