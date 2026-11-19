@@ -2,6 +2,7 @@ package dev.leftbehind.client.talk;
 
 import dev.leftbehind.LeftBehind;
 import dev.leftbehind.talk.SpeechPayload;
+import dev.leftbehind.talk.VoiceIndex;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,11 +14,16 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.resources.sounds.EntityBoundSoundInstance;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.Identifier;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
@@ -35,7 +41,10 @@ public final class SpeechClient {
     private static final float TYPING = 1.6F;
     private static final int BUBBLE_WIDTH = 180;
 
-    private record Line(int entityId, String speaker, int color, String text, int start, int ticks, int style) {
+    /** Where the recorded voices live: assets/leftbehind_voice, made by tools/make_voice.py. */
+    private static final String VOICE_NAMESPACE = "leftbehind_voice";
+
+    private record Line(int entityId, String speaker, int color, String text, int start, int ticks, int style, float typing) {
         int end() {
             return start + ticks;
         }
@@ -44,14 +53,44 @@ public final class SpeechClient {
     private static final Map<Integer, Line> BUBBLES = new HashMap<>();
     private static final ArrayDeque<Line> SUBTITLES = new ArrayDeque<>();
     private static int age;
+    private static int voiced;
 
     private SpeechClient() {}
 
     public static void receive(SpeechPayload payload) {
-        Line line = new Line(payload.entityId(), payload.speaker(), payload.color(), payload.text(), age, payload.ticks(), payload.style());
+        float typing = TYPING;
+        int voiceTicks = VoiceIndex.ticks(payload.voice());
+        if (voiceTicks > 0 && play(payload)) {
+            // Type it out at the pace he says it, so the words and the voice end together.
+            typing = Mth.clamp(payload.text().length() / (voiceTicks * 0.9F), 0.35F, TYPING);
+        }
+        Line line = new Line(payload.entityId(), payload.speaker(), payload.color(), payload.text(), age, payload.ticks(), payload.style(), typing);
         if (payload.style() == SpeechPayload.SPOKEN && payload.entityId() >= 0) BUBBLES.put(payload.entityId(), line);
         SUBTITLES.addLast(line);
         while (SUBTITLES.size() > 3) SUBTITLES.removeFirst();
+    }
+
+    /** Plays the recording: from his mouth if he's in sight of the world, in your head if it's a whisper. */
+    private static boolean play(SpeechPayload payload) {
+        Minecraft client = Minecraft.getInstance();
+        if (client.level == null) return false;
+        Identifier id = Identifier.fromNamespaceAndPath(VOICE_NAMESPACE, payload.voice());
+        if (client.getSoundManager().getSoundEvent(id) == null) return false;
+        SoundInstance sound;
+        Entity speaker = payload.entityId() >= 0 ? client.level.getEntity(payload.entityId()) : null;
+        if (payload.style() == SpeechPayload.SPOKEN && speaker != null) {
+            sound = new EntityBoundSoundInstance(SoundEvent.createVariableRangeEvent(id), SoundSource.VOICE, 1.0F, 1.0F, speaker, client.level.getRandom().nextLong());
+        } else {
+            sound = new SimpleSoundInstance(id, SoundSource.VOICE, 1.0F, 1.0F, client.level.getRandom(), false, 0, SoundInstance.Attenuation.NONE, 0, 0, 0, true);
+        }
+        client.getSoundManager().play(sound);
+        voiced++;
+        return true;
+    }
+
+    /** How many lines have been played out loud this session (for the in-game test). */
+    public static int voicedLines() {
+        return voiced;
     }
 
     public static void reset() {
@@ -71,7 +110,7 @@ public final class SpeechClient {
     }
 
     private static int shown(Line line, float partial) {
-        return Math.min(line.text().length(), (int) ((age + partial - line.start()) * TYPING) + 1);
+        return Math.min(line.text().length(), (int) ((age + partial - line.start()) * line.typing()) + 1);
     }
 
     /** Splits the whole line first, then reveals it, so words don't jump between rows while it types. */

@@ -740,7 +740,17 @@ public final class Talk {
     }
 
     private static void speak(Ctx c, List<String> lines) {
-        for (String line : lines) SteveVoice.steve(c.steve, fill(c, line));
+        for (String line : lines) SteveVoice.steve(c.steve, fill(c, line), voiceText(line));
+    }
+
+    /**
+     * What the recording of a line says. Recordings never say a name (he can't know it ahead of time),
+     * and lines built from something you told him have no recording at all.
+     */
+    static @Nullable String voiceText(String line) {
+        if (line.contains("{word}") || line.contains("{Word}") || line.contains("{def}") || line.contains("{answer}") || line.contains("{teacher}")) return null;
+        line = line.replace(", {name}", "").replace(" {name}", "").replace("{name}, ", "").replace("{name}. ", "").replace("{name}", "you");
+        return capitalize(line.replace(" ,", ",").replace("  ", " ").trim());
     }
 
     static String displayName(Ctx c) {

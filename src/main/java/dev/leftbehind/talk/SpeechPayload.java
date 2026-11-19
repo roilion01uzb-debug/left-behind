@@ -14,8 +14,9 @@ import net.minecraft.resources.Identifier;
  * @param entityId the speaker, or -1 for a voice with no body
  * @param ticks    how long the line stays up
  * @param style    {@link #SPOKEN} or {@link #WHISPER} (subtitle only, no bubble)
+ * @param voice    the recorded voice to play with it ("steve.1a2b3c4d"), or "" for none; see {@link VoiceIndex}
  */
-public record SpeechPayload(int entityId, String speaker, int color, String text, int ticks, int style) implements CustomPacketPayload {
+public record SpeechPayload(int entityId, String speaker, int color, String text, int ticks, int style, String voice) implements CustomPacketPayload {
     public static final int SPOKEN = 0;
     public static final int WHISPER = 1;
 
@@ -28,6 +29,7 @@ public record SpeechPayload(int entityId, String speaker, int color, String text
             ByteBufCodecs.STRING_UTF8, SpeechPayload::text,
             ByteBufCodecs.VAR_INT, SpeechPayload::ticks,
             ByteBufCodecs.VAR_INT, SpeechPayload::style,
+            ByteBufCodecs.STRING_UTF8, SpeechPayload::voice,
             SpeechPayload::new);
 
     @Override

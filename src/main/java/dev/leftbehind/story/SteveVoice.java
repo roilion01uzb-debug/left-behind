@@ -1,6 +1,7 @@
 package dev.leftbehind.story;
 
 import dev.leftbehind.talk.SpeechPayload;
+import dev.leftbehind.talk.VoiceIndex;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashMap;
@@ -28,7 +29,8 @@ public final class SteveVoice {
     public static final int HEROBRINE_COLOR = 0xBBBBBB;
     private static final double HEARING = 40.0;
 
-    private record Queued(Entity speaker, String name, int color, String line) {}
+    /** voiceText is what the recording says, when that differs from the text (a line with the player's name in it). */
+    private record Queued(Entity speaker, String name, int color, String line, @Nullable String voiceText) {}
 
     private static final Map<Integer, Deque<Queued>> QUEUES = new HashMap<>();
     private static final Map<Integer, Long> BUSY_UNTIL = new HashMap<>();
@@ -41,15 +43,23 @@ public final class SteveVoice {
     }
 
     public static void say(Entity speaker, String name, int color, String line) {
+        say(speaker, name, color, line, line);
+    }
+
+    public static void say(Entity speaker, String name, int color, String line, @Nullable String voiceText) {
         if (!(speaker.level() instanceof ServerLevel level) || line.isBlank()) return;
         int id = speaker.getId();
         Deque<Queued> queue = QUEUES.get(id);
         if (level.getGameTime() < BUSY_UNTIL.getOrDefault(id, 0L) || (queue != null && !queue.isEmpty())) {
             queue = QUEUES.computeIfAbsent(id, k -> new ArrayDeque<>());
-            if (queue.size() < 6) queue.addLast(new Queued(speaker, name, color, line));
+            if (queue.size() < 6) queue.addLast(new Queued(speaker, name, color, line, voiceText));
             return;
         }
-        emit(level, speaker, name, color, line);
+        emit(level, speaker, name, color, line, voiceText);
+    }
+
+    private static String voiceOf(String name) {
+        return "???".equals(name) ? VoiceIndex.HEROBRINE : VoiceIndex.STEVE;
     }
 
     /** Drops anything he was still going to say, so the next line comes out right away. */
@@ -63,10 +73,12 @@ public final class SteveVoice {
         return speaker.level().getGameTime() < BUSY_UNTIL.getOrDefault(speaker.getId(), 0L) || (queue != null && !queue.isEmpty());
     }
 
-    private static void emit(ServerLevel level, Entity speaker, String name, int color, String line) {
-        int speaking = speakingTicks(line);
+    private static void emit(ServerLevel level, Entity speaker, String name, int color, String line, @Nullable String voiceText) {
+        String voice = VoiceIndex.sound(voiceOf(name), voiceText);
+        // With a recording, he isn't done until the recording is, plus a breath.
+        int speaking = voice.isEmpty() ? speakingTicks(line) : Math.max(VoiceIndex.ticks(voice) + 12, 30);
         BUSY_UNTIL.put(speaker.getId(), level.getGameTime() + speaking);
-        SpeechPayload payload = new SpeechPayload(speaker.getId(), name, color, line, speaking + 50, SpeechPayload.SPOKEN);
+        SpeechPayload payload = new SpeechPayload(speaker.getId(), name, color, line, Math.max(speaking, speakingTicks(line)) + 50, SpeechPayload.SPOKEN, voice);
         Component chat = Component.literal(name + ": ").withStyle(s -> s.withColor(TextColor.fromRgb(color)))
                 .append(Component.literal(line).withStyle(ChatFormatting.WHITE));
         for (ServerPlayer player : level.players()) {
@@ -95,7 +107,7 @@ public final class SteveVoice {
             }
             if (level.getGameTime() < BUSY_UNTIL.getOrDefault(entry.getKey(), 0L)) continue;
             queue.pollFirst();
-            emit(level, next.speaker(), next.name(), next.color(), next.line());
+            emit(level, next.speaker(), next.name(), next.color(), next.line(), next.voiceText());
         }
     }
 
@@ -108,6 +120,11 @@ public final class SteveVoice {
 
     public static void steve(Entity steve, String line) {
         say(steve, "Steve", STEVE_COLOR, line);
+    }
+
+    /** A line whose recording says something slightly different (no name, for instance), or null for no recording. */
+    public static void steve(Entity steve, String line, @Nullable String voiceText) {
+        say(steve, "Steve", STEVE_COLOR, line, voiceText);
     }
 
     public static void steve(Entity steve, RandomSource random, String... lines) {
@@ -125,9 +142,10 @@ public final class SteveVoice {
 
     /** Only the given player hears it, as a voice in their head: a subtitle, no bubble. */
     public static void whisper(ServerPlayer player, @Nullable Entity from, String name, int color, String line) {
-        int ticks = speakingTicks(line) + 50;
+        String voice = VoiceIndex.sound(voiceOf(name), line);
+        int ticks = Math.max(speakingTicks(line), VoiceIndex.ticks(voice) + 12) + 50;
         if (ServerPlayNetworking.canSend(player, SpeechPayload.TYPE)) {
-            ServerPlayNetworking.send(player, new SpeechPayload(from == null ? -1 : from.getId(), name, color, line, ticks, SpeechPayload.WHISPER));
+            ServerPlayNetworking.send(player, new SpeechPayload(from == null ? -1 : from.getId(), name, color, line, ticks, SpeechPayload.WHISPER, voice));
             return;
         }
         player.sendSystemMessage(Component.literal(name + ": ").withStyle(s -> s.withColor(TextColor.fromRgb(color)))

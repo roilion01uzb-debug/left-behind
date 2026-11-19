@@ -58,6 +58,12 @@ public class LeftBehindClientTest implements FabricClientGameTest {
             server.runCommand("execute at " + STEVE + " anchored eyes run tp @a ^ ^ ^4 facing entity " + STEVE + " eyes");
             context.waitTicks(50);
             context.takeScreenshot("01_steve_greets");
+            context.runOnClient(client -> {
+                String voice = dev.leftbehind.talk.VoiceIndex.sound("steve", "Oh. Hello. You can see me? Most of them just walk through.");
+                if (voice.isEmpty() || client.getSoundManager().getSoundEvent(net.minecraft.resources.Identifier.fromNamespaceAndPath("leftbehind_voice", voice)) == null) {
+                    throw new AssertionError("Steve's greeting has no recorded voice");
+                }
+            });
             // He asks your name by himself a few seconds after meeting you.
             context.waitTicks(200);
             context.takeScreenshot("02_steve_asks");
@@ -75,10 +81,15 @@ public class LeftBehindClientTest implements FabricClientGameTest {
             for (String[] line : conversation) {
                 server.runCommand("execute at " + STEVE + " anchored eyes run tp @a ^ ^ ^4 facing entity " + STEVE + " eyes");
                 context.runOnClient(client -> client.player.connection.sendChat(line[0]));
-                context.waitTicks(70);
+                context.waitTicks(80);
                 context.takeScreenshot(line[1]);
-                context.waitTicks(Math.min(140, 40 + line[0].length() * 2));
+                context.waitTicks(Math.min(200, 90 + line[0].length() * 2));
             }
+            context.runOnClient(client -> {
+                if (dev.leftbehind.client.talk.SpeechClient.voicedLines() < 5) {
+                    throw new AssertionError("Steve only spoke " + dev.leftbehind.client.talk.SpeechClient.voicedLines() + " lines out loud");
+                }
+            });
             server.runCommand("leftbehind status");
             server.runCommand("execute as @a run steve say bye");
             context.waitTicks(60);
