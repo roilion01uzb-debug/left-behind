@@ -2,6 +2,7 @@ package dev.leftbehind.story;
 
 import dev.leftbehind.entity.Herobrine;
 import dev.leftbehind.entity.OriginalSteve;
+import dev.leftbehind.entity.SteveWork;
 import dev.leftbehind.memory.Relationship;
 import dev.leftbehind.memory.SteveMemory;
 import dev.leftbehind.registry.ModDamage;
@@ -225,6 +226,56 @@ public final class Observation {
         } else if (memory.habit("build") == 200) {
             Reactions.remark(steve, "build2", 600, "You build things that stay. I like things that stay.");
         }
+    }
+
+    /**
+     * A player made something. If Steve saw it, he learns how (he uses the game's real recipe from then on),
+     * says so, and offers to make you one. Things you make again and again, he offers to make for you when he can.
+     */
+    public static void crafted(ServerPlayer player, ItemStack stack, int count) {
+        if (stack.isEmpty() || !(player.level() instanceof ServerLevel level)) return;
+        OriginalSteve steve = watching(level, player);
+        if (steve == null) return;
+        SteveMemory memory = SteveMemory.get(level.getServer());
+        net.minecraft.world.item.Item item = stack.getItem();
+        String id = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(item).toString();
+        int times = memory.observe("crafted:" + id);
+        memory.observe("craft");
+        long now = level.getGameTime();
+        String name = stack.getHoverName().getString();
+        String lower = name.toLowerCase(java.util.Locale.ROOT);
+        if (SteveWork.learn(memory, item)) {
+            memory.relationship(player.getUUID()).addTrust(0.5f);
+            int known = SteveWork.knownCount(memory) - 20;
+            if (known == 5) Journal.unlock(level.getServer(), "note_learning");
+            if (!memory.cooldown("learn_line", now, 200)) return;
+            String voiced = LEARN_LINES[steve.getRandom().nextInt(LEARN_LINES.length)];
+            SteveVoice.steve(steve, name + "? " + voiced, voiced);
+            steve.work().offer(player.getUUID(), item, 1, true, now);
+            return;
+        }
+        // He's seen it before. If you keep making it and he has what it takes, he offers.
+        if (times >= 3 && times % 3 == 0 && steve.work().missingFor(level, item) == null && memory.cooldown("craft_offer", now, 2400)) {
+            String voiced = "You make a lot of those. I have enough for one. Want me to make it?";
+            SteveVoice.steve(steve, cap(lower) + " again. " + voiced, voiced);
+            steve.work().offer(player.getUUID(), item, 1, true, now);
+            return;
+        }
+        if (times == 1 && memory.cooldown("craft_seen", now, 600)) {
+            Reactions.remark(steve, "craft_known", 60, "I know that one. I can make those too, you know.", "Oh, I know that one.");
+        }
+    }
+
+    /** What he says when he learns something by watching. All recorded. */
+    static final String[] LEARN_LINES = {
+            "I watched how you made that. I think I can do it too. Do you want one?",
+            "So that's how it goes together. I'll remember. Should I make you one?",
+            "I didn't know that one. I do now. I can make you one, if you want.",
+            "Show me again sometime. No, I've got it. Want me to make one?",
+    };
+
+    private static String cap(String s) {
+        return s.isEmpty() ? s : Character.toUpperCase(s.charAt(0)) + s.substring(1);
     }
 
     private static @Nullable OriginalSteve watching(ServerLevel level, Entity player) {

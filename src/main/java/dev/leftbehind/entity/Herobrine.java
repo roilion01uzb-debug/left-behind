@@ -58,6 +58,11 @@ public class Herobrine extends PathfinderMob {
     private int stuckTicks;
     private boolean whispered;
     private @Nullable Vec3 lastPos;
+    private boolean stalk;
+    private boolean glimpse;
+    private int unseenTicks;
+    private int lookedTicks;
+    private int stalkSteps;
 
     public Herobrine(EntityType<? extends Herobrine> type, Level level) {
         super(type, level);
@@ -92,9 +97,22 @@ public class Herobrine extends PathfinderMob {
     }
 
     public void watchPlayer(ServerPlayer player, int ticks) {
+        watchPlayer(player, ticks, false);
+    }
+
+    /** Stalking: while you aren't looking, he comes closer. He is never where you last saw him. */
+    public void watchPlayer(ServerPlayer player, int ticks, boolean stalk) {
         mode = Mode.WATCH_PLAYER;
         targetId = player.getUUID();
         lifetime = ticks;
+        this.stalk = stalk;
+        this.glimpse = false;
+    }
+
+    /** A glimpse: far off, still, gone the moment you look at him properly or walk towards him. */
+    public void glimpse(ServerPlayer player, int ticks) {
+        watchPlayer(player, ticks, false);
+        this.glimpse = true;
     }
 
     public void watchSteve(int ticks) {
@@ -212,7 +230,55 @@ public class Herobrine extends PathfinderMob {
             return;
         }
         lookAt(net.minecraft.commands.arguments.EntityAnchorArgument.Anchor.EYES, target.getEyePosition());
+        double dist = target.distanceTo(this);
+        boolean looked = isLookedAtBy(target, dist);
+        if (glimpse) {
+            // You saw something. Look properly, or walk over, and there's nothing there.
+            if (looked) lookedTicks++;
+            if (lookedTicks > 12 || dist < 24) {
+                dev.leftbehind.story.Stalker.afterGlimpse(level, target);
+                discard();
+            }
+            return;
+        }
+        // He doesn't let you walk up to him.
+        if (dist < 14 && !breachDone) {
+            vanish(level, true);
+            return;
+        }
+        if (stalk && !looked) {
+            unseenTicks++;
+            Vec3 view = target.getViewVector(1f);
+            Vec3 toMe = position().subtract(target.position()).normalize();
+            if (unseenTicks > 80 && view.dot(toMe) < 0.1 && dist > 22 && stalkSteps < 4) stalkCloser(level, target, dist);
+        } else {
+            unseenTicks = 0;
+        }
         if (tickCount % 5 == 0) senseTick(level);
+    }
+
+    /** Comes a few blocks closer along the line to you, while your back is turned. */
+    private void stalkCloser(ServerLevel level, ServerPlayer target, double dist) {
+        Vec3 from = target.position();
+        Vec3 dir = position().subtract(from);
+        dir = new Vec3(dir.x, 0, dir.z).normalize();
+        double want = Math.max(18, dist - 8 - random.nextInt(5));
+        // A little to the side, so he isn't simply where he was, only nearer.
+        Vec3 side = new Vec3(-dir.z, 0, dir.x).scale(random.nextInt(9) - 4);
+        Vec3 spot = from.add(dir.scale(want)).add(side);
+        int x = net.minecraft.util.Mth.floor(spot.x);
+        int z = net.minecraft.util.Mth.floor(spot.z);
+        if (!level.hasChunkAt(new BlockPos(x, 0, z))) return;
+        int y = level.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z);
+        if (Math.abs(y - target.getY()) > 10 && target.getY() > level.getSeaLevel() - 10) return;
+        BlockPos feet = new BlockPos(x, y, z);
+        if (!level.getBlockState(feet).isAir() || !level.getBlockState(feet.above()).isAir() || !level.getFluidState(feet.below()).isEmpty()) return;
+        snapTo(x + 0.5, y, z + 0.5, getYRot(), 0f);
+        stalkSteps++;
+        unseenTicks = 0;
+        lifetime = Math.max(lifetime, tickCount + 400);
+        // One step you weren't meant to hear.
+        if (random.nextBoolean()) Fx.soundTo(target, position(), ModSounds.STALK_STEP, SoundSource.HOSTILE, 0.5f, 1.0f);
     }
 
     /**
@@ -248,7 +314,8 @@ public class Herobrine extends PathfinderMob {
             }
             if (before < 30f && now >= 30f && !whispered) {
                 whispered = true;
-                whisper(player, pick("you are not the first one he followed", "he is mine", "look away", "it remembers because i let it", "stop"));
+                whisper(player, random.nextInt(4) == 0 ? pick("you are not the first one he followed", "he is mine", "look away", "it remembers because i let it", "stop")
+                        : dev.leftbehind.story.HerobrineMind.whisperFor(level, player));
             }
             if (before < 50f && now >= 50f && (memory.act() <= 2 || !StoryDirector.huntAllowed(level))) {
                 // Too early in the story. He decides you are not worth it yet.

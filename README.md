@@ -7,7 +7,7 @@ Herobrine is always one step ahead of both of you, and he knows exactly which me
 
 ## Download
 
-`downloads/left-behind-0.5.0.jar`. Put it in your `mods` folder together with Fabric API.
+`downloads/left-behind-0.6.0.jar`. Put it in your `mods` folder together with Fabric API.
 
 ## What's in it
 
@@ -56,6 +56,38 @@ Steve speaks English, and you talk to him the way you talk to anyone: **type in 
 - He still learns from you (chop enough trees and he starts chopping), still gets angry in stages if you hurt him,
   and defends players he trusts from monsters.
 - Players without the mod on a server still get his words in chat.
+
+### What's new in 0.6
+
+- **Steve does his part.** He plays like a player now instead of carrying a wooden axe around. He chops trees, makes
+  planks, a crafting table, sticks and a wooden pickaxe, digs stone for stone tools, finds iron, builds and lights a
+  furnace, smelts, makes an iron pickaxe, mines coal and lights the dark around you at night, and when he finds something
+  rare (diamonds, gold, emeralds, lapis, redstone) he brings it to you. He crafts with the game's real recipes, and his
+  pockets are saved (he drops them if he dies). When he has nothing left to do he asks what you need.
+- **He learns from what you make.** Craft something new where he can see, and he learns the recipe: "Ladder? I watched
+  how you made that. Do you want one?" Say yes and he makes it himself, from the first log, table included. Things you
+  keep making, he offers to make for you.
+- **He understands sentences.** Ask in your own words: "can you get me some iron", "make me a chest", "do you have
+  coal?", "how do I make a furnace", "where can I find diamonds" (he looks around you and tells you which way and how
+  far), "what are you doing", "what do you have", "light it up", "stop working", "never mind", "I like emeralds" (he
+  keeps some for you). Any item in the game by its name or a plain word for it (wood, stone, iron), with numbers. When
+  he only gets part of it, he asks about that part instead of saying he doesn't understand.
+- **He is in the moment.** He warns you about the creeper behind you, the skeleton, lava near your feet, drowning, falling,
+  being hungry, digging straight down, walking around at night without armour, and thunder.
+- **Herobrine from the first evening.** On day one, as the sun goes down, someone is standing far off at the edge of
+  what you can see, facing you. Look properly and he isn't there. After that he is around now and then from day two.
+- **Herobrine learns you.** He remembers the places you keep going back to (saved with the world) and which way you
+  walk, and goes to stand where you're about to be. You get there and he has just left: "you always come this way".
+  When he watches you, he comes a few blocks closer whenever your back is turned. His whispers come from what he knows
+  about you: your house, your bed, how much Steve trusts you, what you're holding, where you dig.
+- **Three structures** show up near you over the first days. **The Pillars**: seven stone pillars in a ring with a sign,
+  "count them"; stand in the middle and look away, and there are eight. **The Hallway**: stone stairs going down out of the
+  grass into a long hallway with words on the walls, ending in a small room someone lived in on their first night; when
+  you reach it, the lights behind you go out one by one. **The Obsidian Box**: a closed cube of obsidian. Something inside
+  knocks when you come close.
+- **313 new sounds**: 260 new voiced lines (210 for Steve, 50 for Herobrine) and 53 new sound effects (Herobrine's
+  footsteps, torches going out, stone grinding, distant footsteps, someone mining far away, cave drips, creaking wood,
+  far doors, more knocks, breathing and wind).
 
 ### What's new in 0.5
 
@@ -137,6 +169,9 @@ Block changes also respect the `mob_griefing` game rule.
 | `/leftbehind herobrine` | Herobrine appears near Steve |
 | `/leftbehind herobrine watch` | Herobrine appears and watches you |
 | `/leftbehind herobrine hunt` | Herobrine hunts you right now |
+| `/leftbehind herobrine glimpse` | The first-evening glimpse: far off, gone when looked at |
+| `/leftbehind herobrine ahead` | Herobrine waits where you're going (needs a few of your places first) |
+| `/leftbehind structure <pillars\|hallway\|box>` | Builds a structure in front of you |
 | `/leftbehind breach` | Triggers a memory breach |
 | `/leftbehind calm` | Ends Steve's episode |
 | `/leftbehind ghost [0-2]` | Spawns one of the removed ones near you |
@@ -171,7 +206,6 @@ Steve's voice is recorded by `tools/make_voice.py` with the [Kokoro-82M](https:/
 
 ## What comes next
 
-The plan, in order: 0.6 gives Steve a body that plays like a real player (mining, building, pillaring, lighting caves).
-0.7 gives Steve and Herobrine smarter minds, and an optional AI key for free conversation and voice chat with Steve.
-0.8 brings memories as flashbacks and the old places (the Hallway, the Obsidian Box, the Removed Village). 0.9 the endings,
+The plan, in order: 0.7 gives Steve building and pillaring, Herobrine more tricks, and an optional AI key for free
+conversation and voice chat with Steve. 0.8 brings memories as flashbacks and more old places (the Removed Village). 0.9 the endings,
 with Alex. Then 1.0. And the question the last torn page asks: what was here before the seed?

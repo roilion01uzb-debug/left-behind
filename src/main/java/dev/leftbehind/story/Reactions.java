@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.UUID;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -101,7 +102,80 @@ public final class Reactions {
                 remark(steve, "sneak", 240, "Why are you walking like that? Are we hiding?", "Should I be quiet too?");
             } else if (player.isSprinting() && level.getRandom().nextInt(60) == 0) {
                 remark(steve, "sprint", 300, "Where's the hurry?", "Is something behind you? ...is something behind ME?");
+            } else {
+                inTheMoment(level, steve, memory, player, still);
             }
+        }
+    }
+
+    /** What is happening to you right now, that he can see: what's near you, where you are, what you're doing. */
+    private static void inTheMoment(ServerLevel level, OriginalSteve steve, SteveMemory memory, ServerPlayer player, int still) {
+        if (level.getRandom().nextInt(3) != 0) return;
+        net.minecraft.world.entity.monster.Monster threat = null;
+        double best = 14 * 14;
+        for (net.minecraft.world.entity.monster.Monster m : level.getEntitiesOfClass(net.minecraft.world.entity.monster.Monster.class,
+                player.getBoundingBox().inflate(14))) {
+            double d = m.distanceToSqr(player);
+            if (d < best && m.hasLineOfSight(player)) {
+                best = d;
+                threat = m;
+            }
+        }
+        if (threat instanceof net.minecraft.world.entity.monster.Creeper) {
+            remark(steve, "creeper", 40, "Green one! Behind you! Don't let it get close!", "That one hisses. Move. MOVE.",
+                    "Not the green one. Hit it and step back. Hit and step back.");
+            return;
+        }
+        if (threat instanceof net.minecraft.world.entity.monster.skeleton.AbstractSkeleton) {
+            remark(steve, "skeleton", 60, "Arrows! Get behind something!", "The bony one. Don't stand in the open.");
+            return;
+        }
+        if (threat instanceof net.minecraft.world.entity.monster.zombie.Zombie) {
+            remark(steve, "zombie", 60, "One of the slow ones. It won't stop, though. They never stop.", "Zombie. Hit it before it hits you.");
+            return;
+        }
+        if (threat instanceof net.minecraft.world.entity.monster.spider.Spider) {
+            remark(steve, "spider", 60, "Spider. They climb. Walls don't help.", "I hate the ones with too many legs.");
+            return;
+        }
+        if (threat instanceof net.minecraft.world.entity.monster.Enderman) {
+            remark(steve, "enderman", 120, "Don't look at the tall one. Same rule as him. Don't look.",
+                    "The tall one. Look at your feet. Look at your feet.");
+            return;
+        }
+        BlockPos at = player.blockPosition();
+        boolean lavaNear = false;
+        for (BlockPos p : BlockPos.betweenClosed(at.offset(-3, -2, -3), at.offset(3, 1, 3))) {
+            if (level.getFluidState(p).is(net.minecraft.tags.FluidTags.LAVA)) {
+                lavaNear = true;
+                break;
+            }
+        }
+        if (lavaNear) {
+            remark(steve, "lava", 90, "Lava. Careful. Everything you carry goes with you.", "Slowly. Slowly near the orange.");
+        } else if (player.isInWater() && player.getAirSupply() < player.getMaxAirSupply() / 2) {
+            remark(steve, "drowning", 20, "Up! Go up! You need air!", "Swim up! Now!");
+        } else if (player.fallDistance > 6 && !player.isCreative()) {
+            remark(steve, "falling", 20, "Watch out!", "No, no, no!");
+        } else if (player.getFoodData().getFoodLevel() < 6 && !player.isCreative()) {
+            remark(steve, "hungry", 300, "You're hungry. I can tell. Eat something.", "When did you last eat? Really eat?");
+        } else if (player.getXRot() > 70f && player.getMainHandItem().is(net.minecraft.tags.ItemTags.PICKAXES) && still < 1
+                && !level.canSeeSky(at.above()) && level.getRandom().nextInt(6) == 0) {
+            remark(steve, "dig_down", 600, "Don't dig straight down. Everyone knows that. I learned it the hard way.",
+                    "Straight down? Really? There could be anything under there.");
+        } else if (level.isDarkOutside() && level.canSeeSky(at.above()) && player.getArmorValue() == 0 && !player.isCreative()
+                && level.getRandom().nextInt(4) == 0) {
+            remark(steve, "no_armor", 600, "No armour, at night, out here? You're braver than me.", "We should go in. It's not safe in the open.");
+        } else if (player.getY() > level.getSeaLevel() + 50 && level.canSeeSky(at.above())) {
+            remark(steve, "high", 600, "You can see everything from up here. Everything can see you, too.", "Don't stand at the edge.");
+        } else if (level.isThundering()) {
+            remark(steve, "thunder", 600, "I don't like thunder. Something always comes with it.", "Stay away from the tall trees.");
+        } else if (player.getMainHandItem().is(net.minecraft.world.item.Items.DIAMOND_PICKAXE)) {
+            remark(steve, "diamond_pick", 1200, "A diamond pickaxe. You've come a long way since the first night.");
+        } else if (player.getMainHandItem().is(net.minecraft.world.item.Items.BOW) && player.isUsingItem()) {
+            remark(steve, "bow", 300, "Breathe out, then let go. That's what I was told.", "Careful where you point that.");
+        } else if (memory.act() >= 2 && level.getMaxLocalRawBrightness(at) < 4 && !level.canSeeSky(at.above())) {
+            remark(steve, "pitch_dark", 300, "I can't see you. Say something. Say anything.", "Light. Please. I need to see your face.");
         }
     }
 

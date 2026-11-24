@@ -22,6 +22,18 @@
       {
         "name": "leftbehind:ambient/wind_howl",
         "stream": true
+      },
+      {
+        "name": "leftbehind:ambient/wind_howl_2",
+        "stream": true
+      },
+      {
+        "name": "leftbehind:ambient/wind_howl_3",
+        "stream": true
+      },
+      {
+        "name": "leftbehind:ambient/wind_howl_4",
+        "stream": true
       }
     ]
   },
@@ -34,7 +46,11 @@
   "ambient.knock": {
     "subtitle": "subtitles.leftbehind.ambient.knock",
     "sounds": [
-      "leftbehind:ambient/knock"
+      "leftbehind:ambient/knock",
+      "leftbehind:ambient/knock_2",
+      "leftbehind:ambient/knock_3",
+      "leftbehind:ambient/knock_4",
+      "leftbehind:ambient/knock_5"
     ]
   },
   "ambient.page": {
@@ -92,7 +108,93 @@
   "herobrine.breath": {
     "subtitle": "subtitles.leftbehind.herobrine.breath",
     "sounds": [
-      "leftbehind:herobrine/breath"
+      "leftbehind:herobrine/breath",
+      "leftbehind:herobrine/breath_2",
+      "leftbehind:herobrine/breath_3",
+      "leftbehind:herobrine/breath_4"
+    ]
+  },
+  "herobrine.step": {
+    "subtitle": "subtitles.leftbehind.herobrine.step",
+    "sounds": [
+      "leftbehind:herobrine/step_1",
+      "leftbehind:herobrine/step_2",
+      "leftbehind:herobrine/step_3",
+      "leftbehind:herobrine/step_4",
+      "leftbehind:herobrine/step_5",
+      "leftbehind:herobrine/step_6"
+    ]
+  },
+  "ambient.torch_out": {
+    "subtitle": "subtitles.leftbehind.ambient.torch_out",
+    "sounds": [
+      "leftbehind:ambient/torch_out_1",
+      "leftbehind:ambient/torch_out_2",
+      "leftbehind:ambient/torch_out_3",
+      "leftbehind:ambient/torch_out_4"
+    ]
+  },
+  "ambient.stone_grind": {
+    "subtitle": "subtitles.leftbehind.ambient.stone_grind",
+    "sounds": [
+      "leftbehind:ambient/stone_grind_1",
+      "leftbehind:ambient/stone_grind_2",
+      "leftbehind:ambient/stone_grind_3"
+    ]
+  },
+  "ambient.far_steps": {
+    "subtitle": "subtitles.leftbehind.ambient.far_steps",
+    "sounds": [
+      "leftbehind:ambient/far_steps_1",
+      "leftbehind:ambient/far_steps_2",
+      "leftbehind:ambient/far_steps_3",
+      "leftbehind:ambient/far_steps_4",
+      "leftbehind:ambient/far_steps_5",
+      "leftbehind:ambient/far_steps_6"
+    ]
+  },
+  "ambient.far_mining": {
+    "subtitle": "subtitles.leftbehind.ambient.far_mining",
+    "sounds": [
+      "leftbehind:ambient/far_mining_1",
+      "leftbehind:ambient/far_mining_2",
+      "leftbehind:ambient/far_mining_3",
+      "leftbehind:ambient/far_mining_4",
+      "leftbehind:ambient/far_mining_5",
+      "leftbehind:ambient/far_mining_6"
+    ]
+  },
+  "ambient.drip": {
+    "subtitle": "subtitles.leftbehind.ambient.drip",
+    "sounds": [
+      "leftbehind:ambient/drip_1",
+      "leftbehind:ambient/drip_2",
+      "leftbehind:ambient/drip_3",
+      "leftbehind:ambient/drip_4",
+      "leftbehind:ambient/drip_5",
+      "leftbehind:ambient/drip_6"
+    ]
+  },
+  "ambient.creak": {
+    "subtitle": "subtitles.leftbehind.ambient.creak",
+    "sounds": [
+      "leftbehind:ambient/creak_1",
+      "leftbehind:ambient/creak_2",
+      "leftbehind:ambient/creak_3",
+      "leftbehind:ambient/creak_4",
+      "leftbehind:ambient/creak_5",
+      "leftbehind:ambient/creak_6",
+      "leftbehind:ambient/creak_7",
+      "leftbehind:ambient/creak_8"
+    ]
+  },
+  "ambient.door_far": {
+    "subtitle": "subtitles.leftbehind.ambient.door_far",
+    "sounds": [
+      "leftbehind:ambient/door_far_1",
+      "leftbehind:ambient/door_far_2",
+      "leftbehind:ambient/door_far_3",
+      "leftbehind:ambient/door_far_4"
     ]
   },
   "herobrine.kill": {

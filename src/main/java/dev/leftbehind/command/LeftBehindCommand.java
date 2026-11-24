@@ -44,7 +44,13 @@ public final class LeftBehindCommand {
                 .then(Commands.literal("herobrine").executes(ctx -> herobrine(ctx.getSource(), "steve"))
                         .then(Commands.literal("steve").executes(ctx -> herobrine(ctx.getSource(), "steve")))
                         .then(Commands.literal("watch").executes(ctx -> herobrine(ctx.getSource(), "watch")))
-                        .then(Commands.literal("hunt").executes(ctx -> herobrine(ctx.getSource(), "hunt"))))
+                        .then(Commands.literal("hunt").executes(ctx -> herobrine(ctx.getSource(), "hunt")))
+                        .then(Commands.literal("glimpse").executes(ctx -> herobrine(ctx.getSource(), "glimpse")))
+                        .then(Commands.literal("ahead").executes(ctx -> herobrine(ctx.getSource(), "ahead"))))
+                .then(Commands.literal("structure")
+                        .then(Commands.literal("pillars").executes(ctx -> structure(ctx.getSource(), dev.leftbehind.story.Structures.Kind.PILLARS)))
+                        .then(Commands.literal("hallway").executes(ctx -> structure(ctx.getSource(), dev.leftbehind.story.Structures.Kind.HALLWAY)))
+                        .then(Commands.literal("box").executes(ctx -> structure(ctx.getSource(), dev.leftbehind.story.Structures.Kind.BOX))))
                 .then(Commands.literal("breach").executes(ctx -> breach(ctx.getSource())))
                 .then(Commands.literal("calm").executes(ctx -> calm(ctx.getSource())))
                 .then(Commands.literal("ghost").executes(ctx -> ghost(ctx.getSource(), -1))
@@ -206,6 +212,15 @@ public final class LeftBehindCommand {
                 .append(m.count("note_")).append(" notes\n");
         Herobrine h = StoryDirector.activeHerobrine();
         sb.append("Herobrine: ").append(h == null ? "not here" : h.mode().name().toLowerCase() + " at " + h.blockPosition().toShortString()).append('\n');
+        if (steve != null) {
+            var work = steve.work();
+            var req = work.request();
+            sb.append("Work: ").append(work.jobName() == null ? "nothing" : work.jobName())
+                    .append(req == null ? "" : ", asked for " + req.count() + " " + net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(req.item()).getPath()
+                            + (req.craft() ? " (make)" : ""))
+                    .append(", carrying ").append(work.isEmpty() ? "nothing" : work.describe())
+                    .append(", knows ").append(dev.leftbehind.entity.SteveWork.knownCount(m)).append(" recipes\n");
+        }
         sb.append("Habits learned: ").append(m.habits).append('\n');
         for (Map.Entry<UUID, Relationship> e : m.relationships.entrySet()) {
             ServerPlayer p = source.getServer().getPlayerList().getPlayer(e.getKey());
@@ -258,6 +273,14 @@ public final class LeftBehindCommand {
             return 0;
         } else if (mode.equals("hunt")) {
             herobrine = StoryDirector.spawnHunt(level, player);
+        } else if (mode.equals("glimpse")) {
+            herobrine = dev.leftbehind.story.Stalker.glimpse(level, player) ? StoryDirector.activeHerobrine() : null;
+        } else if (mode.equals("ahead")) {
+            herobrine = dev.leftbehind.story.Stalker.waitAhead(level, player);
+            if (herobrine == null) {
+                source.sendFailure(Component.literal("He hasn't learned where you go yet. Spend time in a few places first."));
+                return 0;
+            }
         } else {
             herobrine = StoryDirector.spawnHerobrineWatching(level, player);
         }
@@ -267,6 +290,23 @@ public final class LeftBehindCommand {
         }
         BlockPos pos = herobrine.blockPosition();
         source.sendSuccess(() -> Component.literal("He is at " + pos.toShortString() + "."), false);
+        return 1;
+    }
+
+    private static int structure(CommandSourceStack source, dev.leftbehind.story.Structures.Kind kind) {
+        ServerPlayer player = playerFor(source);
+        if (player == null) {
+            source.sendFailure(Component.literal("Run this as a player: it builds in front of you."));
+            return 0;
+        }
+        ServerLevel level = player.level();
+        BlockPos at = dev.leftbehind.story.Structures.spotFor(level, player, kind);
+        if (at == null) {
+            source.sendFailure(Component.literal("There's no room for it here."));
+            return 0;
+        }
+        dev.leftbehind.story.Structures.build(level, SteveMemory.get(source.getServer()), kind, at, player.getDirection());
+        source.sendSuccess(() -> Component.literal("Built at " + at.toShortString() + "."), false);
         return 1;
     }
 

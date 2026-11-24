@@ -607,6 +607,159 @@ def music_act(seed, act):
     return music_box(seed, melody, THEME_BASS, 52, drop_every=3, wow=60, flutter=5, drift=1.5, lowpass=4500, hiss=0.01, crackles=8)
 
 
+# ------------------------------------------------------------------ 0.6: the world around you
+def step(rng, surface="grass"):
+    """One footstep: a heel and a softer toe, crunch for grass, click for stone."""
+    out = np.zeros(int(SR * 0.32))
+    for at, gain, length in ((0.0, 1.0, 0.09), (0.07 + rng.uniform(0, 0.03), 0.55, 0.12)):
+        n = noise(length, rng) * np.exp(-t(length) * (38 if surface == "grass" else 60))
+        if surface == "grass":
+            n = bp(n, 300 + rng.uniform(0, 200), 2600 + rng.uniform(0, 900))
+            n *= 0.6 + 0.4 * (rng.random(len(n)) > 0.6)  # the crunch of stems
+        else:
+            n = bp(n, 700, 5000) + 0.5 * thump(length, 160, 90, 45)
+        place(out, n, at, gain)
+    return out
+
+
+def stalk_step(seed):
+    rng = np.random.default_rng(seed)
+    x = step(rng, "grass")
+    return fade(reverb(lp(x, 4200), 0.8, 0.2, rng, tone=3000), 0.001, 0.1)
+
+
+def torch_out(seed):
+    """A flame pinched out: a short breathy puff, a last crackle, a little smoke."""
+    rng = np.random.default_rng(seed)
+    seconds = 0.9
+    tt = t(seconds)
+    puff = hp(noise(seconds, rng), 900) * np.exp(-tt * 9) * (1 - np.exp(-tt * 200))
+    out = puff * 0.8
+    for _ in range(3 + rng.integers(0, 3)):
+        c = hp(noise(0.012, rng), 2500) * np.exp(-t(0.012) * 300)
+        place(out, c, rng.uniform(0.02, 0.25), rng.uniform(0.3, 0.8))
+    out += 0.25 * thump(seconds, 120, 70, 20)
+    return fade(reverb(out, 1.4, 0.35, rng, tone=2500), 0.002, 0.3)
+
+
+def stone_grind(seed):
+    """Something heavy made of stone, moving where nothing should move."""
+    rng = np.random.default_rng(seed)
+    seconds = 2.2
+    tt = t(seconds)
+    brown = np.cumsum(noise(seconds, rng))
+    brown = hp(brown - np.mean(brown), 30)
+    g = bp(brown, 50, 420 + rng.uniform(0, 120))
+    grains = (rng.random(len(tt)) > 0.997).astype(float)
+    grains = bp(np.convolve(grains, np.exp(-np.arange(400) / 60.0), mode="same"), 300, 2200)
+    env = np.sin(np.pi * tt / seconds) ** 0.7
+    out = (g / (np.max(np.abs(g)) + 1e-9) + 0.6 * grains / (np.max(np.abs(grains)) + 1e-9)) * env
+    out += 0.4 * thump(seconds, 70, 40, 3)
+    return fade(reverb(out, 2.0, 0.3, rng, tone=1800), 0.05, 0.4)
+
+
+def far_steps(seed):
+    """Someone walking, a long way off. Not towards you. Probably."""
+    rng = np.random.default_rng(seed)
+    count = 4 + int(rng.integers(0, 4))
+    gap = rng.uniform(0.42, 0.62)
+    surface = "stone" if rng.random() < 0.4 else "grass"
+    out = np.zeros(int(SR * (count * gap + 2.5)))
+    for i in range(count):
+        place(out, step(rng, surface), max(0.0, i * gap + rng.uniform(-0.02, 0.02)), 0.6 + 0.4 * i / count)
+    return fade(reverb(lp(out, 1600), 2.6, 0.55, rng, tone=1400), 0.01, 0.8)
+
+
+def far_mining(seed):
+    """A pickaxe on stone somewhere in the dark: a few hits, a pause, one more."""
+    rng = np.random.default_rng(seed)
+    hits = 3 + int(rng.integers(0, 4))
+    out = np.zeros(int(SR * (hits * 0.9 + 3.5)))
+    at = 0.05
+    ring = rng.uniform(1100, 1900)
+    for i in range(hits):
+        h = np.zeros(int(SR * 0.2))
+        h[: int(SR * 0.08)] += bp(noise(0.08, rng), 900, 4800) * np.exp(-t(0.08) * 70)
+        h += 0.5 * np.sin(2 * np.pi * ring * t(0.2)) * np.exp(-t(0.2) * 32)
+        h += 0.5 * thump(0.2, 220, 110, 35)
+        place(out, h, at, rng.uniform(0.7, 1.0))
+        at += rng.uniform(0.55, 0.85) + (0.9 if i == hits - 2 and rng.random() < 0.5 else 0)
+    return fade(reverb(lp(out, 2800), 3.2, 0.55, rng, tone=2000), 0.002, 1.0)
+
+
+def drip(seed):
+    """A drop of water in a cave: a quick rising plink, then the cave answers."""
+    rng = np.random.default_rng(seed)
+    out = np.zeros(int(SR * 2.4))
+    drops = 1 + int(rng.random() < 0.4)
+    for k in range(drops):
+        seconds = 0.06
+        tt = t(seconds)
+        f0 = rng.uniform(700, 1100)
+        freq = f0 * (1 + 1.4 * tt / seconds)
+        d = np.sin(2 * np.pi * np.cumsum(freq) / SR) * np.exp(-tt * 60)
+        place(out, d, 0.02 + k * rng.uniform(0.4, 0.9), 1.0 - 0.3 * k)
+    return fade(reverb(out, 2.2, 0.5, rng, tone=4500), 0.001, 0.6)
+
+
+def creak(seed):
+    """Wood taking weight: a stick-slip buzz that bends in pitch, through a hollow body."""
+    rng = np.random.default_rng(seed)
+    seconds = rng.uniform(0.8, 1.7)
+    tt = t(seconds)
+    f = rng.uniform(28, 55) + rng.uniform(15, 45) * np.sin(np.pi * tt / seconds * rng.uniform(0.6, 1.4) + rng.uniform(0, 1))
+    phase = np.cumsum(f) / SR
+    pulses = (np.mod(phase, 1.0) < 0.08).astype(float) * (0.6 + 0.4 * rng.random(len(tt)))
+    body = bp(pulses, 250, 1400) + 0.6 * bp(pulses, 1800, 3200)
+    env = np.sin(np.pi * tt / seconds) ** 0.5 * (0.7 + 0.3 * np.sin(2 * np.pi * 3 * tt))
+    return fade(reverb(body * env, 0.9, 0.25, rng, tone=2500), 0.02, 0.15)
+
+
+def door_far(seed):
+    """A door somewhere else: a short creak and a heavy close, muffled by distance."""
+    rng = np.random.default_rng(seed)
+    out = np.zeros(int(SR * 3.5))
+    place(out, creak(seed + 1000), 0.0, 0.6)
+    shut = 1.0 * thump(0.4, 140, 60, 18) + 0.4 * bp(noise(0.4, rng), 200, 1200) * np.exp(-t(0.4) * 25)
+    place(out, shut, rng.uniform(0.7, 1.2))
+    return fade(reverb(lp(out, 1200), 2.4, 0.5, rng, tone=1200), 0.01, 0.8)
+
+
+def knock_pattern(seed, knocks, spacing):
+    rng = np.random.default_rng(seed)
+    out = np.zeros(int(SR * (knocks * spacing + 1.2)))
+    for i in range(knocks):
+        body = bp(rng.standard_normal(int(SR * 0.25)), 120, 420) * np.exp(-t(0.25) * 38)
+        body += 0.8 * thump(0.25, 190 - 10 * i, 95, 30)
+        place(out, body, 0.05 + i * spacing * rng.uniform(0.9, 1.1), 1.0 - 0.1 * i)
+    return fade(reverb(out, 0.9, 0.3, rng, tone=1800, tail=False), 0.001, 0.2)
+
+
+def sfx_06():
+    for i in range(1, 7):
+        save(f"herobrine/step_{i}", stalk_step(700 + i), peak=0.7)
+    for i in range(1, 5):
+        save(f"ambient/torch_out_{i}", torch_out(710 + i), peak=0.7)
+    for i in range(1, 4):
+        save(f"ambient/stone_grind_{i}", stone_grind(720 + i), peak=0.8)
+    for i in range(1, 7):
+        save(f"ambient/far_steps_{i}", far_steps(730 + i), peak=0.6)
+    for i in range(1, 7):
+        save(f"ambient/far_mining_{i}", far_mining(740 + i), peak=0.6)
+    for i in range(1, 7):
+        save(f"ambient/drip_{i}", drip(750 + i), peak=0.6)
+    for i in range(1, 9):
+        save(f"ambient/creak_{i}", creak(760 + i), peak=0.6)
+    for i in range(1, 5):
+        save(f"ambient/door_far_{i}", door_far(770 + i), peak=0.6)
+    for i, (k, sp) in enumerate(((2, 0.5), (4, 0.33), (3, 0.6), (5, 0.28)), start=2):
+        save(f"ambient/knock_{i}", knock_pattern(780 + i, k, sp))
+    for i in range(2, 5):
+        save(f"herobrine/breath_{i}", breath_behind(790 + i), peak=0.7)
+    for i in range(2, 5):
+        save(f"ambient/wind_howl_{i}", wind_howl(800 + i), quality=3, peak=0.7)
+
+
 WHISPERS = [
     [(400, 2000, 2550), (320, 870, 2250), (640, 1190, 2390)],
     [(500, 700, 2350), (400, 1620, 2400), (600, 1040, 2250), (320, 870, 2250)],
@@ -642,3 +795,4 @@ if __name__ == "__main__":
     save("music/near", music_near(641), quality=4, peak=0.7)
     for act in (2, 3, 4):
         save(f"music/act_{act}", music_act(650 + act, act), quality=4, peak=0.75)
+    sfx_06()
