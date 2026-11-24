@@ -266,8 +266,10 @@ public class LeftBehindClientTest implements FabricClientGameTest {
 
             // Caves: a tunnel deep down, his old torches ahead, the sign, and someone at the end of the light.
             server.runCommand("time set noon");
-            server.runCommand("execute at @p run fill ~ -31 ~-1 ~44 -29 ~1 air");
-            server.runCommand("execute at @p run tp @p ~1 -31 ~ -90 0");
+            // The test world is flat, so the cave is built: a closed stone tube with a roof, under the ground.
+            server.runCommand("execute at @p run fill ~-2 -64 ~-3 ~46 -54 ~3 stone");
+            server.runCommand("execute at @p run fill ~ -62 ~-1 ~44 -60 ~1 air");
+            server.runCommand("execute at @p run tp @p ~1 -62 ~ -90 0");
             context.waitTicks(40);
             server.runCommand("execute as @a run leftbehind cave sign");
             server.runCommand("execute as @a run leftbehind cave torches");

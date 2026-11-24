@@ -240,6 +240,9 @@ public final class Scenes {
                         h.lookAt(EntityAnchorArgument.Anchor.EYES, steve.getEyePosition());
                     }
                     if (caught(level, h, act)) {
+                        // He stops in the middle of a word.
+                        SteveVoice.interrupt(steve);
+                        SteveVoice.steve(steve, "...");
                         next(AFTER);
                         return;
                     }
