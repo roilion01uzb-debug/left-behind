@@ -224,6 +224,7 @@ public final class Journal {
             player.sendSystemMessage(message);
             Fx.soundTo(player, entry.section() == Section.MEMORY ? ModSounds.FRAGMENT : ModSounds.PAGE, SoundSource.PLAYERS, 0.7f, 1.0f);
             Progress.onJournal(player, memory, entry);
+            if (entry.section() == Section.MEMORY) Score.memory(player);
         }
         return true;
     }

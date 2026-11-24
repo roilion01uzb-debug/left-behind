@@ -231,7 +231,6 @@ public class Herobrine extends PathfinderMob {
             }
             if (before < 30f && now >= 30f && !whispered) {
                 whispered = true;
-                Fx.soundTo(player, Fx.behind(player, 2.0), ModSounds.WHISPER, SoundSource.HOSTILE, 0.9f, 1.0f);
                 whisper(player, pick("you are not the first one he followed", "he is mine", "look away", "it remembers because i let it", "stop"));
             }
             if (before < 50f && now >= 50f && (memory.act() <= 2 || !StoryDirector.huntAllowed(level))) {

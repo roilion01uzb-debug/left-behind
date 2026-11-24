@@ -276,7 +276,6 @@ public final class Dialogue {
             case "other" -> "that was your question";
             default -> "he looked first";
         });
-        Fx.soundTo(player, Fx.behind(player, 1.5), ModSounds.WHISPER, SoundSource.HOSTILE, 1.0f, 0.8f);
         Fx.staticFlash(player, 14);
         Fx.darkness(player, 80);
         Sense.set(player, 60f);

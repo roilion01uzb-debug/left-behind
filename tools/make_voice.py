@@ -188,6 +188,9 @@ PRESETS = {
     "angry":     ({"am_michael": 0.4, "am_fenrir": 0.6},         0.98, 0.26, -17, 0.00, 0.20, 0.00),
     "cold":      ({"am_michael": 0.5, "am_echo": 0.5},           0.90, 0.45, -21, 0.00, 0.00, 0.15),
     "herobrine": ({"am_michael": 0.5, "am_onyx": 0.5},           0.80, 0.70, -22, 0.75, 0.00, 0.00),
+    # Sound effects rather than lines: Steve muttering to himself in an episode, and Herobrine right at your ear.
+    "mutter":    ({"am_michael": 0.6, "am_echo": 0.4},           1.02, 0.30, -25, 0.45, 0.00, 0.00),
+    "ear":       ({"am_michael": 0.5, "am_onyx": 0.5},           0.82, 0.55, -24, 0.97, 0.00, 0.00),
 }
 
 
@@ -318,6 +321,12 @@ def render(text, emotion, seed):
     if emotion == "herobrine":
         x = pitch_down(x.astype(np.float32), 3).astype(np.float64)
         x = reverb(x, rng=rng)
+    if emotion == "ear":
+        # Close and dry: no room, just breath, a little too low to be Steve.
+        x = pitch_down(x.astype(np.float32), 2).astype(np.float64)
+        x = signal.lfilter(*signal.butter(2, 180 / (SR / 2), "high"), x)
+    if emotion == "mutter":
+        x = signal.lfilter(*signal.butter(2, 3800 / (SR / 2)), x)
     lead = []
     if inhale and rng.random() < inhale:
         lead = [breath("in", rng.uniform(0.28, 0.42), voice_rms * 0.10, rng), np.zeros(int(SR * 0.08))]
@@ -378,13 +387,42 @@ DEMO = [
 ]
 
 
+# Mod sound effects made of words. They replace the old wordless synth noises (Temur, 2026-11-24:
+# "change the weird creepy cannibal sound"). Each lands at assets/leftbehind/sounds/<path>.ogg.
+EFFECTS = [
+    ("herobrine/whisper_1", "ear", "turn around"),
+    ("herobrine/whisper_2", "ear", "i'm right behind you"),
+    ("herobrine/whisper_3", "ear", "he doesn't remember you"),
+    ("herobrine/whisper_4", "ear", "don't look at him"),
+    ("herobrine/whisper_5", "ear", "you're not the first one"),
+    ("herobrine/whisper_6", "ear", "he let you come back"),
+    ("herobrine/whisper_7", "ear", "behind you"),
+    ("herobrine/whisper_8", "ear", "count them. he counts them"),
+    ("steve/mutter_1", "mutter", "Not mine. Not mine. Not mine."),
+    ("steve/mutter_2", "mutter", "One. Two. One. Two. One."),
+    ("steve/mutter_3", "mutter", "It was right here. It was right here."),
+    ("steve/mutter_4", "mutter", "Don't reset. Don't reset. Please don't."),
+    ("steve/mutter_5", "mutter", "The walls were black. The walls were black."),
+    ("steve/mutter_6", "mutter", "I didn't break it. I didn't. I didn't."),
+]
+MOD_SOUNDS = os.path.join(ROOT, "src/main/resources/assets/leftbehind/sounds")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--models", required=True)
     ap.add_argument("--demo", help="write a demo of each emotion into this folder instead")
     ap.add_argument("--list", action="store_true", help="only print the lines and their moods")
     ap.add_argument("--jobs", type=int, default=4)
+    ap.add_argument("--effects", action="store_true", help="only make the word sound effects (EFFECTS)")
     args = ap.parse_args()
+
+    if args.effects:
+        items = [("herobrine" if m == "ear" else "steve", t, m, os.path.join(MOD_SOUNDS, p + ".ogg")) for p, m, t in EFFECTS]
+        with ProcessPoolExecutor(args.jobs, initializer=init, initargs=(args.models,)) as pool:
+            for speaker, text, m, seconds in pool.map(job, items):
+                print(f"{m:7s} {seconds:4.1f}s {text}")
+        return
 
     if args.list:
         lines = collect()

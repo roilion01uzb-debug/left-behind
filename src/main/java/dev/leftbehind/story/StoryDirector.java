@@ -63,6 +63,7 @@ public final class StoryDirector {
         activeGhost = null;
         NEXT_AMBIENT.clear();
         Sense.clear();
+        Score.resetTransient();
         wasDark = false;
         wasRaining = false;
     }
@@ -121,6 +122,7 @@ public final class StoryDirector {
 
         dayAndWeather(level, memory, steve);
         ambience(level, memory, time);
+        Score.tick(level, memory, steve, time);
 
         if (mood.inEpisode()) return;
         Reactions.watchPlayers(level, steve, memory);
@@ -240,8 +242,9 @@ public final class StoryDirector {
                 Fx.soundTo(player, Fx.behind(player, 5.0), ModSounds.KNOCK, SoundSource.AMBIENT, 1.0f, 0.9f + random.nextFloat() * 0.2f);
             } else if (roll < 60) {
                 Fx.soundTo(player, Fx.behind(player, 7.0), SoundEvents.AMBIENT_CAVE, SoundSource.AMBIENT, 0.7f, 0.8f);
-            } else if (roll < 72 && act >= 3) {
-                Fx.soundTo(player, Fx.behind(player, 2.5), ModSounds.WHISPER, SoundSource.AMBIENT, 0.8f, 1.0f);
+            } else if (roll < 72 && (act >= 3 || (act == 2 && dark && roll >= 66))) {
+                // Words, close behind you. Real ones now: "turn around", "i'm right behind you".
+                Fx.soundTo(player, Fx.behind(player, 2.5), ModSounds.WHISPER, SoundSource.AMBIENT, act == 2 ? 0.6f : 0.8f, 1.0f);
             } else if (roll < 82 && act >= 3) {
                 Fx.soundTo(player, Fx.behind(player, 1.5), ModSounds.BREATH, SoundSource.AMBIENT, 0.8f, 1.0f);
             } else if (roll < 90 && act >= 3 && memory.stability < 70f) {
