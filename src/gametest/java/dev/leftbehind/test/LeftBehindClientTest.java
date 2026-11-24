@@ -25,6 +25,16 @@ public class LeftBehindClientTest implements FabricClientGameTest {
         });
     }
 
+    /** Waits up to maxTicks for something on the server to become true. */
+    private static boolean waitFor(ClientGameTestContext context, TestServerContext server, int maxTicks,
+                                   java.util.function.Predicate<net.minecraft.server.MinecraftServer> test) {
+        for (int t = 0; t < maxTicks; t += 10) {
+            if (server.computeOnServer(test::test)) return true;
+            context.waitTicks(10);
+        }
+        return server.computeOnServer(test::test);
+    }
+
     @Override
     public void runTest(ClientGameTestContext context) {
         try (TestSingleplayerContext world = context.worldBuilder().create()) {
@@ -198,6 +208,92 @@ public class LeftBehindClientTest implements FabricClientGameTest {
             context.takeScreenshot("05_journal_entry");
             context.setScreen(() -> null);
             context.waitTicks(5);
+
+            // 0.5: the hill. At dusk he walks up somewhere high and talks to someone standing next to him.
+            server.runCommand("leftbehind calm");
+            server.runCommand("kill @e[type=leftbehind:herobrine]");
+            server.runCommand("time set 12000");
+            server.runCommand("execute at " + STEVE + " run tp @a ~ ~ ~6");
+            context.waitTicks(20);
+            server.runCommand("leftbehind scene hill");
+            boolean together = waitFor(context, server, 900, s -> dev.leftbehind.story.Scenes.together()
+                    && dev.leftbehind.story.StoryDirector.activeHerobrine() != null);
+            if (!together) throw new AssertionError("The hill scene never brought Herobrine to Steve");
+            hud(context, false);
+            zoom(context, 30);
+            server.runCommand("execute as @a at @s anchored eyes run tp @s ~ ~ ~ facing entity " + STEVE + " eyes");
+            context.waitTicks(8);
+            context.takeScreenshot("24_the_hill");
+            server.runCommand("execute as @a at @s run tp @s ~ ~ ~ ~180 0");
+            zoom(context, 70);
+            hud(context, true);
+            context.waitTicks(120);
+            server.runCommand("execute at " + STEVE + " anchored eyes run tp @a ^ ^ ^4 facing entity " + STEVE + " eyes");
+            context.waitTicks(60);
+            context.takeScreenshot("25_theres_nobody");
+            if (server.computeOnServer(s -> dev.leftbehind.story.StoryDirector.activeHerobrine() != null)) {
+                throw new AssertionError("Herobrine was still on the hill when the player got there");
+            }
+            waitFor(context, server, 400, s -> !dev.leftbehind.story.Scenes.busy());
+
+            // Act II's card plays its own variation of the theme, through the game's music player.
+            server.runCommand("leftbehind act 2");
+            context.waitTicks(40);
+            context.runOnClient(client -> {
+                if (!dev.leftbehind.client.fx.ScoreClient.last().equals("music.act_2")) {
+                    throw new AssertionError("The act card played \"" + dev.leftbehind.client.fx.ScoreClient.last() + "\", not music.act_2");
+                }
+            });
+
+            // The sleepwalk: at night he walks off, and someone is waiting where he stops.
+            server.runCommand("kill @e[type=leftbehind:herobrine]");
+            server.runCommand("time set 18000");
+            server.runCommand("execute at " + STEVE + " run tp @a ~ ~ ~6");
+            context.waitTicks(20);
+            server.runCommand("leftbehind scene sleepwalk");
+            boolean digging = waitFor(context, server, 1400, s -> dev.leftbehind.story.Scenes.together());
+            if (!digging) throw new AssertionError("Steve never got to where the sleepwalk was taking him");
+            hud(context, false);
+            server.runCommand("execute at " + STEVE + " rotated ~ 0 run tp @a ^ ^3 ^-13 facing entity " + STEVE + " feet");
+            context.waitTicks(10);
+            context.takeScreenshot("26_sleepwalk");
+            hud(context, true);
+            waitFor(context, server, 400, s -> !dev.leftbehind.story.Scenes.busy());
+            context.takeScreenshot("27_sleepwalk_wakes");
+            int found = server.computeOnServer(s -> s.overworld().getEntities(net.minecraft.world.entity.EntityTypes.ITEM,
+                    e -> e.getItem().has(net.minecraft.core.component.DataComponents.CUSTOM_NAME)).size());
+            if (found == 0) throw new AssertionError("Steve dug and found nothing");
+
+            // Caves: a tunnel deep down, his old torches ahead, the sign, and someone at the end of the light.
+            server.runCommand("time set noon");
+            server.runCommand("execute at @p run fill ~ -31 ~-1 ~44 -29 ~1 air");
+            server.runCommand("execute at @p run tp @p ~1 -31 ~ -90 0");
+            context.waitTicks(40);
+            server.runCommand("execute as @a run leftbehind cave sign");
+            server.runCommand("execute as @a run leftbehind cave torches");
+            context.waitTicks(20);
+            context.takeScreenshot("28_cave_torches");
+            int torches = server.computeOnServer(s -> {
+                BlockPos at = s.getPlayerList().getPlayers().getFirst().blockPosition();
+                int n = 0;
+                for (BlockPos pos : BlockPos.betweenClosed(at.offset(-2, -2, -3), at.offset(44, 3, 3))) {
+                    if (s.overworld().getBlockState(pos).is(Blocks.WALL_TORCH)) n++;
+                }
+                return n;
+            });
+            if (torches == 0) throw new AssertionError("No torches were waiting in the cave");
+            server.runCommand("execute as @a run leftbehind cave footsteps");
+            context.waitTicks(20);
+            context.takeScreenshot("29_cave_sign");
+            server.runCommand("execute as @a run leftbehind cave end");
+            context.waitTicks(12);
+            context.takeScreenshot("30_end_of_the_light");
+            context.waitTicks(60);
+            context.takeScreenshot("31_torch_out");
+            server.runCommand("execute at @p run tp @p ~ ~100 ~");
+            server.runCommand("execute as @a at @s run spreadplayers ~ ~ 0 1 false @s");
+            context.waitTicks(40);
+            server.runCommand("leftbehind status");
 
             // The hunt.
             server.runCommand("leftbehind settings hunt true");

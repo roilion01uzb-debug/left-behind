@@ -165,6 +165,49 @@
       ]
     },
     {
+      "id": "who_with",
+      "match": [
+        "who were you talking to",
+        "who are you talking to",
+        "who was with you",
+        "who was next to you",
+        "who was standing with you",
+        "who was on the hill",
+        "you were talking to someone",
+        "talking to someone",
+        "who is your friend",
+        "someone was with you"
+      ],
+      "topic": "him",
+      "replies": [
+        {
+          "if": {
+            "actMin": 2,
+            "trustMin": 50
+          },
+          "say": [
+            "He said you'd ask. ...who said? I don't know why I said that.",
+            "Don't ask me that. Please. Not out here."
+          ]
+        },
+        {
+          "if": {
+            "flag": "hill_seen"
+          },
+          "say": [
+            "Nobody. I talk to myself. Everybody does that.",
+            "There's nobody up there. There's never anybody up there."
+          ]
+        },
+        {
+          "say": [
+            "Talking? I wasn't talking.",
+            "Nobody. It's just me out here. It's always just me."
+          ]
+        }
+      ]
+    },
+    {
       "id": "him",
       "match": [
         "herobrine",
@@ -2221,9 +2264,9 @@
         "flag": "ghost_seen"
       },
       "say": [
-        "Rana used to leave roses where I'd find them.",
-        "Red ones. Before they were called poppies.",
-        "Then one day the list didn't have her name on it. Just like that."
+        "Rana put roses on everything she wanted to keep. Doors. Chests. My roof.",
+        "She said a rose means this one stays. I stayed. She didn't get to.",
+        "She was my first friend. Then one day the list didn't have her name on it. Just like that."
       ]
     },
     {
@@ -2396,7 +2439,7 @@
     "sword": "A sword. Point it at the night, not at me. Please.",
     "pickaxe": "A pickaxe. Everyone digs. What are you all looking for down there?",
     "axe": "An axe. I had one. It keeps ending up places I don't remember putting it.",
-    "rose": "A rose. Rana used to leave those for me. Red ones.",
+    "rose": "A rose. Rana put those on things she wanted to keep. My door had three.",
     "flower": "Flowers. They're the only thing that grows back exactly the same.",
     "mushroom": "Mushrooms grow in the dark. I try not to think about what else does.",
     "bed": "Beds came later. Before beds, you just waited for the sun.",

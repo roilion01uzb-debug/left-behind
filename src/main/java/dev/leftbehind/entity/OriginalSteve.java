@@ -10,6 +10,7 @@ import dev.leftbehind.story.Dialogue;
 import dev.leftbehind.story.Journal;
 import dev.leftbehind.story.Progress;
 import dev.leftbehind.story.Reactions;
+import dev.leftbehind.story.Scenes;
 import dev.leftbehind.story.SteveVoice;
 import dev.leftbehind.story.StoryDirector;
 import java.util.EnumSet;
@@ -136,6 +137,7 @@ public class OriginalSteve extends PathfinderMob {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new EpisodeGoal());
+        this.goalSelector.addGoal(1, new SceneGoal());
         this.goalSelector.addGoal(2, new TalkGoal());
         this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.15, true));
         this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Player.class,
@@ -235,9 +237,9 @@ public class OriginalSteve extends PathfinderMob {
         }
         boolean episode = memory.mood().inEpisode();
         if (!episode) {
-            if (getState() != STATE_NORMAL) setState(STATE_NORMAL);
+            if (getState() != STATE_NORMAL && !Scenes.sleepwalking()) setState(STATE_NORMAL);
             if (isSprinting()) setSprinting(false);
-            if (idleLineCooldown == 0) {
+            if (idleLineCooldown == 0 && !Scenes.busy()) {
                 idleLineCooldown = 2400 + random.nextInt(2400);
                 Reactions.idleThought(this, memory, level);
             }
@@ -277,7 +279,7 @@ public class OriginalSteve extends PathfinderMob {
         }
         if (mood.inEpisode()) {
             r.addTrust(-12f);
-            memory.addStability(-4f);
+            memory.addSanity(-4f);
             say("No, no, no, no", "Not you too!", "Please!");
             beginFlee(level, memory, 300);
             return hurt;
@@ -435,7 +437,7 @@ public class OriginalSteve extends PathfinderMob {
         comfortTicks = 0;
         if (comforted) {
             say("...thank you for staying. Nobody ever stayed.", "You didn't leave. Why didn't you leave?");
-            memory.addStability(18f);
+            memory.addSanity(18f);
             Journal.unlock(level.getServer(), "mem_stay");
             Fx.memoryDust(this, 24);
         } else if (memory.nightLog.isEmpty()) {
@@ -580,7 +582,7 @@ public class OriginalSteve extends PathfinderMob {
 
         // After enough of these, staying away isn't enough any more. He goes back to the place that matters.
         long since = time - memory.counter("episode_start");
-        if (level.isDarkOutside() && since > 1200 && (memory.breaches >= 3 || memory.stability < 30f) && canGrief(level) && comfortTicks == 0) {
+        if (level.isDarkOutside() && since > 1200 && (memory.breaches >= 3 || memory.sanity < 30f) && canGrief(level) && comfortTicks == 0) {
             memory.setMood(Mood.RAMPAGE);
             smashTarget = null;
             stuckTicks = 0;
@@ -762,6 +764,38 @@ public class OriginalSteve extends PathfinderMob {
             setState(STATE_NORMAL);
             setSprinting(false);
             getNavigation().stop();
+        }
+    }
+
+    /** While a scene has him (the hill, the sleepwalk), the scene moves him. */
+    class SceneGoal extends Goal {
+        SceneGoal() {
+            setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK, Flag.JUMP));
+        }
+
+        @Override
+        public boolean canUse() {
+            return Scenes.busy() && !inEpisode();
+        }
+
+        @Override
+        public boolean requiresUpdateEveryTick() {
+            return true;
+        }
+
+        @Override
+        public void start() {
+            setTarget(null);
+        }
+
+        @Override
+        public void tick() {
+            if (level() instanceof ServerLevel level) Scenes.steveTick(level, OriginalSteve.this);
+        }
+
+        @Override
+        public void stop() {
+            if (!inEpisode()) setState(STATE_NORMAL);
         }
     }
 

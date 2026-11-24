@@ -26,9 +26,9 @@ public final class Dialogue {
     /** How he seems right now, in a sentence. Used by /leftbehind status. */
     public static String read(SteveMemory memory, Relationship r) {
         String mind;
-        if (memory.stability >= 85f) mind = "He seems calm.";
-        else if (memory.stability >= 60f) mind = "He keeps losing the end of his sentences.";
-        else if (memory.stability >= 35f) mind = "He keeps glancing over your shoulder.";
+        if (memory.sanity >= 85f) mind = "He seems calm.";
+        else if (memory.sanity >= 60f) mind = "He keeps losing the end of his sentences.";
+        else if (memory.sanity >= 35f) mind = "He keeps glancing over your shoulder.";
         else mind = "His hands won't stop moving. He is not really looking at you.";
         String heart;
         if (r.stage().atLeast(AngerStage.RETALIATION)) heart = "He is furious with you.";
@@ -64,7 +64,7 @@ public final class Dialogue {
             return pick(steve, "Your house looks different. Did you change something?", "I was here all night. Wasn't I?",
                     "My hands hurt. Did I fall?");
         }
-        if (memory.stability < 40f) {
+        if (memory.sanity < 40f) {
             return pick(steve, "Do you ever feel like you've done all this before?", "Don't let him look at me.",
                     "Is it today? It keeps being today.");
         }
@@ -106,15 +106,15 @@ public final class Dialogue {
             }
             case "remember" -> answer = remember(level, steve, memory, r);
             case "okay" -> {
-                if (memory.cooldown("okay_" + player.getUUID(), time, 2400)) memory.addStability(2f);
+                if (memory.cooldown("okay_" + player.getUUID(), time, 2400)) memory.addSanity(2f);
                 if (memory.breaches >= 1 && r.trust >= 45f && !memory.journal.contains("mem_reset")) {
                     answer = "Sometimes the world just stops. All of it, all at once. Then it starts again from the beginning and nobody else notices. I notice.";
                     Journal.unlock(level.getServer(), "mem_reset");
                 } else if (!memory.nightLog.isEmpty() && memory.breaches > 0 && asked % 2 == 0) {
                     answer = "Why do you keep asking? Did I do something? ...I didn't do something, did I?";
-                } else if (memory.stability >= 80f) {
+                } else if (memory.sanity >= 80f) {
                     answer = pick(steve, "I'm okay. It's a good day. Nothing is looking at me.", "Better, with someone to talk to.");
-                } else if (memory.stability >= 50f) {
+                } else if (memory.sanity >= 50f) {
                     answer = "I keep losing bits of yesterday. Is that normal? You'd tell me if that wasn't normal.";
                 } else {
                     answer = "No. I don't think so. Something is wrong with the edges of things.";
@@ -122,7 +122,7 @@ public final class Dialogue {
             }
             case "me" -> answer = opinion(memory, r);
             case "he" -> {
-                memory.addStability(-2f);
+                memory.addSanity(-2f);
                 if (memory.breaches == 0) {
                     answer = "Who? ...there's nobody there. Don't point. Please don't point.";
                 } else if (!memory.journal.contains("mem_eyes")) {

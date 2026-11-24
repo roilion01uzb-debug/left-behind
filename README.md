@@ -7,7 +7,7 @@ Herobrine is always one step ahead of both of you, and he knows exactly which me
 
 ## Download
 
-`downloads/left-behind-0.4.0.jar`. Put it in your `mods` folder together with Fabric API.
+`downloads/left-behind-0.5.0.jar`. Put it in your `mods` folder together with Fabric API.
 
 ## What's in it
 
@@ -57,6 +57,28 @@ Steve speaks English, and you talk to him the way you talk to anyone: **type in 
   and defends players he trusts from monsters.
 - Players without the mod on a server still get his words in chat.
 
+### What's new in 0.5
+
+- **You can catch Herobrine with Steve.** At dusk Steve may walk up somewhere high, a long way off, and talk to someone
+  standing next to him. You only ever hear Steve. Get close, or stare, and there is only Steve: "Who? There's nobody."
+  From Act II, some nights he **sleepwalks**: he walks off in a straight line, and if you follow him you find Herobrine
+  waiting where he stops, looking at the ground. Steve digs there and finds something somebody buried. Meet Herobrine's
+  eyes and he says "not yet". Herobrine is rare: at most one Herobrine moment a day before Act III.
+- **Sanity** replaces memory stability. It is never on screen; you read it from Steve. Steady, he is friendly and curious.
+  Uneasy, he counts, repeats himself and wants the lights on. Fraying, he talks to someone who isn't there, sees him where
+  there's nothing and sometimes calls you by someone else's name. Breaking, Herobrine's words come out of his mouth.
+  At nothing he is **Taken** for a while and doesn't know anyone. Daylight, torches and a player he trusts staying near him
+  bring it back; the dark and deep caves wear it down.
+- **Caves turn on you, slowly.** His torches from an older world already burning ahead of you. Mining inside the wall that
+  stops when you stop. Footsteps one step behind yours. A torch behind you gone when you turn round. A sign deep down.
+  And from Act II, someone standing at the far end of your light.
+- **The wordless muttering and vowel whispers are gone.** Steve mutters real words now ("Not mine. Not mine."), and the
+  whispers behind you say "turn around" and "I'm right behind you" in Herobrine's voice.
+- **Eight new music pieces** in the style of the theme: the first dark of a night, deep underground, by the fire when
+  Steve trusts you, when he is near, a flashback when a memory comes back, and a variation for each act card. They play
+  through the game's own music player, on the Music slider.
+- Rana was Steve's closest friend. Her lines now say so.
+
 ### Breaches you can watch
 
 When Herobrine holds Steve's eyes, a memory breaks. Steve no longer disappears.
@@ -92,8 +114,8 @@ Sometimes they leave something behind.
 - Screen effects: dread vignette with a heartbeat pulse, static, a flash of white eyes, blackouts, camera shake.
 - An ambience director that gets worse with each act: low drones, howling wind, knocking behind you when you are indoors,
   footsteps in the grass, cave sounds, and later whispers and breathing right behind your shoulder, bursts of static and eyes in the dark.
-- 25 original sounds, all with subtitles. They were made for this mod with `tools/make_sounds.py`,
-  so there is nothing borrowed in the jar.
+- Original sounds and music, made for this mod with `tools/make_sounds.py` and `tools/make_voice.py`,
+  so there is nothing borrowed in the jar. Every sound effect has a subtitle.
 
 ## Settings (operators)
 
@@ -123,7 +145,9 @@ Block changes also respect the `mob_griefing` game rule.
 | `/leftbehind trust <player> <0-100>` | Sets Steve's trust in a player |
 | `/leftbehind anger <player> <0-100>` | Sets Steve's anger toward a player |
 | `/leftbehind sense <player> <0-100>` | Sets how much Herobrine senses a player |
-| `/leftbehind stability <0-100>` | Sets Steve's memory stability |
+| `/leftbehind sanity <0-100>` | Sets Steve's sanity |
+| `/leftbehind scene <hill\|sleepwalk>` | Starts a scene with Herobrine and Steve now |
+| `/leftbehind cave <torches\|mining\|torch\|footsteps\|sign\|end>` | Runs one cave event where you stand |
 | `/leftbehind reset` | Makes the world forget everything |
 
 Everyone can use `/steve journal`, and `/steve say <text>` talks to Steve without chat (for servers where chat is off).
@@ -147,5 +171,7 @@ Steve's voice is recorded by `tools/make_voice.py` with the [Kokoro-82M](https:/
 
 ## What comes next
 
-Alex. Cutscenes with voiceovers. The endings (True, Secret, It's all a dream). And the question the last torn page asks:
-what was here before the seed?
+The plan, in order: 0.6 gives Steve a body that plays like a real player (mining, building, pillaring, lighting caves).
+0.7 gives Steve and Herobrine smarter minds, and an optional AI key for free conversation and voice chat with Steve.
+0.8 brings memories as flashbacks and the old places (the Hallway, the Obsidian Box, the Removed Village). 0.9 the endings,
+with Alex. Then 1.0. And the question the last torn page asks: what was here before the seed?

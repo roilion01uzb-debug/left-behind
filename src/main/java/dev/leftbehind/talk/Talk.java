@@ -10,6 +10,7 @@ import dev.leftbehind.story.Dialogue;
 import dev.leftbehind.story.Journal;
 import dev.leftbehind.story.Progress;
 import dev.leftbehind.story.Reactions;
+import dev.leftbehind.story.Scenes;
 import dev.leftbehind.story.Sense;
 import dev.leftbehind.story.SteveVoice;
 import dev.leftbehind.story.StoryDirector;
@@ -141,6 +142,10 @@ public final class Talk {
         boolean inConversation = now - session.lastExchange < 600;
         boolean hears = (dist < 10 && steve.hasLineOfSight(player)) || (inConversation && dist < 20) || (named && dist < 40);
         if (!hears) return;
+        if (Scenes.busy()) {
+            Scenes.heard(player, steve);
+            return;
+        }
         if (!steve.inEpisode()) steve.startTalking(player);
         // A moment to think, longer for longer messages.
         HEARD.add(new Heard(player.getUUID(), now + 12 + Math.min(30, raw.length() / 3), text, raw));
@@ -279,7 +284,7 @@ public final class Talk {
         if (e == TalkBook.Effects.NONE) return;
         if (e.trust() != 0) c.rel.addTrust(e.trust());
         if (e.anger() != 0) c.rel.addAnger(e.anger());
-        if (e.stability() != 0) c.memory.addStability(e.stability());
+        if (e.stability() != 0) c.memory.addSanity(e.stability());
         if (e.unlock() != null) Journal.unlock(c.level.getServer(), e.unlock());
         if (e.flag() != null) c.memory.setFlag(e.flag());
         if (e.mark() != null) c.rel.firstTime(e.mark());
@@ -610,7 +615,7 @@ public final class Talk {
         OriginalSteve steve = StoryDirector.findSteve(level);
         if (steve == null || !steve.isAlive()) return;
         SteveMemory memory = SteveMemory.get(level.getServer());
-        boolean busy = steve.inEpisode() || steve.getTarget() != null || SteveVoice.isSpeaking(steve);
+        boolean busy = steve.inEpisode() || steve.getTarget() != null || SteveVoice.isSpeaking(steve) || Scenes.busy();
         for (ServerPlayer player : level.players()) {
             if (player.isSpectator() || !player.isAlive() || player.distanceToSqr(steve) > 9 * 9) continue;
             Session s = session(player);
@@ -739,8 +744,19 @@ public final class Talk {
         speak(c, variants.get(index));
     }
 
+    private static final String[] WRONG_NAMES = {"Rana", "Notch", "Black Steve"};
+
     private static void speak(Ctx c, List<String> lines) {
-        for (String line : lines) SteveVoice.steve(c.steve, fill(c, line), voiceText(line));
+        String name = c.rel.note("name");
+        for (String line : lines) {
+            // Fraying: now and then he calls you by someone else's name, and hears it a moment too late.
+            if (name != null && line.contains("{name}") && c.memory.sanity < 50f && c.random.nextInt(6) == 0) {
+                String wrong = WRONG_NAMES[c.random.nextInt(WRONG_NAMES.length)];
+                SteveVoice.steve(c.steve, fill(c, line.replace("{name}", wrong)) + " ...sorry. " + name + ". I meant " + name + ".", null);
+                continue;
+            }
+            SteveVoice.steve(c.steve, fill(c, line), voiceText(line));
+        }
     }
 
     /**

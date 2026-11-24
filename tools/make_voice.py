@@ -95,8 +95,9 @@ def talk_lines():
 
 
 JAVA_FILES = ["story/Reactions.java", "entity/OriginalSteve.java", "story/StoryDirector.java", "story/Relics.java",
-              "entity/Herobrine.java", "story/Dialogue.java", "talk/Talk.java"]
+              "entity/Herobrine.java", "story/Dialogue.java", "talk/Talk.java", "story/Scenes.java", "story/Caves.java"]
 NOT_LINES = {
+    "Steve was taken (sanity 0)", "Black Steve",
     "Type in chat to talk to Steve.", "He is waiting. Type your question.", "Original Steve has arrived.", "Steve remembers.",
     "My name is ...", "He is furious with you.", "He hasn't forgiven you.", "He is getting used to you.", "He is glad you're here.",
     "He keeps glancing over your shoulder.", "He keeps losing the end of his sentences.", "He seems calm.", "He trusts you.",
@@ -105,6 +106,8 @@ NOT_LINES = {
     "I haven't watched you long enough to say more.",
 }
 HEROBRINE_SOURCES = {"entity/Herobrine.java", "story/Dialogue.java"}
+# Lines from these files take this context's mood (Steve talking quietly to someone on a hill, or half asleep).
+FILE_CONTEXT = {"story/Scenes.java": "scene"}
 
 
 def java_lines():
@@ -119,11 +122,12 @@ def java_lines():
                 continue
             if s != s.strip() or s.startswith("/") or ":" in s[:14] or "_" in s:
                 continue
+            ctx = FILE_CONTEXT.get(f, "")
             if s[0].isupper() or s.startswith("..."):
                 if " " in s or re.search(r"[.!?]$", s):
-                    out.append(("steve", s))
+                    out.append(("steve", s, ctx))
             elif f in HEROBRINE_SOURCES and " " in s and s == s.lower() and s[0].isalpha():
-                out.append(("herobrine", s))
+                out.append(("herobrine", s, ctx))
     return out
 
 
@@ -134,6 +138,7 @@ CONTEXT_MOOD = {
     "likes": "warm", "game": "warm", "build": "warm", "give": "warm", "feel_happy": "warm",
     "insult": "cold", "shut_up": "cold", "go_away": "cold",
     "him": "scared", "are_you_herobrine": "scared", "scared": "scared", "q_him": "scared",
+    "scene": "hushed", "who_with": "hushed",
     "lonely": "sad", "what_happened": "sad", "remember": "sad", "death": "sad", "i_died": "sad", "the_others": "sad",
     "feel_sad": "sad", "topic_past": "sad", "topic_others": "sad", "q_alone": "sad", "s_first_night": "sad",
 }
@@ -152,9 +157,31 @@ WARM = ("thank", "kind", "friend", "glad", "like when", "i like", "nice", "good"
         "heh", "sweet", "warm", "love", "great", "lead the way", "i'll come", "keep up", "fun", "pretty", "shiny")
 
 
+# Lines whose words fool the keyword rules (a rose on "my door" is not anger).
+MOOD_OVERRIDE = {
+    "A rose. Rana put those on things she wanted to keep. My door had three.": "warm",
+    "She said a rose means this one stays. I stayed. She didn't get to.": "sad",
+    "She was my first friend. Then one day the list didn't have her name on it. Just like that.": "sad",
+    "Rana put roses on everything she wanted to keep. Doors. Chests. My roof.": "warm",
+    "Who said that? ...you didn't say that. Right.": "scared",
+    "There are two of you. No. One. One of you.": "scared",
+    "He was standing right there. A moment ago.": "scared",
+    "Can you put a torch down? Here. Right here.": "scared",
+    "One, two, three, four. One, two, three... four. Still four.": "hushed",
+    "You are in the way. ...not you. I didn't mean you. I didn't mean anything.": "scared",
+    "Not now. I'm talking to them.": "hushed",
+    "Stop whispering. I can hear you. Both of you.": "scared",
+    "...who are you? Where is he? Where did he go?": "scared",
+    "Somebody lit the way. ...it was me. I think it was me. A long time ago.": "sad",
+    "Those are mine. From before. I don't remember putting them there.": "hushed",
+}
+
+
 def mood(text, ctx, speaker):
     if speaker == "herobrine":
         return "herobrine"
+    if text in MOOD_OVERRIDE:
+        return MOOD_OVERRIDE[text]
     t = " " + text.lower() + " "
     shouting = bool(re.search(r"\b(?!I\b|TNT\b)[A-Z]{2,}\b", text))
     if any(w in t for w in ANGRY):
@@ -369,8 +396,8 @@ def collect():
         if not re.search(r"[A-Za-z]", text):
             continue
         lines.setdefault(("steve", text), mood(text, ctx, "steve"))
-    for speaker, text in java_lines():
-        lines.setdefault((speaker, text), mood(text, "", speaker))
+    for speaker, text, ctx in java_lines():
+        lines.setdefault((speaker, text), mood(text, ctx, speaker))
     return lines
 
 
@@ -415,6 +442,7 @@ def main():
     ap.add_argument("--list", action="store_true", help="only print the lines and their moods")
     ap.add_argument("--jobs", type=int, default=4)
     ap.add_argument("--effects", action="store_true", help="only make the word sound effects (EFFECTS)")
+    ap.add_argument("--all", action="store_true", help="record every line again, not only new ones")
     args = ap.parse_args()
 
     if args.effects:
@@ -447,13 +475,22 @@ def main():
             hashes[(speaker, h)] = text
         for speaker in ("steve", "herobrine"):
             os.makedirs(os.path.join(ASSETS, "sounds", speaker), exist_ok=True)
-        items = []
+        old = {}
+        if not args.all and os.path.exists(INDEX):
+            old = json.load(open(INDEX))
+        items, results = [], []
         for (speaker, text), m in lines.items():
-            path = os.path.join(ASSETS, "sounds", speaker, fnv(text) + ".ogg")
-            items.append((speaker, text, m, path))
+            h = fnv(text)
+            path = os.path.join(ASSETS, "sounds", speaker, h + ".ogg")
+            if h in old.get(speaker, {}) and os.path.exists(path):
+                results.append((speaker, text, m, old[speaker][h] / 20))  # recorded before, keep it
+            else:
+                items.append((speaker, text, m, path))
+        print(f"{len(items)} new lines to record, {len(results)} kept", flush=True)
 
     with ProcessPoolExecutor(args.jobs, initializer=init, initargs=(args.models,)) as pool:
-        results = []
+        if args.demo:
+            results = []
         for n, r in enumerate(pool.map(job, items, chunksize=4)):
             results.append(r)
             if n % 50 == 0:

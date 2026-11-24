@@ -75,7 +75,7 @@ public final class Observation {
                 memory.setDirty();
                 OriginalSteve steve = watching(server, dead);
                 if (steve != null && !source.is(ModDamage.REMOVED)) {
-                    memory.addStability(-4f);
+                    memory.addSanity(-4f);
                     Reactions.remark(steve, "death", 30, "No! ...no. Wait. Wait for it.", "Not again. Please come back. They sometimes come back.");
                 }
                 return;
@@ -92,13 +92,13 @@ public final class Observation {
                     r.addTrust(1.5f);
                     Reactions.remark(steve, "kill_monster", 45, "Nice one.", "Thanks.", "You're good at that.", "It would have got me. Probably.");
                 } else {
-                    memory.addStability(-1f);
+                    memory.addSanity(-1f);
                     Reactions.remark(steve, "kill_monster", 45, "It keeps happening the same way.", "That's how it started last time.",
                             "Good. ...I think good.");
                 }
             } else if (entity instanceof AbstractVillager) {
                 r.addTrust(-6f);
-                memory.addStability(-4f);
+                memory.addSanity(-4f);
                 Reactions.remark(steve, "kill_villager", 10, "They were just standing there. They were only standing there.",
                         "Why? They had a house. They had a door.");
             } else if (entity instanceof Animal) {
@@ -162,7 +162,7 @@ public final class Observation {
             else if (n > 5) Reactions.remark(steve, "chop", 240, "Leave some standing. For the look of it.", "Another one. I'm keeping count.");
         } else if (state.is(BlockTags.BEDS)) {
             memory.observe("break_bed");
-            memory.addStability(-2f);
+            memory.addSanity(-2f);
             Reactions.remark(steve, "break_bed", 10, "Don't. Somebody sleeps there.");
         } else if (state.is(Blocks.TORCH) || state.is(Blocks.WALL_TORCH) || state.is(BlockTags.LANTERNS)) {
             Reactions.remark(steve, "break_light", 60, "Leave the lights. Please.", "It gets dark faster than you think.");
@@ -193,13 +193,13 @@ public final class Observation {
             Reactions.remark(steve, "place_torch", n < 3 ? 20 : 300, "Good. More light.", "Put one by the door too.", "That helps. That actually helps.");
         } else if (state.is(BlockTags.BEDS)) {
             Reactions.remark(steve, "place_bed", 120, "You're staying? ...good. Good.", "A bed. So this is home now.");
-            memory.addStability(2f);
+            memory.addSanity(2f);
         } else if (state.is(BlockTags.DOORS)) {
             Reactions.remark(steve, "place_door", 120, "A door. Remember to close it. They always forget to close it.");
         } else if (block == Blocks.CRAFTING_TABLE) {
             Reactions.remark(steve, "place_table", 300, "Everything starts with one of those.");
         } else if (block == Blocks.TNT) {
-            memory.addStability(-3f);
+            memory.addSanity(-3f);
             Reactions.remark(steve, "place_tnt", 20, "No. No, no, no. Not that. Not near the house.");
         } else if (block == Blocks.CHEST) {
             Reactions.remark(steve, "place_chest", 300, "I had one with everything in it, once. Everything there was. Then there was more than everything.");

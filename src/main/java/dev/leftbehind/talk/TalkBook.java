@@ -37,7 +37,7 @@ public final class TalkBook {
             if (c.rel.trust < trustMin || c.rel.trust > trustMax) return false;
             int act = c.memory.act();
             if (act < actMin || act > actMax) return false;
-            if (c.memory.stability < stabMin || c.memory.stability > stabMax) return false;
+            if (c.memory.sanity < stabMin || c.memory.sanity > stabMax) return false;
             if (c.memory.breaches < breachesMin) return false;
             if (night != null && c.level.isDarkOutside() != night) return false;
             if (rain != null && c.level.isRaining() != rain) return false;
@@ -179,7 +179,7 @@ public final class TalkBook {
     private static Cond cond(@Nullable JsonObject o) {
         if (o == null) return Cond.ALWAYS;
         return new Cond(f(o, "trustMin", -1), f(o, "trustMax", 999), (int) f(o, "actMin", 0), (int) f(o, "actMax", 99),
-                f(o, "stabMin", -1), f(o, "stabMax", 999), (int) f(o, "breachesMin", 0),
+                f(o, "sanityMin", f(o, "stabMin", -1)), f(o, "sanityMax", f(o, "stabMax", 999)), (int) f(o, "breachesMin", 0),
                 bool(o, "night"), bool(o, "rain"), bool(o, "known"), bool(o, "hunted"),
                 str(o, "flag"), str(o, "noFlag"), str(o, "unlocked"), str(o, "locked"), str(o, "mark"), str(o, "noMark"),
                 f(o, "chance", 1f));
@@ -187,7 +187,7 @@ public final class TalkBook {
 
     private static Effects effects(@Nullable JsonObject o) {
         if (o == null) return Effects.NONE;
-        return new Effects(f(o, "trust", 0), f(o, "anger", 0), f(o, "stability", 0), str(o, "unlock"), str(o, "flag"), str(o, "mark"),
+        return new Effects(f(o, "trust", 0), f(o, "anger", 0), f(o, "sanity", f(o, "stability", 0)), str(o, "unlock"), str(o, "flag"), str(o, "mark"),
                 str(o, "action"), str(o, "ask"), str(o, "topic"), (int) f(o, "quiet", 0), o.has("end") && o.get("end").getAsBoolean());
     }
 

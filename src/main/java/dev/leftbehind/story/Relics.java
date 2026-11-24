@@ -67,7 +67,7 @@ public final class Relics {
                             case "pyramid" -> "They used to be bigger than mountains. Nothing inside. I checked. I checked all of them.";
                             default -> "This is the middle. Everything is counted from here. Don't stand on it.";
                         });
-                        memory.addStability(-4f);
+                        memory.addSanity(-4f);
                         Journal.unlock(level.getServer(), relic.memory);
                     }
                 }

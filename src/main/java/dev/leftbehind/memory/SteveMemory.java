@@ -24,7 +24,8 @@ import net.minecraft.world.level.saveddata.SavedDataType;
  */
 public final class SteveMemory extends SavedData {
     public static final Codec<SteveMemory> CODEC = RecordCodecBuilder.create(i -> i.group(
-            Codec.FLOAT.optionalFieldOf("stability", 100f).forGetter(m -> m.stability),
+            // Saved under its old name ("memory stability" before 0.5), so older worlds keep their Steve as he was.
+            Codec.FLOAT.optionalFieldOf("stability", 100f).forGetter(m -> m.sanity),
             Codec.unboundedMap(UUIDUtil.STRING_CODEC, Relationship.CODEC).optionalFieldOf("relationships", Map.of()).forGetter(m -> m.relationships),
             Codec.unboundedMap(Codec.STRING, Codec.INT).optionalFieldOf("habits", Map.of()).forGetter(m -> m.habits),
             UUIDUtil.STRING_CODEC.optionalFieldOf("steve").forGetter(m -> Optional.ofNullable(m.steveId)),
@@ -41,7 +42,8 @@ public final class SteveMemory extends SavedData {
             Identifier.fromNamespaceAndPath(LeftBehind.MOD_ID, "steve_memory"), SteveMemory::new, CODEC, null);
 
     /** 100 = himself. Low values = memory intrusions, seeing Herobrine where he isn't, episodes. */
-    public float stability;
+    /** Steve's sanity, 0 to 100. Never shown as a bar: you read it from how he acts. See {@link SanityStage}. */
+    public float sanity;
     public final Map<UUID, Relationship> relationships;
     /** Things he has watched players do, and how many times. */
     public final Map<String, Integer> habits;
@@ -63,10 +65,10 @@ public final class SteveMemory extends SavedData {
         this(100f, Map.of(), Map.of(), Optional.empty(), false, 0, Map.of(), List.of(), List.of(), List.of(), Map.of());
     }
 
-    private SteveMemory(float stability, Map<UUID, Relationship> relationships, Map<String, Integer> habits,
+    private SteveMemory(float sanity, Map<UUID, Relationship> relationships, Map<String, Integer> habits,
                         Optional<UUID> steveId, boolean steveDead, int breaches, Map<String, Long> counters,
                         List<String> flags, List<String> journal, List<String> nightLog, Map<String, String> learned) {
-        this.stability = stability;
+        this.sanity = sanity;
         this.relationships = new HashMap<>(relationships);
         this.habits = new HashMap<>(habits);
         this.steveId = steveId.orElse(null);
@@ -117,11 +119,15 @@ public final class SteveMemory extends SavedData {
         return habits.merge(habit, 1, Integer::sum);
     }
 
-    // ---- stability and mood -----------------------------------------------
+    // ---- sanity and mood -----------------------------------------------
 
-    public void addStability(float amount) {
-        stability = Mth.clamp(stability + amount, 0f, 100f);
+    public void addSanity(float amount) {
+        sanity = Mth.clamp(sanity + amount, 0f, 100f);
         setDirty();
+    }
+
+    public SanityStage sanityStage() {
+        return SanityStage.of(sanity);
     }
 
     public Mood mood() {

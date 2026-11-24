@@ -96,7 +96,7 @@ public final class Journal {
                 + "After he left they were taken out. Not killed. Taken out. They never learned to walk. They still haven't.\"");
         add("mem_rose", Section.MEMORY, "Roses",
                 "\"There used to be roses. Red, simple. One day every rose in the world was a different flower with a different name, "
-                + "and I was the only one who noticed.\n\nShe still leaves roses. I don't know where she finds them.\"");
+                + "and I was the only one who noticed.\n\nRana still puts roses on the things she wants to keep. This morning there was one on my door.\"");
         add("mem_house", Section.MEMORY, "The First House",
                 "\"I woke up next to a house I hadn't built. Planks and mossy stone. Two torches. And chests with one of everything "
                 + "that existed, as if someone had packed for me.\n\n"
@@ -189,6 +189,15 @@ public final class Journal {
                 "I found him. I kept back and he didn't see me. He was curled up in a hole he'd walled in with dirt, hands over his head, "
                 + "talking to someone who wasn't there.\n\n"
                 + "If I get close he bolts, unless he really trusts me. Then I can just stay. A spyglass works too.");
+        add("note_hill", Section.NOTE, "Who He Talks To",
+                "At dusk I saw Steve up on a hill, talking to someone standing next to him. They were looking the same way, out over "
+                + "everything, like two people watching a sunset.\n\nWhen I got there it was only Steve. He said there was nobody. He said it too fast.");
+        add("note_sleepwalk", Section.NOTE, "He Walks at Night",
+                "Some nights Steve gets up and walks. Eyes half shut, in a straight line, and he doesn't answer.\n\n"
+                + "Where he stops, someone is already waiting, looking at the ground. Steve digs where he's looking.");
+        add("note_taken", Section.NOTE, "Not Him",
+                "Today he didn't know me. He looked at me like I was a stranger standing in his house, and asked where \"he\" had gone.\n\n"
+                + "He came back later. Most of the way. Light helps, and staying near him. The dark doesn't.");
         add("note_hunt", Section.NOTE, "Removed",
                 "He came for me and nothing stopped him. Not walls, not armour, not creative mode.\n\n"
                 + "Once he has really seen you, the only thing that has ever made him turn around is Steve.");
