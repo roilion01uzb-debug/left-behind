@@ -8,6 +8,7 @@ import dev.leftbehind.talk.Talk;
 import dev.leftbehind.registry.ModEntities;
 import dev.leftbehind.registry.ModSounds;
 import dev.leftbehind.story.Observation;
+import dev.leftbehind.story.Caves;
 import dev.leftbehind.story.StoryDirector;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
@@ -37,6 +38,7 @@ public class LeftBehind implements ModInitializer {
             StoryDirector.tick(server);
             SteveVoice.tick(server);
             Talk.tick(server);
+            Caves.tick(server);
         });
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> LeftBehindCommand.register(dispatcher));
         LOGGER.info("Left Behind loaded. He is already here.");

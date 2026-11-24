@@ -6,6 +6,7 @@ import dev.leftbehind.entity.Remnant;
 import dev.leftbehind.fx.Fx;
 import dev.leftbehind.memory.AngerStage;
 import dev.leftbehind.memory.Relationship;
+import dev.leftbehind.memory.SanityStage;
 import dev.leftbehind.memory.SteveMemory;
 import java.util.HashMap;
 import java.util.Locale;
@@ -56,9 +57,19 @@ public final class Reactions {
         for (ServerPlayer p : level.players()) if (p.distanceToSqr(steve) < 24 * 24) near = true;
         if (!near) return;
         int act = memory.act();
-        if (memory.stability < 60f) {
-            remark(steve, "idle", 60, "This place feels familiar.", "Has this world always been here?",
-                    "I keep forgetting something important.", "Was that tree there yesterday?");
+        SanityStage stage = memory.sanityStage();
+        if (stage.atMost(SanityStage.FRAYING)) {
+            remark(steve, "idle", 60, "Who said that? ...you didn't say that. Right.", "There are two of you. No. One. One of you.",
+                    "I keep forgetting something important.", "Was that tree there yesterday?", "He was standing right there. A moment ago.");
+        } else if (stage == SanityStage.UNEASY) {
+            // Uneasy: he counts, and repeats himself, and wants the lights on.
+            if (level.isDarkOutside() && level.getMaxLocalRawBrightness(steve.blockPosition()) < 8
+                    && remark(steve, "lights", 300, "Can you put a torch down? Here. Right here.", "It's too dark here. He likes it dark.",
+                            "Leave the torches on tonight. All of them.")) {
+                return;
+            }
+            remark(steve, "idle", 60, "One, two, three, four. One, two, three... four. Still four.", "This place feels familiar.",
+                    "Has this world always been here?", "I said that already, didn't I?", "I said that already, didn't I?");
         } else if (act >= 3) {
             remark(steve, "idle", 60, "He's not here right now. I'd know.", "I counted the chickens. One is missing. One is always missing.",
                     "If I stand very still, the day lasts longer.");
@@ -112,11 +123,11 @@ public final class Reactions {
         if (Remnant.isRose(stack) || (stack.is(Items.POPPY) && memory.flag("seen_0"))) {
             if (!memory.journal.contains("mem_rose")) {
                 stack.shrink(1);
-                SteveVoice.steve(steve, "A rose. They were called roses. Rana used to leave them where I'd find them. ...why did I forget that?");
+                SteveVoice.steve(steve, "A rose. They were called roses. Rana put them on everything she wanted to keep. ...why did I forget that?");
                 Journal.unlock(level.getServer(), "mem_rose");
                 Progress.grant(player, "rose");
                 Fx.memoryDust(steve, 20);
-                memory.addStability(6f);
+                memory.addSanity(6f);
                 r.addTrust(6f);
                 return true;
             }
@@ -128,13 +139,13 @@ public final class Reactions {
             r.gifts++;
             r.addTrust(r.gifts <= 3 ? 8f : 2f);
             r.addAnger(-15f);
-            memory.addStability(3f);
+            memory.addSanity(3f);
             memory.setDirty();
             Progress.grant(player, "gift");
             level.playSound(null, steve.blockPosition(), SoundEvents.GENERIC_EAT.value(), SoundSource.NEUTRAL, 0.8f, 1.0f);
             Fx.particles(level, ParticleTypes.HEART, steve.getEyePosition().add(0, 0.5, 0), 3, 0.3, 0.02);
             if (stack.is(Items.GOLDEN_APPLE) || stack.is(Items.ENCHANTED_GOLDEN_APPLE)) {
-                memory.addStability(15f);
+                memory.addSanity(15f);
                 SteveVoice.steve(steve, "It's warm. I can feel it in the bits of me that are missing.");
             } else if (stack.is(Items.CAKE)) {
                 SteveVoice.steve(steve, "Is it somebody's birthday? I don't have one. Can I have this one?");
@@ -153,11 +164,11 @@ public final class Reactions {
             return say(steve, memory, r, time, "bed", "I don't sleep. I tried. When I close my eyes it all starts again from the beginning.");
         }
         if (stack.is(Items.MUSIC_DISC_13)) {
-            memory.addStability(-3f);
+            memory.addSanity(-3f);
             return say(steve, memory, r, time, "disc13", "Turn it off. Please. That's what the dark sounds like from inside.");
         }
         if (stack.is(Items.MUSIC_DISC_11)) {
-            memory.addStability(-6f);
+            memory.addSanity(-6f);
             return say(steve, memory, r, time, "disc11", "Where did you find that? Who was running? Who was RUNNING?");
         }
         if (stack.has(DataComponents.JUKEBOX_PLAYABLE)) return say(steve, memory, r, time, "disc", "I like this one. It sounds like before.");
@@ -165,7 +176,7 @@ public final class Reactions {
             return say(steve, memory, r, time, "fire", "Careful. I've seen what that does to a house.");
         }
         if (stack.is(Items.TNT)) {
-            memory.addStability(-2f);
+            memory.addSanity(-2f);
             return say(steve, memory, r, time, "tnt", "No. No, no. Put it away. Nothing that goes off like that.");
         }
         if (stack.is(Items.COMPASS)) {

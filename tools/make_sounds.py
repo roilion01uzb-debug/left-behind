@@ -462,6 +462,151 @@ def theme(seed):
     return fade(out, 0.05, 2.5)
 
 
+# ------------------------------------------------------------------ music (0.5: more like the theme)
+def music_box(seed, melody, bass, bpm, bar=3, wow=28.0, flutter=3.0, octave=0, harmony=None, double=None,
+              drop_every=0, drift=0.0, lowpass=6500, hiss=0.006, crackles=5, bass_gain=0.45, gain=0.8, space=3.2):
+    """The theme's recipe with knobs: a music box on a worn tape. drift bends the whole tape down over the piece."""
+    rng = np.random.default_rng(seed)
+    beat = 60 / bpm
+    total = sum(b for _, b in melody) * beat + 5
+    out = np.zeros(int(SR * total))
+    at = 0.4
+    for i, (semis, beats) in enumerate(melody):
+        if semis is not None and not (drop_every and i % drop_every == drop_every - 1):
+            f = semis + 12 * octave
+            place(out, bell(note(f), 2.6, rng, 0.9), at + rng.uniform(-0.012, 0.012), gain)
+            if harmony is not None:
+                place(out, bell(note(f + harmony), 2.4, rng, 0.6), at + rng.uniform(0.0, 0.02), gain * 0.4)
+            if double is not None:
+                place(out, bell(note(f + double), 2.4, rng, 1.1), at + rng.uniform(0.01, 0.04), gain * 0.28)
+        at += beats * beat
+    for i, semis in enumerate(bass):
+        when = 0.4 + i * bar * beat
+        if semis is not None and when < total - 4:
+            place(out, bell(note(semis + 12), 3.0, rng, 0.4), when, bass_gain)
+    out = reverb(out, space, 0.4, rng, tone=5000, tail=False)
+    n = len(out)
+    tt = np.arange(n) / SR
+    idx = np.arange(n) + wow * np.sin(2 * np.pi * 0.31 * tt) + flutter * np.sin(2 * np.pi * 6.3 * tt)
+    if drift:
+        # read the tape slower and slower: the pitch sinks by `drift` semitones by the end
+        rate = 2 ** (-drift * (tt / tt[-1]) ** 2 / 12)
+        idx = np.cumsum(rate) - rate[0] + (idx - np.arange(n))
+    out = np.interp(np.clip(idx, 0, n - 1), np.arange(n), out)
+    noise_floor = hp(rng.standard_normal(n), 3000) * hiss
+    crackle = np.zeros(n)
+    for _ in range(int(total * crackles)):
+        crackle[rng.integers(0, n - 1)] = rng.uniform(-0.25, 0.25)
+    out = lp(out, lowpass) + noise_floor + lp(crackle, 5000)
+    return fade(out, 0.05, 2.5)
+
+
+def pad(seconds, freqs, rng, level=0.25):
+    """A low held tone under the music box, breathing slowly."""
+    tt = t(seconds)
+    out = np.zeros_like(tt)
+    for f in freqs:
+        lfo = 0.6 + 0.4 * np.sin(2 * np.pi * rng.uniform(0.04, 0.09) * tt + rng.uniform(0, 6))
+        out += lfo * (np.sin(2 * np.pi * f * tt) + 0.3 * np.sin(2 * np.pi * f * 2.003 * tt))
+    return lp(out, 900) * level / len(freqs)
+
+
+def campfire(seconds, rng):
+    tt = t(seconds)
+    rumble = lp(rng.standard_normal(len(tt)), 300) * 0.25
+    pops = np.zeros_like(tt)
+    for _ in range(int(seconds * 3)):
+        at = rng.integers(0, len(tt) - 2000)
+        k = rng.integers(200, 1400)
+        pops[at:at + k] += rng.standard_normal(k) * np.exp(-np.linspace(0, 8, k)) * rng.uniform(0.1, 0.5)
+    return lp(rumble, 400) + bp(pops, 900, 5000) * 0.5
+
+
+THEME_MELODY = [(7, 1), (0, 1), (3, 1), (2, 2), (None, 1), (7, 1), (0, 1), (5, 1), (3, 2), (None, 1),
+                (8, 1), (7, 1), (3, 1), (2, 1), (0, 1), (-1, 1), (0, 3), (None, 2),
+                (12, 1), (7, 1), (3, 1), (2, 2), (None, 1), (10, 1), (8, 1), (7, 1), (3, 2), (None, 1),
+                (5, 1), (3, 1), (2, 1), (0, 1), (-1, 1), (-5, 1), (-12, 4)]
+THEME_BASS = [-24, -24, -19, -19, -28, -28, -24, -24, -24, -24, -19, -19, -28, -29, -24, -24]
+
+
+def music_night(seed):
+    """First dark nights: the theme's key, slower and sparser, a low drone underneath."""
+    rng = np.random.default_rng(seed)
+    melody = [(12, 2), (10, 1), (7, 3), (8, 2), (7, 1), (3, 3), (None, 3), (5, 2), (3, 1), (2, 3), (0, 2), (-1, 1), (0, 3), (None, 3),
+              (7, 2), (8, 1), (10, 3), (12, 2), (10, 1), (7, 3), (None, 3), (3, 2), (2, 1), (0, 6), (None, 3)]
+    bass = [-24, -28, -21, -29, -24, -28, -19, -29, -24, -24]
+    box = music_box(seed, melody, bass, 58, gain=0.7, bass_gain=0.35, space=4.0)
+    return fade(box + pad(len(box) / SR, [55.0, 82.4], rng, 0.18), 0.05, 3.0)
+
+
+def music_underground(seed):
+    """Deep in caves: pieces of the theme with long gaps, the tape sagging as it goes."""
+    rng = np.random.default_rng(seed)
+    melody = [(7, 1), (0, 1), (3, 1), (2, 3), (None, 4), (7, 1), (0, 1), (5, 1), (3, 3), (None, 5),
+              (8, 1), (7, 1), (3, 1), (2, 1), (None, 6), (0, 4), (None, 4), (-1, 2), (-5, 2), (-12, 6)]
+    box = music_box(seed, melody, [-24, None, -28, None, -24], 50, wow=70, flutter=5, drift=1.2, lowpass=4200,
+                    hiss=0.008, crackles=7, gain=0.65, space=5.0)
+    drips = np.zeros_like(box)
+    for _ in range(9):
+        place(drips, bell(rng.choice([1760.0, 1975.5, 2349.3]) * rng.uniform(0.97, 1.03), 0.6, rng, 1.8), rng.uniform(1, len(box) / SR - 3), 0.12)
+    drips = reverb(drips, 4.5, 0.85, rng, tone=6000, tail=False)
+    return fade(box + drips + pad(len(box) / SR, [41.2, 61.7], rng, 0.2), 0.05, 3.0)
+
+
+def music_fire(seed):
+    """By the fire, when he trusts you: the one warm piece. C major, gentle, the tape in better shape."""
+    rng = np.random.default_rng(seed)
+    melody = [(3, 1), (7, 1), (10, 1), (12, 2), (10, 1), (7, 2), (5, 1), (3, 3), (5, 1), (7, 1), (8, 1), (10, 2), (8, 1), (7, 3), (None, 3),
+              (3, 1), (7, 1), (10, 1), (15, 2), (12, 1), (10, 2), (7, 1), (8, 3), (7, 1), (5, 1), (3, 1), (2, 2), (-2, 1), (3, 6), (None, 3)]
+    bass = [-21, -24, -28, -26, -21, -24, -28, -26, -21, -21]
+    box = music_box(seed, melody, bass, 80, wow=14, flutter=1.5, harmony=-5, lowpass=5200, hiss=0.004, crackles=2,
+                    gain=0.7, bass_gain=0.4, space=2.6)
+    return fade(box + campfire(len(box) / SR, rng) * 0.35, 0.05, 3.0)
+
+
+def music_flashback(seed):
+    """A memory: the theme played backwards, then its first bars forwards, as if the tape caught."""
+    forward = theme(511)
+    back = forward[::-1].copy()
+    first = forward[: int(SR * 11)]
+    first = fade(first, 0.0, 2.0)
+    out = np.concatenate([back[int(SR * 2):], np.zeros(int(SR * 0.4)), first])
+    rng = np.random.default_rng(seed)
+    n = len(out)
+    tt = np.arange(n) / SR
+    idx = np.arange(n) + 60 * np.sin(2 * np.pi * 0.23 * tt)
+    out = np.interp(np.clip(idx, 0, n - 1), np.arange(n), out)
+    return fade(lp(out, 5000) + hp(rng.standard_normal(n), 3000) * 0.008, 0.5, 2.0)
+
+
+def music_near(seed):
+    """He is near: one held note that slowly bends down, and a high one bending up to meet nothing."""
+    rng = np.random.default_rng(seed)
+    seconds = 24
+    tt = t(seconds)
+    bend = np.clip((tt - 6) / 14, 0, 1)
+    low = note(-12) * 2 ** (-bend * 1.0 / 12)
+    high = note(24) * 2 ** (bend * 0.5 / 12)
+    voice = np.zeros_like(tt)
+    for f, amp in ((low, 1.0), (low * 1.004, 0.6), (low * 2, 0.25), (high, 0.07)):
+        phase = 2 * np.pi * np.cumsum(f) / SR
+        voice += amp * np.sin(phase)
+    swell = np.clip(tt / 5, 0, 1) * np.clip((seconds - tt) / 4, 0, 1)
+    sub = np.sin(2 * np.pi * 36.7 * tt) * 0.4 * swell
+    out = reverb(lp(voice, 2500) * swell * 0.5 + sub, 4.0, 0.5, rng, tone=3000, tail=False)
+    return fade(out, 0.2, 2.0)
+
+
+def music_act(seed, act):
+    """The theme again at each act card, a little more broken each time."""
+    if act == 2:
+        return music_box(seed, THEME_MELODY, THEME_BASS, 70, harmony=-5, space=3.4)
+    if act == 3:
+        return music_box(seed, THEME_MELODY, THEME_BASS, 68, octave=-1, double=1, wow=45, flutter=4, lowpass=5000, hiss=0.008)
+    melody = THEME_MELODY[:-1] + [(2, 6)]
+    return music_box(seed, melody, THEME_BASS, 52, drop_every=3, wow=60, flutter=5, drift=1.5, lowpass=4500, hiss=0.01, crackles=8)
+
+
 WHISPERS = [
     [(400, 2000, 2550), (320, 870, 2250), (640, 1190, 2390)],
     [(500, 700, 2350), (400, 1620, 2400), (600, 1040, 2250), (320, 870, 2250)],
@@ -481,15 +626,19 @@ if __name__ == "__main__":
     save("herobrine/sting", sting(211), peak=0.95)
     save("herobrine/chase", chase(221), quality=3, peak=0.85)
     save("herobrine/vanish", vanish(231))
-    for i, vowels in enumerate(WHISPERS):
-        save(f"herobrine/whisper_{i + 1}", whisper(240 + i, vowels, 1.4 + 0.5 * i), peak=0.7)
+    # herobrine/whisper_* and steve/mutter_* are real words now: tools/make_voice.py --effects
     save("herobrine/breath", breath_behind(251), peak=0.7)
     save("herobrine/kill", kill(261), peak=0.95)
     save("steve/breach", breach(301), peak=0.9)
     save("steve/panic_breath", panic_breath(311), peak=0.7)
-    save("steve/mutter_1", mutter(321), peak=0.6)
-    save("steve/mutter_2", mutter(322), peak=0.6)
     save("ghost/appear", ghost_appear(401), peak=0.7)
     save("ghost/hum", ghost_hum(411), quality=3, peak=0.6)
     save("memory/fragment", memory_fragment(501), peak=0.75)
     save("memory/theme", theme(511), quality=4, peak=0.75)
+    save("music/night", music_night(601), quality=4, peak=0.7)
+    save("music/underground", music_underground(611), quality=4, peak=0.7)
+    save("music/fire", music_fire(621), quality=4, peak=0.7)
+    save("music/flashback", music_flashback(631), quality=4, peak=0.7)
+    save("music/near", music_near(641), quality=4, peak=0.7)
+    for act in (2, 3, 4):
+        save(f"music/act_{act}", music_act(650 + act, act), quality=4, peak=0.75)

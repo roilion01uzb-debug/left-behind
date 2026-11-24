@@ -30,16 +30,25 @@ SOUNDS = {
     "herobrine.sting": (["herobrine/sting"], "He sees you", False),
     "herobrine.chase": (["herobrine/chase"], "Something is coming", True),
     "herobrine.vanish": (["herobrine/vanish"], "Something vanishes", False),
-    "herobrine.whisper": (["herobrine/whisper_1", "herobrine/whisper_2", "herobrine/whisper_3"], "Whispering", False),
+    "herobrine.whisper": ([f"herobrine/whisper_{i}" for i in range(1, 9)], "Someone whispers behind you", False),
     "herobrine.breath": (["herobrine/breath"], "Breathing behind you", False),
     "herobrine.kill": (["herobrine/kill"], "Removed", False),
     "steve.breach": (["steve/breach"], "Steve remembers", False),
     "steve.panic_breath": (["steve/panic_breath"], "Steve gasps", False),
-    "steve.mutter": (["steve/mutter_1", "steve/mutter_2"], "Steve mutters", False),
+    "steve.mutter": ([f"steve/mutter_{i}" for i in range(1, 7)], "Steve mutters to himself", False),
     "ghost.appear": (["ghost/appear"], "Someone is here", False),
     "ghost.hum": (["ghost/hum"], "A faint hum", False),
     "memory.fragment": (["memory/fragment"], "A memory surfaces", False),
     "memory.theme": (["memory/theme"], "An old music box", True),
+    # music cues (0.5), played on the music slider like vanilla songs, so no subtitles
+    "music.night": (["music/night"], None, True),
+    "music.underground": (["music/underground"], None, True),
+    "music.fire": (["music/fire"], None, True),
+    "music.flashback": (["music/flashback"], None, True),
+    "music.near": (["music/near"], None, True),
+    "music.act_2": (["music/act_2"], None, True),
+    "music.act_3": (["music/act_3"], None, True),
+    "music.act_4": (["music/act_4"], None, True),
 }
 
 # ---------------------------------------------------------------- advancements
@@ -149,14 +158,25 @@ def main():
         "death.attack.leftbehind.removed.player": "%1$s was removed",
         "death.attack.leftbehind.removed.item": "%1$s was removed",
     }
+    # Names for the game's "Now playing" toast, keyed by the sound file.
+    lang.update({
+        "leftbehind.memory.theme": "Left Behind - Left Behind",
+        "leftbehind.music.night": "Left Behind - The First Dark",
+        "leftbehind.music.underground": "Left Behind - Deep Down",
+        "leftbehind.music.fire": "Left Behind - Warm Hands",
+        "leftbehind.music.flashback": "Left Behind - The Tape Caught",
+        "leftbehind.music.near": "Left Behind - Behind the Trees",
+        "leftbehind.music.act_2": "Left Behind - Second Telling",
+        "leftbehind.music.act_3": "Left Behind - Third Telling",
+        "leftbehind.music.act_4": "Left Behind - Last Telling",
+    })
     sounds = {}
     for event, (files, subtitle, stream) in SOUNDS.items():
-        key = "subtitles.leftbehind." + event
-        lang[key] = subtitle
-        sounds[event] = {
-            "subtitle": key,
-            "sounds": [{"name": "leftbehind:" + f, "stream": True} if stream else "leftbehind:" + f for f in files],
-        }
+        sounds[event] = {"sounds": [{"name": "leftbehind:" + f, "stream": True} if stream else "leftbehind:" + f for f in files]}
+        if subtitle:
+            key = "subtitles.leftbehind." + event
+            lang[key] = subtitle
+            sounds[event] = {"subtitle": key, **sounds[event]}
     write(os.path.join(ASSETS, "sounds.json"), sounds)
     advancements(lang)
     write(os.path.join(ASSETS, "lang", "en_us.json"), lang)

@@ -43,7 +43,8 @@ import org.jspecify.annotations.Nullable;
  * He watches Steve. If you make him notice you instead, he comes for you, and he does not stop.
  */
 public class Herobrine extends PathfinderMob {
-    public enum Mode { WATCH_STEVE, WATCH_PLAYER, HUNT }
+    /** GUIDE: part of a scene with Steve (see {@link dev.leftbehind.story.Scenes}), which moves him and decides when he goes. */
+    public enum Mode { WATCH_STEVE, WATCH_PLAYER, HUNT, GUIDE }
 
     private static final EntityDataAccessor<Boolean> DATA_HUNTING = SynchedEntityData.defineId(Herobrine.class, EntityDataSerializers.BOOLEAN);
 
@@ -101,10 +102,19 @@ public class Herobrine extends PathfinderMob {
         lifetime = ticks;
     }
 
+    public void guide(int ticks) {
+        mode = Mode.GUIDE;
+        lifetime = ticks;
+    }
+
     @Override
     public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
         if (source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) return super.hurtServer(level, source, damage);
         // You can't hurt him. You can only make him look at you.
+        if (source.getEntity() instanceof ServerPlayer && mode == Mode.GUIDE) {
+            vanish(level, false);
+            return false;
+        }
         if (source.getEntity() instanceof ServerPlayer player && mode != Mode.HUNT) {
             Fx.burst(this, net.minecraft.core.particles.ParticleTypes.SMOKE, 12);
             if (StoryDirector.huntAllowed(level)) startHunt(level, player);
@@ -132,6 +142,10 @@ public class Herobrine extends PathfinderMob {
     protected InteractionResult mobInteract(Player player, InteractionHand hand) {
         if (!(level() instanceof ServerLevel) || !(player instanceof ServerPlayer serverPlayer)) return InteractionResult.SUCCESS;
         if (hand != InteractionHand.MAIN_HAND || mode == Mode.HUNT) return InteractionResult.PASS;
+        if (mode == Mode.GUIDE) {
+            vanish(serverPlayer.level(), false);
+            return InteractionResult.SUCCESS_SERVER;
+        }
         // Close enough to touch. He lets you ask one thing.
         Dialogue.openHerobrine(this, serverPlayer);
         lifetime = Math.max(lifetime, tickCount + 400);
@@ -146,6 +160,9 @@ public class Herobrine extends PathfinderMob {
             case HUNT -> huntTick(level);
             case WATCH_PLAYER -> watchPlayerTick(level);
             case WATCH_STEVE -> watchSteveTick(level);
+            case GUIDE -> {
+                if (tickCount > lifetime) discard(); // no puff, no sound: he was just never there
+            }
         }
     }
 
@@ -231,7 +248,6 @@ public class Herobrine extends PathfinderMob {
             }
             if (before < 30f && now >= 30f && !whispered) {
                 whispered = true;
-                Fx.soundTo(player, Fx.behind(player, 2.0), ModSounds.WHISPER, SoundSource.HOSTILE, 0.9f, 1.0f);
                 whisper(player, pick("you are not the first one he followed", "he is mine", "look away", "it remembers because i let it", "stop"));
             }
             if (before < 50f && now >= 50f && (memory.act() <= 2 || !StoryDirector.huntAllowed(level))) {
@@ -256,6 +272,10 @@ public class Herobrine extends PathfinderMob {
 
     public static void whisper(ServerPlayer player, String line) {
         dev.leftbehind.story.SteveVoice.whisper(player, StoryDirector.activeHerobrine(), "???", dev.leftbehind.story.SteveVoice.HEROBRINE_COLOR, line);
+    }
+
+    public boolean isLookedAtBy(ServerPlayer player) {
+        return isLookedAtBy(player, player.distanceTo(this));
     }
 
     private boolean isLookedAtBy(ServerPlayer player, double dist) {

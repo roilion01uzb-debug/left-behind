@@ -9,11 +9,13 @@ import dev.leftbehind.entity.Herobrine;
 import dev.leftbehind.entity.OriginalSteve;
 import dev.leftbehind.memory.Mood;
 import dev.leftbehind.memory.Relationship;
+import dev.leftbehind.memory.SanityStage;
 import dev.leftbehind.memory.SteveMemory;
 import dev.leftbehind.story.Dialogue;
 import dev.leftbehind.story.Journal;
 import dev.leftbehind.story.Progress;
 import dev.leftbehind.story.Relics;
+import dev.leftbehind.story.Scenes;
 import dev.leftbehind.story.Sense;
 import dev.leftbehind.story.StoryDirector;
 import java.util.Map;
@@ -78,9 +80,29 @@ public final class LeftBehindCommand {
                                                     "Herobrine's sense of " + target.getGameProfile().name() + " set to " + Math.round(value) + "%"), true);
                                             return 1;
                                         }))))
-                .then(Commands.literal("stability")
+                .then(Commands.literal("sanity")
                         .then(Commands.argument("value", FloatArgumentType.floatArg(0, 100))
                                 .executes(ctx -> setStability(ctx.getSource(), FloatArgumentType.getFloat(ctx, "value")))))
+                .then(Commands.literal("stability") // the 0.4 name
+                        .then(Commands.argument("value", FloatArgumentType.floatArg(0, 100))
+                                .executes(ctx -> setStability(ctx.getSource(), FloatArgumentType.getFloat(ctx, "value")))))
+                .then(Commands.literal("cave")
+                        .then(Commands.argument("event", StringArgumentType.word())
+                                .suggests((ctx, b) -> net.minecraft.commands.SharedSuggestionProvider.suggest(
+                                        new String[]{"torches", "mining", "torch", "footsteps", "sign", "end"}, b))
+                                .executes(ctx -> {
+                                    ServerPlayer player = ctx.getSource().getPlayerOrException();
+                                    String event = StringArgumentType.getString(ctx, "event");
+                                    if (!dev.leftbehind.story.Caves.force(player.level(), player, event)) {
+                                        ctx.getSource().sendFailure(Component.literal("Couldn't stage \"" + event + "\" here. Try deeper in a cave."));
+                                        return 0;
+                                    }
+                                    ctx.getSource().sendSuccess(() -> Component.literal("Cave: " + event), false);
+                                    return 1;
+                                })))
+                .then(Commands.literal("scene")
+                        .then(Commands.literal("hill").executes(ctx -> scene(ctx.getSource(), Scenes.Kind.HILL)))
+                        .then(Commands.literal("sleepwalk").executes(ctx -> scene(ctx.getSource(), Scenes.Kind.SLEEPWALK))))
                 .then(Commands.literal("settings")
                         .then(setting("hunt", "set_no_hunt", "Herobrine hunting players"))
                         .then(setting("creative_kill", "set_no_creative_kill", "Herobrine killing players in creative mode"))
@@ -179,7 +201,7 @@ public final class LeftBehindCommand {
         StringBuilder sb = new StringBuilder("§3Left Behind§r  " + Progress.actName(m.act()) + "\n");
         sb.append("Steve: ").append(m.steveDead ? "§cdead§r" : steve == null ? "not loaded" : "at " + steve.blockPosition().toShortString())
                 .append(", mood ").append(m.mood().name().toLowerCase()).append('\n');
-        sb.append("Memory stability: ").append(Math.round(m.stability)).append("/100, breaches: ").append(m.breaches).append('\n');
+        sb.append("Sanity: ").append(Math.round(m.sanity)).append("/100 (").append(m.sanityStage().title).append("), breaches: ").append(m.breaches).append('\n');
         sb.append("Journal: ").append(m.count("mem_")).append(" memories, ").append(m.count("page_")).append(" pages, ")
                 .append(m.count("note_")).append(" notes\n");
         Herobrine h = StoryDirector.activeHerobrine();
@@ -332,17 +354,32 @@ public final class LeftBehindCommand {
         return 1;
     }
 
+    private static int scene(CommandSourceStack source, Scenes.Kind kind) {
+        ServerLevel level = source.getServer().overworld();
+        OriginalSteve steve = StoryDirector.findSteve(level);
+        if (steve == null) {
+            source.sendFailure(Component.literal("Steve isn't here. Run /leftbehind summon first."));
+            return 0;
+        }
+        if (!Scenes.start(level, steve, kind)) {
+            source.sendFailure(Component.literal("Nowhere to stage it. Stand somewhere open, closer to Steve."));
+            return 0;
+        }
+        source.sendSuccess(() -> Component.literal("Scene started: " + kind.name().toLowerCase(java.util.Locale.ROOT) + "."), false);
+        return 1;
+    }
+
     private static int setStability(CommandSourceStack source, float value) {
         SteveMemory m = memory(source);
-        m.stability = value;
+        m.sanity = value;
         m.setDirty();
-        source.sendSuccess(() -> Component.literal("Memory stability is now " + Math.round(value) + "."), true);
+        source.sendSuccess(() -> Component.literal("Sanity is now " + Math.round(value) + " (" + SanityStage.of(value).title + ")."), true);
         return 1;
     }
 
     private static int reset(CommandSourceStack source) {
         SteveMemory m = memory(source);
-        m.stability = 100f;
+        m.sanity = 100f;
         m.relationships.clear();
         m.habits.clear();
         m.breaches = 0;

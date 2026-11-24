@@ -81,7 +81,12 @@
     "sounds": [
       "leftbehind:herobrine/whisper_1",
       "leftbehind:herobrine/whisper_2",
-      "leftbehind:herobrine/whisper_3"
+      "leftbehind:herobrine/whisper_3",
+      "leftbehind:herobrine/whisper_4",
+      "leftbehind:herobrine/whisper_5",
+      "leftbehind:herobrine/whisper_6",
+      "leftbehind:herobrine/whisper_7",
+      "leftbehind:herobrine/whisper_8"
     ]
   },
   "herobrine.breath": {
@@ -112,7 +117,11 @@
     "subtitle": "subtitles.leftbehind.steve.mutter",
     "sounds": [
       "leftbehind:steve/mutter_1",
-      "leftbehind:steve/mutter_2"
+      "leftbehind:steve/mutter_2",
+      "leftbehind:steve/mutter_3",
+      "leftbehind:steve/mutter_4",
+      "leftbehind:steve/mutter_5",
+      "leftbehind:steve/mutter_6"
     ]
   },
   "ghost.appear": {
@@ -138,6 +147,70 @@
     "sounds": [
       {
         "name": "leftbehind:memory/theme",
+        "stream": true
+      }
+    ]
+  },
+  "music.night": {
+    "sounds": [
+      {
+        "name": "leftbehind:music/night",
+        "stream": true
+      }
+    ]
+  },
+  "music.underground": {
+    "sounds": [
+      {
+        "name": "leftbehind:music/underground",
+        "stream": true
+      }
+    ]
+  },
+  "music.fire": {
+    "sounds": [
+      {
+        "name": "leftbehind:music/fire",
+        "stream": true
+      }
+    ]
+  },
+  "music.flashback": {
+    "sounds": [
+      {
+        "name": "leftbehind:music/flashback",
+        "stream": true
+      }
+    ]
+  },
+  "music.near": {
+    "sounds": [
+      {
+        "name": "leftbehind:music/near",
+        "stream": true
+      }
+    ]
+  },
+  "music.act_2": {
+    "sounds": [
+      {
+        "name": "leftbehind:music/act_2",
+        "stream": true
+      }
+    ]
+  },
+  "music.act_3": {
+    "sounds": [
+      {
+        "name": "leftbehind:music/act_3",
+        "stream": true
+      }
+    ]
+  },
+  "music.act_4": {
+    "sounds": [
+      {
+        "name": "leftbehind:music/act_4",
         "stream": true
       }
     ]

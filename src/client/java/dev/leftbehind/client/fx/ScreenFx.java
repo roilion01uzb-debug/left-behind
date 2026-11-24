@@ -47,6 +47,7 @@ public final class ScreenFx {
                 blackoutTotal = blackoutTicks;
             }
             case FxPayload.SHAKE -> shakeTicks = Math.max(shakeTicks, ticks);
+            case FxPayload.MUSIC -> ScoreClient.play(ticks);
             default -> { }
         }
     }

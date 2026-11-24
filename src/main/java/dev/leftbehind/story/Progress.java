@@ -83,7 +83,7 @@ public final class Progress {
             Fx.title(player,
                     Component.literal("ACT " + ACT_NUMERALS[act]).withStyle(ChatFormatting.WHITE),
                     Component.literal(ACT_NAMES[act]).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC), 30, 90, 40);
-            Fx.soundTo(player, ModSounds.THEME, SoundSource.RECORDS, 0.8f, 1.0f);
+            Score.play(player, Score.forAct(act));
             if (act > 1) {
                 Fx.staticFlash(player, 12);
                 grant(player, "act_" + act);

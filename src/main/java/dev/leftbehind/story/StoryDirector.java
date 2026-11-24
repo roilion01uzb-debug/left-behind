@@ -8,6 +8,7 @@ import dev.leftbehind.fx.Fx;
 import dev.leftbehind.memory.AngerStage;
 import dev.leftbehind.memory.Mood;
 import dev.leftbehind.memory.Relationship;
+import dev.leftbehind.memory.SanityStage;
 import dev.leftbehind.memory.SteveMemory;
 import dev.leftbehind.registry.ModEntities;
 import dev.leftbehind.registry.ModSounds;
@@ -63,6 +64,9 @@ public final class StoryDirector {
         activeGhost = null;
         NEXT_AMBIENT.clear();
         Sense.clear();
+        Score.resetTransient();
+        Scenes.resetTransient();
+        Caves.resetTransient();
         wasDark = false;
         wasRaining = false;
     }
@@ -81,7 +85,7 @@ public final class StoryDirector {
         OriginalSteve steve = findSteve(level);
         if (steve == null && memory.steveDead && time - memory.counter("steve_died_at") > RETURN_AFTER_DEATH) {
             memory.steveDead = false;
-            memory.stability = Math.max(memory.stability, 40f);
+            memory.sanity = Math.max(memory.sanity, 40f);
             memory.setFlag("came_back");
             memory.setDirty();
         }
@@ -121,19 +125,38 @@ public final class StoryDirector {
 
         dayAndWeather(level, memory, steve);
         ambience(level, memory, time);
+        Score.tick(level, memory, steve, time);
+        Caves.second(level, memory, time);
 
         if (mood.inEpisode()) return;
+        if (memory.sanity <= 0f) {
+            taken(level, memory, steve);
+            return;
+        }
+        Scenes.consider(level, memory, steve);
+        if (Scenes.busy()) return;
         Reactions.watchPlayers(level, steve, memory);
 
-        // Low stability: he starts seeing things.
-        if (memory.stability < 35f && random.nextInt(600) == 0) {
-            Reactions.remark(steve, "unstable", 30, "Did you see that?", "He's here. He's always here.",
-                    "Not you. Not again.", "Don't look at the trees.", "Count with me. One. Two. ...what comes after two?");
+        // Fraying: he starts seeing things.
+        if (memory.sanityStage().atMost(SanityStage.FRAYING) && random.nextInt(memory.sanity < 25f ? 300 : 600) == 0) {
+            if (memory.sanity < 25f) {
+                // Breaking: someone else's words come out of his mouth, and he hears them a moment later.
+                Reactions.remark(steve, "unstable", 30, "He is mine. ...what? Did I say something?",
+                        "Every version of him. ...sorry. I don't know where that came from.",
+                        "It remembers because I let it. ...that isn't mine. That's not my sentence.",
+                        "You are in the way. ...not you. I didn't mean you. I didn't mean anything.");
+            } else {
+                Reactions.remark(steve, "unstable", 30, "Did you see that?", "He's here. He's always here.",
+                        "Not now. I'm talking to them.", "He's standing behind the tree. ...no. Nothing. There's nothing there.",
+                        "Stop whispering. I can hear you. Both of you.", "Count with me. One. Two. ...what comes after two?");
+            }
         }
 
         int act = memory.act();
         boolean herobrineGone = activeHerobrine == null || activeHerobrine.isRemoved();
-        if (act >= 2 && herobrineGone && time >= memory.counter("next_herobrine")) {
+        long today = level.getOverworldClockTime() / 24000L + 1;
+        boolean seenToday = act < 3 && memory.counter("herobrine_day") == today; // before Act III, once a day at most
+        if (act >= 2 && herobrineGone && !seenToday && time >= memory.counter("next_herobrine")) {
             int interval = act == 2 ? 6000 : act == 3 ? 4200 : 3000;
             memory.setCounter("next_herobrine", time + interval + random.nextInt(interval));
             float chance = level.isDarkOutside() ? 0.55f : 0.14f;
@@ -162,7 +185,7 @@ public final class StoryDirector {
 
     private static void everyMinute(ServerLevel level, SteveMemory memory, OriginalSteve steve) {
         if (memory.mood().inEpisode()) return;
-        if (memory.stability < 100f) memory.addStability(1f);
+        memory.addSanity(sanityDrift(level, memory, steve));
         for (Relationship r : memory.relationships.values()) {
             if (r.anger > 0) r.addAnger(-1f);
         }
@@ -198,6 +221,27 @@ public final class StoryDirector {
                 Reactions.remark(steve, "rain", 300, "Rain. There didn't use to be rain.", "I like the sound. It covers the other sounds.");
             }
         }
+    }
+
+    /**
+     * How his sanity moves on its own, per minute. Light, daylight and someone he trusts nearby bring it back.
+     * The dark, and deep places, wear it down.
+     */
+    private static float sanityDrift(ServerLevel level, SteveMemory memory, OriginalSteve steve) {
+        BlockPos at = steve.blockPosition();
+        boolean sky = level.canSeeSky(at.above());
+        int light = level.getMaxLocalRawBrightness(at);
+        float drift;
+        if (!sky && steve.getY() < 40) drift = light >= 10 ? 0.3f : -0.6f;   // deep down: torches help
+        else if (level.isDarkOutside()) drift = light >= 8 ? 0.4f : -0.3f;   // night: only light helps
+        else drift = 1.0f;                                                    // daylight
+        for (ServerPlayer player : level.players()) {
+            if (!player.isSpectator() && player.distanceToSqr(steve) < 12 * 12 && memory.trust(player.getUUID()) >= 50f) {
+                drift += 0.5f;
+                break;
+            }
+        }
+        return drift;
     }
 
     // ---- ambience -------------------------------------------------------------------
@@ -240,11 +284,12 @@ public final class StoryDirector {
                 Fx.soundTo(player, Fx.behind(player, 5.0), ModSounds.KNOCK, SoundSource.AMBIENT, 1.0f, 0.9f + random.nextFloat() * 0.2f);
             } else if (roll < 60) {
                 Fx.soundTo(player, Fx.behind(player, 7.0), SoundEvents.AMBIENT_CAVE, SoundSource.AMBIENT, 0.7f, 0.8f);
-            } else if (roll < 72 && act >= 3) {
-                Fx.soundTo(player, Fx.behind(player, 2.5), ModSounds.WHISPER, SoundSource.AMBIENT, 0.8f, 1.0f);
+            } else if (roll < 72 && (act >= 3 || (act == 2 && dark && roll >= 66))) {
+                // Words, close behind you. Real ones now: "turn around", "i'm right behind you".
+                Fx.soundTo(player, Fx.behind(player, 2.5), ModSounds.WHISPER, SoundSource.AMBIENT, act == 2 ? 0.6f : 0.8f, 1.0f);
             } else if (roll < 82 && act >= 3) {
                 Fx.soundTo(player, Fx.behind(player, 1.5), ModSounds.BREATH, SoundSource.AMBIENT, 0.8f, 1.0f);
-            } else if (roll < 90 && act >= 3 && memory.stability < 70f) {
+            } else if (roll < 90 && act >= 3 && memory.sanity < 70f) {
                 Fx.soundTo(player, ModSounds.STATIC, SoundSource.AMBIENT, 0.5f, 1.0f);
                 Fx.staticFlash(player, 6);
             } else if (roll < 94 && act >= 3 && dark) {
@@ -374,8 +419,37 @@ public final class StoryDirector {
         if (!placed) return null;
         herobrine.lookAt(net.minecraft.commands.arguments.EntityAnchorArgument.Anchor.EYES, watched.getEyePosition());
         level.addFreshEntity(herobrine);
-        activeHerobrine = herobrine;
+        adopt(herobrine);
         return herobrine;
+    }
+
+    /** Makes a Herobrine placed somewhere else (a scene) the one the rest of the story knows about. */
+    public static void adopt(Herobrine herobrine) {
+        activeHerobrine = herobrine;
+        SteveMemory memory = SteveMemory.get(herobrine.level().getServer());
+        memory.setCounter("herobrine_day", herobrine.level().getOverworldClockTime() / 24000L + 1);
+        memory.setDirty();
+    }
+
+    /**
+     * Sanity reaches nothing. For a while, he isn't the one behind his eyes. He doesn't know anyone, and he runs,
+     * and if it's dark the night is lost. He comes back with a little of himself, not all of it.
+     */
+    private static void taken(ServerLevel level, SteveMemory memory, OriginalSteve steve) {
+        memory.sanity = 12f;
+        memory.addCounter("taken", 1);
+        memory.setDirty();
+        SteveVoice.steve(steve, level.getRandom(), "...who are you? Where is he? Where did he go?", "I don't know you. Stay back. I don't KNOW you.");
+        for (ServerPlayer player : level.players()) {
+            if (player.distanceToSqr(steve) < 48 * 48) {
+                Fx.staticFlash(player, 16);
+                Fx.shake(player, 20);
+            }
+        }
+        if (memory.setFlag("taken_seen")) Journal.unlock(level.getServer(), "note_taken");
+        steve.orderNothing();
+        steve.beginFlee(level, memory, 900);
+        LeftBehind.LOGGER.info("Steve was taken (sanity 0)");
     }
 
     /** He stands where Steve will see him. */
@@ -407,7 +481,7 @@ public final class StoryDirector {
         SteveMemory memory = SteveMemory.get(level.getServer());
         long time = level.getGameTime();
         memory.breaches++;
-        memory.addStability(-25f);
+        memory.addSanity(-25f);
         memory.nightLog.clear();
         memory.setCounter("episode_start", time);
         memory.setCounter("episode_end", level.isDarkOutside() ? 0L : time + DAY_EPISODE_LENGTH);
@@ -427,7 +501,7 @@ public final class StoryDirector {
         if (memory.setFlag("breach_seen")) Journal.unlock(level.getServer(), "note_breach");
         steve.orderNothing();
         steve.beginFlee(level, memory, 700);
-        LeftBehind.LOGGER.info("Memory breach #{} (stability now {})", memory.breaches, memory.stability);
+        LeftBehind.LOGGER.info("Memory breach #{} (stability now {})", memory.breaches, memory.sanity);
     }
 
     // ---- ghosts ------------------------------------------------------------------
@@ -466,7 +540,7 @@ public final class StoryDirector {
         OriginalSteve steve = findSteve(level);
         if (steve == null || steve.inEpisode() || steve.distanceToSqr(ghost) > 40 * 40) return;
         steve.getLookControl().setLookAt(ghost, 30f, 30f);
-        memory.addStability(-3f);
+        memory.addSanity(-3f);
         String name = Remnant.NAMES[ghost.getVariant()];
         if (memory.setFlag("steve_saw_ghost")) {
             SteveVoice.steve(steve, "...I know them. I know them. They used to be here.");

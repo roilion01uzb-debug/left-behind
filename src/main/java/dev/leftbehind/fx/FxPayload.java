@@ -19,6 +19,8 @@ public record FxPayload(int kind, float value) implements CustomPacketPayload {
     public static final int BLACKOUT = 3;
     /** The picture shakes, for this many ticks. */
     public static final int SHAKE = 4;
+    /** Start one of the mod's music cues (the value is the cue number in {@code Score}) in place of the game's music. */
+    public static final int MUSIC = 5;
 
     public static final CustomPacketPayload.Type<FxPayload> TYPE =
             new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(LeftBehind.MOD_ID, "fx"));

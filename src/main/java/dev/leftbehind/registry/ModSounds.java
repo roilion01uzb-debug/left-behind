@@ -1,6 +1,7 @@
 package dev.leftbehind.registry;
 
 import dev.leftbehind.LeftBehind;
+import java.util.List;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -29,6 +30,11 @@ public final class ModSounds {
     public static final Holder<SoundEvent> GHOST_HUM = register("ghost.hum");
     public static final Holder<SoundEvent> FRAGMENT = register("memory.fragment");
     public static final Holder<SoundEvent> THEME = register("memory.theme");
+
+    /** The music cues, in the order of the cue numbers in {@link dev.leftbehind.story.Score}. */
+    public static final List<Holder<SoundEvent>> MUSIC = List.of(THEME, register("music.night"), register("music.underground"),
+            register("music.fire"), register("music.flashback"), register("music.near"), register("music.act_2"),
+            register("music.act_3"), register("music.act_4"));
 
     private ModSounds() {}
 

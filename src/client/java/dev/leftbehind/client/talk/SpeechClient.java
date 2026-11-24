@@ -57,7 +57,14 @@ public final class SpeechClient {
 
     private SpeechClient() {}
 
+    private static final java.util.Map<Integer, SoundInstance> PLAYING = new java.util.HashMap<>();
+
     public static void receive(SpeechPayload payload) {
+        // A new line from someone cuts off whatever they were still saying.
+        if (payload.entityId() >= 0) {
+            SoundInstance old = PLAYING.remove(payload.entityId());
+            if (old != null) Minecraft.getInstance().getSoundManager().stop(old);
+        }
         float typing = TYPING;
         int voiceTicks = VoiceIndex.ticks(payload.voice());
         if (voiceTicks > 0 && play(payload)) {
@@ -84,6 +91,7 @@ public final class SpeechClient {
             sound = new SimpleSoundInstance(id, SoundSource.VOICE, 1.0F, 1.0F, client.level.getRandom(), false, 0, SoundInstance.Attenuation.NONE, 0, 0, 0, true);
         }
         client.getSoundManager().play(sound);
+        if (payload.entityId() >= 0) PLAYING.put(payload.entityId(), sound);
         voiced++;
         return true;
     }
@@ -95,6 +103,7 @@ public final class SpeechClient {
 
     public static void reset() {
         BUBBLES.clear();
+        PLAYING.clear();
         SUBTITLES.clear();
     }
 
