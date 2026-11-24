@@ -67,6 +67,8 @@ public final class StoryDirector {
         Score.resetTransient();
         Scenes.resetTransient();
         Caves.resetTransient();
+        Stalker.resetTransient();
+        Structures.resetTransient();
         wasDark = false;
         wasRaining = false;
     }
@@ -127,6 +129,12 @@ public final class StoryDirector {
         ambience(level, memory, time);
         Score.tick(level, memory, steve, time);
         Caves.second(level, memory, time);
+        if (time % 20 == 0) {
+            Stalker.second(level, memory, time);
+            Structures.second(level, memory);
+        }
+        Structures.tick(level, memory, time);
+        Structures.serverTick(level);
 
         if (mood.inEpisode()) return;
         if (memory.sanity <= 0f) {
@@ -156,6 +164,17 @@ public final class StoryDirector {
         boolean herobrineGone = activeHerobrine == null || activeHerobrine.isRemoved();
         long today = level.getOverworldClockTime() / 24000L + 1;
         boolean seenToday = act < 3 && memory.counter("herobrine_day") == today; // before Act III, once a day at most
+        // Act I: from the second day he is out there now and then, far off, once a day at most. He learns your places.
+        if (act == 1 && herobrineGone && !seenToday && memory.flag("first_glimpse") && level.getOverworldClockTime() >= 24000L
+                && time >= memory.counter("next_herobrine")) {
+            memory.setCounter("next_herobrine", time + 2400 + random.nextInt(2400));
+            float chance = level.isDarkOutside() ? 0.30f : 0.06f;
+            ServerPlayer player = randomPlayer(level);
+            if (player != null && random.nextFloat() < chance) {
+                if (Stalker.known(memory, player.getUUID()) >= 4 && random.nextBoolean()) Stalker.waitAhead(level, player);
+                else Stalker.glimpse(level, player);
+            }
+        }
         if (act >= 2 && herobrineGone && !seenToday && time >= memory.counter("next_herobrine")) {
             int interval = act == 2 ? 6000 : act == 3 ? 4200 : 3000;
             memory.setCounter("next_herobrine", time + interval + random.nextInt(interval));
@@ -167,7 +186,9 @@ public final class StoryDirector {
                         : random.nextInt(100) < 55;
                 ServerPlayer player = randomPlayer(level);
                 if (atSteve) spawnHerobrine(level, steve);
-                else if (player != null) spawnHerobrineWatching(level, player);
+                else if (player != null && (random.nextInt(100) >= 50 || Stalker.waitAhead(level, player) == null)) {
+                    spawnHerobrineWatching(level, player);
+                }
             }
         }
 
@@ -270,8 +291,14 @@ public final class StoryDirector {
             boolean underground = indoors && player.getY() < 55;
             int roll = random.nextInt(100);
             if (act == 1) {
-                if (dark && roll < 50) Fx.soundTo(player, ModSounds.WIND_HOWL, SoundSource.AMBIENT, 0.5f, 1.0f);
-                else if (underground && roll < 60) Fx.soundTo(player, ModSounds.DREAD, SoundSource.AMBIENT, 0.35f, 1.0f);
+                // Act I: nothing you could swear to. A creak, a drip, someone mining somewhere, steps a long way off.
+                if (dark && !indoors && roll < 30) Fx.soundTo(player, ModSounds.WIND_HOWL, SoundSource.AMBIENT, 0.5f, 1.0f);
+                else if (underground && roll < 40) Fx.soundTo(player, ModSounds.DREAD, SoundSource.AMBIENT, 0.35f, 1.0f);
+                else if (underground && roll < 62) Fx.soundTo(player, Fx.behind(player, 14.0), ModSounds.FAR_MINING, SoundSource.AMBIENT, 0.6f, 1.0f);
+                else if (underground && roll < 80) Fx.soundTo(player, Fx.behind(player, 5.0), ModSounds.DRIP, SoundSource.AMBIENT, 0.7f, 1.0f);
+                else if (indoors && !underground && roll < 55) Fx.soundTo(player, Fx.behind(player, 3.0), ModSounds.CREAK, SoundSource.AMBIENT, 0.7f, 1.0f);
+                else if (dark && roll < 70) Fx.soundTo(player, Fx.behind(player, 16.0), ModSounds.FAR_STEPS, SoundSource.AMBIENT, 0.45f, 1.0f);
+                else if (!indoors && roll < 78) Fx.soundTo(player, Fx.behind(player, 20.0), ModSounds.DOOR_FAR, SoundSource.AMBIENT, 0.4f, 1.0f);
                 continue;
             }
             if (!dark && !indoors && roll < 55) continue; // Daylight in the open is mostly safe. Mostly.
@@ -283,10 +310,13 @@ public final class StoryDirector {
                 // Something knocks, behind you, on something that might be your door.
                 Fx.soundTo(player, Fx.behind(player, 5.0), ModSounds.KNOCK, SoundSource.AMBIENT, 1.0f, 0.9f + random.nextFloat() * 0.2f);
             } else if (roll < 60) {
-                Fx.soundTo(player, Fx.behind(player, 7.0), SoundEvents.AMBIENT_CAVE, SoundSource.AMBIENT, 0.7f, 0.8f);
+                if (underground && random.nextBoolean()) Fx.soundTo(player, Fx.behind(player, 12.0), ModSounds.FAR_MINING, SoundSource.AMBIENT, 0.7f, 0.9f);
+                else if (indoors && random.nextBoolean()) Fx.soundTo(player, Fx.behind(player, 3.0), ModSounds.CREAK, SoundSource.AMBIENT, 0.8f, 0.9f);
+                else Fx.soundTo(player, Fx.behind(player, 7.0), SoundEvents.AMBIENT_CAVE, SoundSource.AMBIENT, 0.7f, 0.8f);
             } else if (roll < 72 && (act >= 3 || (act == 2 && dark && roll >= 66))) {
                 // Words, close behind you. Real ones now: "turn around", "i'm right behind you".
-                Fx.soundTo(player, Fx.behind(player, 2.5), ModSounds.WHISPER, SoundSource.AMBIENT, act == 2 ? 0.6f : 0.8f, 1.0f);
+                if (act >= 3 && random.nextInt(3) == 0) Herobrine.whisper(player, HerobrineMind.whisperFor(level, player));
+                else Fx.soundTo(player, Fx.behind(player, 2.5), ModSounds.WHISPER, SoundSource.AMBIENT, act == 2 ? 0.6f : 0.8f, 1.0f);
             } else if (roll < 82 && act >= 3) {
                 Fx.soundTo(player, Fx.behind(player, 1.5), ModSounds.BREATH, SoundSource.AMBIENT, 0.8f, 1.0f);
             } else if (roll < 90 && act >= 3 && memory.sanity < 70f) {
@@ -296,8 +326,7 @@ public final class StoryDirector {
                 // For three frames, in the dark, something looks back.
                 Fx.eyes(player, 3);
             } else if (roll < 100 && act >= 2) {
-                Vec3 behind = Fx.behind(player, 4.0);
-                level.playSound(null, behind.x, behind.y, behind.z, SoundEvents.GRASS_STEP, SoundSource.HOSTILE, 0.6f, 0.8f);
+                Fx.soundTo(player, Fx.behind(player, 4.0), ModSounds.STALK_STEP, SoundSource.HOSTILE, 0.6f, 1.0f);
             }
         }
     }
@@ -397,6 +426,10 @@ public final class StoryDirector {
 
     // ---- Herobrine ---------------------------------------------------------------
 
+    public static void clearActiveHerobrine() {
+        activeHerobrine = null;
+    }
+
     public static @Nullable Herobrine activeHerobrine() {
         return activeHerobrine == null || activeHerobrine.isRemoved() ? null : activeHerobrine;
     }
@@ -462,7 +495,7 @@ public final class StoryDirector {
     /** He stands a long way off and watches a player. */
     public static @Nullable Herobrine spawnHerobrineWatching(ServerLevel level, ServerPlayer player) {
         Herobrine herobrine = placeHerobrine(level, player, 28, 44);
-        if (herobrine != null) herobrine.watchPlayer(player, 700 + level.getRandom().nextInt(500));
+        if (herobrine != null) herobrine.watchPlayer(player, 700 + level.getRandom().nextInt(500), true);
         return herobrine;
     }
 

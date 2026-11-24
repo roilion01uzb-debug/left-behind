@@ -95,7 +95,10 @@ def talk_lines():
 
 
 JAVA_FILES = ["story/Reactions.java", "entity/OriginalSteve.java", "story/StoryDirector.java", "story/Relics.java",
-              "entity/Herobrine.java", "story/Dialogue.java", "talk/Talk.java", "story/Scenes.java", "story/Caves.java"]
+              "entity/Herobrine.java", "story/Dialogue.java", "talk/Talk.java", "story/Scenes.java", "story/Caves.java",
+              # 0.6: Steve at work, what he understands, what he learns, and Herobrine learning you.
+              "story/Observation.java", "entity/SteveWork.java", "talk/Mind.java", "story/Stalker.java", "story/Structures.java",
+              "story/HerobrineMind.java"]
 NOT_LINES = {
     "Steve was taken (sanity 0)", "Black Steve",
     "Type in chat to talk to Steve.", "He is waiting. Type your question.", "Original Steve has arrived.", "Steve remembers.",
@@ -104,10 +107,16 @@ NOT_LINES = {
     "He would do anything for you.", "He doesn't know what to make of you yet.",
     "His hands won't stop moving. He is not really looking at you.", "I don't know you yet.",
     "I haven't watched you long enough to say more.",
+    # 0.6: words on signs, and log text.
+    "you are", "not the", "first one", "count them", "it is quiet", "in here", "this was", "my room",
+    "IIII IIII", "IIII II", "Placed {} at {}", "Steve works: {}",
+    # 0.6: examples quoted in comments.
+    "I found diamonds.", "I like diamonds.", "Where is iron?", "Light it up.", "Stop working", "Never mind", "What are you doing?",
+    "Right here. Under your feet, nearly", "Do you want one?", "Do you want them?",
 }
-HEROBRINE_SOURCES = {"entity/Herobrine.java", "story/Dialogue.java"}
+HEROBRINE_SOURCES = {"entity/Herobrine.java", "story/Dialogue.java", "story/Stalker.java", "story/Structures.java", "story/HerobrineMind.java"}
 # Lines from these files take this context's mood (Steve talking quietly to someone on a hill, or half asleep).
-FILE_CONTEXT = {"story/Scenes.java": "scene"}
+FILE_CONTEXT = {"story/Scenes.java": "scene", "entity/SteveWork.java": "work", "talk/Mind.java": "work"}
 
 
 def java_lines():
@@ -159,6 +168,47 @@ WARM = ("thank", "kind", "friend", "glad", "like when", "i like", "nice", "good"
 
 # Lines whose words fool the keyword rules (a rose on "my door" is not anger).
 MOOD_OVERRIDE = {
+    "Swim up! Now!": "panic",
+    "Up! Go up! You need air!": "panic",
+    "Watch out!": "panic",
+    "Arrows! Get behind something!": "panic",
+    "Stay away from the tall trees.": "hushed",
+    "This one's stubborn.": "calm",
+    "I like this part. It's quiet work.": "warm",
+    "Iron. This is where it starts getting good.": "warm",
+    "This is all I could find. Here.": "sad",
+    "Spider. They climb. Walls don't help.": "scared",
+    "This was my first night. I dug down because up there, everything could see me.": "sad",
+    "Stone. Stone tools are better. I remember that much.": "calm",
+    "I'm getting cobblestone. Lots of it. You can never have enough.": "warm",
+    "I'll get some wood. Trees don't mind. I asked one once.": "warm",
+    "One more. You can never have one too many.": "warm",
+    "Okay. Forget it.": "calm",
+    "I'll remember. If I find any, it's yours.": "warm",
+    "Here. You like these. I remembered.": "warm",
+    "I haven't forgotten what you asked.": "warm",
+    "A bed. So this is home now.": "warm",
+    "Not yet. Make one where I can see you do it. I learn by watching.": "curious",
+    "I've never made that. Make one where I can see, and I'll learn.": "curious",
+    "Don't count them. He likes it when you count them.": "scared",
+    "Seven. There's always seven. Until there isn't.": "hushed",
+    "He knows where you walk. He learns people. He learned me.": "scared",
+    "He was standing right there. Where you always go.": "scared",
+    "Don't open it. Someone wanted it closed. Maybe it was me.": "scared",
+    "I know where that goes. I don't want to. I know.": "scared",
+    "Don't look over there. Look at me. Okay. Okay.": "scared",
+    "Did you see someone? Over there. ...No. Never mind. Trees.": "scared",
+    "Was someone standing there? Just now?": "scared",
+    "The tall one. Look at your feet. Look at your feet.": "scared",
+    "Not the green one. Hit it and step back. Hit and step back.": "scared",
+    "I can't see you. Say something. Say anything.": "scared",
+    "I don't like thunder. Something always comes with it.": "hushed",
+    "You opened it. ...It's empty. Why is it empty? Where did it go?": "scared",
+    "Stairs. Down. I dug those. Didn't I?": "sad",
+    "Keep them somewhere safe. Somewhere he doesn't go.": "hushed",
+    "We should go in. It's not safe in the open.": "hushed",
+    "Oh. Oh, these are the blue ones. People used to fight over these.": "curious",
+    "Leave it. Please. It's quiet when it's closed.": "scared",
     "A rose. Rana put those on things she wanted to keep. My door had three.": "warm",
     "She said a rose means this one stays. I stayed. She didn't get to.": "sad",
     "She was my first friend. Then one day the list didn't have her name on it. Just like that.": "sad",

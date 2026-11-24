@@ -97,6 +97,10 @@ public final class Journal {
         add("mem_rose", Section.MEMORY, "Roses",
                 "\"There used to be roses. Red, simple. One day every rose in the world was a different flower with a different name, "
                 + "and I was the only one who noticed.\n\nRana still puts roses on the things she wants to keep. This morning there was one on my door.\"");
+        add("mem_hallway", Section.MEMORY, "My Room",
+                "\"The first night I dug down. Straight down, then straight along, as far as I could, because up there everything "
+                + "could see me.\n\nI made a room at the end. A bed, a table, a chest. I put words on the walls so I wouldn't forget "
+                + "what he told me. I forgot anyway.\"");
         add("mem_house", Section.MEMORY, "The First House",
                 "\"I woke up next to a house I hadn't built. Planks and mossy stone. Two torches. And chests with one of everything "
                 + "that existed, as if someone had packed for me.\n\n"
@@ -160,6 +164,12 @@ public final class Journal {
                 "If you want to understand this place, go to the middle. Not spawn. The real middle, where both numbers are nothing.\n\n"
                 + "I am going to delete this world tonight. I am writing that down so that if you are reading this, "
                 + "you know it did not work.");
+        add("page_hall", Section.PAGE, "Torn Page: The Hallway",
+                "Day 2. The lights went out behind me on the way back. One at a time, from the stairs towards me, like someone "
+                + "walking down the hall pinching them out.\n\nThere is only one way in. I was standing in it.");
+        add("page_box", Section.PAGE, "Torn Page: Inside",
+                "I counted the days on the wall. I stopped at thirty-two because I couldn't remember if I had already counted "
+                + "that one.\n\nIf someone opens this: it's not for keeping me in.");
         add("page_8", Section.PAGE, "Torn Page: Last Entry",
                 "I had it wrong. He isn't the oldest thing here. He's only the oldest thing with a face.\n\n"
                 + "Something decided where every hill would go before anyone was here to see a hill. Something counted this world out, "
@@ -198,6 +208,26 @@ public final class Journal {
         add("note_taken", Section.NOTE, "Not Him",
                 "Today he didn't know me. He looked at me like I was a stranger standing in his house, and asked where \"he\" had gone.\n\n"
                 + "He came back later. Most of the way. Light helps, and staying near him. The dark doesn't.");
+        add("note_glimpse", Section.NOTE, "The First Evening",
+                "On the first evening there was someone standing at the edge of what I could see. Still. Facing me.\n\n"
+                + "When I looked properly there was nothing there. Steve asked if I'd seen someone. He asked too quickly.");
+        add("note_waiting", Section.NOTE, "He Knows the Way",
+                "He was waiting where I was going. Not following me. Ahead of me.\n\n"
+                + "He learns the places I go back to, and which way I walk. If I don't want to meet him, I should stop being "
+                + "so easy to predict.");
+        add("note_pillars", Section.NOTE, "Count Them",
+                "Seven stone pillars in a ring, out in the open, with a red torch on each. A sign in the middle: count them.\n\n"
+                + "I counted seven. I looked away. I counted eight.");
+        add("note_hallway", Section.NOTE, "The Stairs",
+                "Stone stairs going straight down out of the grass, with a frame around them, like a door with no door in it. "
+                + "Nobody built it. It was just there one morning.");
+        add("note_box", Section.NOTE, "The Box",
+                "A cube of obsidian, no door, no gaps. Too neat to be anything natural.\n\n"
+                + "When I get close, something inside knocks. When I get right up to it, it stops, as if it's listening.");
+        add("note_learning", Section.NOTE, "He Learns by Watching",
+                "Steve watches me craft. The first time he sees something made, he can make it too, and he offers.\n\n"
+                + "He chops, mines and smelts on his own now. I can ask him for things in plain words: get me some iron, make me a "
+                + "chest, where are the diamonds, what do you have. If he doesn't know how, I show him once.");
         add("note_hunt", Section.NOTE, "Removed",
                 "He came for me and nothing stopped him. Not walls, not armour, not creative mode.\n\n"
                 + "Once he has really seen you, the only thing that has ever made him turn around is Steve.");

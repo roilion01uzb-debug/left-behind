@@ -212,9 +212,14 @@ public final class Talk {
             say(c, changed ? "Oh. {name}, then. I'll fix it in my head." : "{name}. I'll remember that. I remember everything.");
             return;
         }
+        // He just offered you something ("Do you want one?"): a yes or no goes to that first.
+        if (c.steve.work().offer(c.player.getUUID(), c.now) != null && Mind.understand(c, text, raw)) return;
         // An answer to something he asked.
         if (s.pendingQ != null && c.now - s.askedAt < 1600 && answer(c, text, raw)) return;
         s.pendingQ = null;
+
+        // Requests, questions about things and places, and yes or no to what he offered: worked out from the sentence.
+        if (Mind.understand(c, text, raw)) return;
 
         // The things he understands.
         TalkBook.Intent best = null;
@@ -234,6 +239,7 @@ public final class Talk {
             run(c, best.id(), bestReply);
             return;
         }
+        if (Mind.clarify(c, text)) return;
         if (words(c, text)) return;
         TalkBook.Reply fallback = firstReply(c, book.fallback);
         if (fallback != null) run(c, "fallback", fallback);

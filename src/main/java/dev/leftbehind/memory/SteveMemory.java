@@ -114,6 +114,10 @@ public final class SteveMemory extends SavedData {
         return habits.getOrDefault(name, 0);
     }
 
+    public java.util.Set<String> habitKeys() {
+        return habits.keySet();
+    }
+
     public int observe(String habit) {
         setDirty();
         return habits.merge(habit, 1, Integer::sum);

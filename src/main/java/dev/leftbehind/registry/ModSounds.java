@@ -23,6 +23,14 @@ public final class ModSounds {
     public static final Holder<SoundEvent> WHISPER = register("herobrine.whisper");
     public static final Holder<SoundEvent> BREATH = register("herobrine.breath");
     public static final Holder<SoundEvent> KILL = register("herobrine.kill");
+    public static final Holder<SoundEvent> STALK_STEP = register("herobrine.step");
+    public static final Holder<SoundEvent> TORCH_OUT = register("ambient.torch_out");
+    public static final Holder<SoundEvent> STONE_GRIND = register("ambient.stone_grind");
+    public static final Holder<SoundEvent> FAR_STEPS = register("ambient.far_steps");
+    public static final Holder<SoundEvent> FAR_MINING = register("ambient.far_mining");
+    public static final Holder<SoundEvent> DRIP = register("ambient.drip");
+    public static final Holder<SoundEvent> CREAK = register("ambient.creak");
+    public static final Holder<SoundEvent> DOOR_FAR = register("ambient.door_far");
     public static final Holder<SoundEvent> BREACH = register("steve.breach");
     public static final Holder<SoundEvent> PANIC_BREATH = register("steve.panic_breath");
     public static final Holder<SoundEvent> MUTTER = register("steve.mutter");

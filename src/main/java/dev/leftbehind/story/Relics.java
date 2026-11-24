@@ -136,7 +136,7 @@ public final class Relics {
     }
 
     /** Finds natural, dry, fairly level ground away from players and beds. */
-    private static @Nullable BlockPos flatGround(ServerLevel level, BlockPos center, int min, int max, int radius) {
+    static @Nullable BlockPos flatGround(ServerLevel level, BlockPos center, int min, int max, int radius) {
         for (int attempt = 0; attempt < 8; attempt++) {
             BlockPos pos = StoryDirector.surfaceNear(level, center, min, max);
             if (pos == null) continue;
@@ -270,7 +270,7 @@ public final class Relics {
         return null;
     }
 
-    private static boolean placeSign(ServerLevel level, BlockPos pos, String word) {
+    static boolean placeSign(ServerLevel level, BlockPos pos, String word) {
         if (!level.getBlockState(pos).canBeReplaced() || !level.getBlockState(pos.below()).isSolid()) return false;
         level.setBlock(pos, Blocks.OAK_SIGN.defaultBlockState(), 3);
         if (level.getBlockEntity(pos) instanceof SignBlockEntity sign) {

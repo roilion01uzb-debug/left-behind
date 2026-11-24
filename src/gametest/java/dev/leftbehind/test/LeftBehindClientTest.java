@@ -100,6 +100,74 @@ public class LeftBehindClientTest implements FabricClientGameTest {
                     throw new AssertionError("Steve only spoke " + dev.leftbehind.client.talk.SpeechClient.voicedLines() + " lines out loud");
                 }
             });
+            // 0.6: Steve does his part. Ask him for wood, and he goes and chops a tree and brings you the logs.
+            server.runCommand("clear @a");
+            server.runCommand("execute at " + STEVE + " run fill ~5 ~ ~-1 ~5 ~5 ~-1 oak_log");
+            server.runCommand("execute at " + STEVE + " run fill ~3 ~4 ~-3 ~7 ~6 ~1 oak_leaves[persistent=true] keep");
+            server.runCommand("execute at " + STEVE + " anchored eyes run tp @a ^ ^ ^4 facing entity " + STEVE + " eyes");
+            context.waitTicks(10);
+            context.runOnClient(client -> client.player.connection.sendChat("steve can you get me some wood"));
+            context.waitTicks(60);
+            context.takeScreenshot("32_asked_for_wood");
+            boolean chopping = waitFor(context, server, 400, s -> {
+                var steve = dev.leftbehind.story.StoryDirector.findSteve(s.overworld());
+                return steve != null && "gather".equals(steve.work().jobName());
+            });
+            if (!chopping) throw new AssertionError("Steve never went to chop the tree he was asked for");
+            hud(context, false);
+            server.runCommand("execute at " + STEVE + " anchored eyes run tp @a ^2 ^1 ^5 facing entity " + STEVE + " eyes");
+            context.waitTicks(30);
+            context.takeScreenshot("33_steve_chopping");
+            hud(context, true);
+            boolean gotLogs = waitFor(context, server, 1400, s -> s.getPlayerList().getPlayers().getFirst().getInventory()
+                    .countItem(net.minecraft.world.item.Items.OAK_LOG) > 0);
+            context.takeScreenshot("34_here_you_go");
+            if (!gotLogs) throw new AssertionError("Steve chopped but never handed over the logs");
+
+            // He watches you make something new, learns the recipe, and offers. Say yes and he makes one, from scratch.
+            server.runCommand("execute at " + STEVE + " anchored eyes run tp @a ^ ^ ^4 facing entity " + STEVE + " eyes");
+            context.waitTicks(10);
+            server.runOnServer(s -> {
+                var player = s.getPlayerList().getPlayers().getFirst();
+                new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.LADDER, 3).onCraftedBy(player, 3);
+            });
+            context.waitTicks(50);
+            context.takeScreenshot("35_learned_ladder");
+            boolean learned = server.computeOnServer(s -> dev.leftbehind.entity.SteveWork.knows(
+                    dev.leftbehind.memory.SteveMemory.get(s), net.minecraft.world.item.Items.LADDER));
+            if (!learned) throw new AssertionError("Steve watched a ladder being made and didn't learn it");
+            server.runOnServer(s -> dev.leftbehind.story.StoryDirector.findSteve(s.overworld()).work()
+                    .give(new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.OAK_LOG, 4)));
+            context.runOnClient(client -> client.player.connection.sendChat("yes please"));
+            boolean ladder = waitFor(context, server, 2400, s -> s.getPlayerList().getPlayers().getFirst().getInventory()
+                    .countItem(net.minecraft.world.item.Items.LADDER) > 0);
+            context.takeScreenshot("36_made_ladder");
+            server.runCommand("leftbehind status");
+            if (!ladder) throw new AssertionError("Steve said yes to making a ladder but never brought one");
+            boolean table = server.computeOnServer(s -> {
+                BlockPos at = s.getPlayerList().getPlayers().getFirst().blockPosition();
+                for (BlockPos pos : BlockPos.betweenClosed(at.offset(-12, -3, -12), at.offset(12, 3, 12))) {
+                    if (s.overworld().getBlockState(pos).is(Blocks.CRAFTING_TABLE)) return true;
+                }
+                return false;
+            });
+            if (!table) throw new AssertionError("Steve made a ladder without putting down a crafting table");
+
+            // Questions he answers from what he really knows.
+            String[][] questions = {
+                    {"how do you make a chest?", "37_how_chest"},
+                    {"what do you have?", "38_what_he_has"},
+                    {"where can i find diamonds", "39_where_diamonds"},
+                    {"i like emeralds", "40_likes"},
+            };
+            for (String[] line : questions) {
+                server.runCommand("execute at " + STEVE + " anchored eyes run tp @a ^ ^ ^4 facing entity " + STEVE + " eyes");
+                context.runOnClient(client -> client.player.connection.sendChat(line[0]));
+                context.waitTicks(70);
+                context.takeScreenshot(line[1]);
+                context.waitTicks(120);
+            }
+
             server.runCommand("leftbehind status");
             server.runCommand("execute as @a run steve say bye");
             context.waitTicks(60);
@@ -209,6 +277,25 @@ public class LeftBehindClientTest implements FabricClientGameTest {
             context.setScreen(() -> null);
             context.waitTicks(5);
 
+            // 0.6: Herobrine from the first evening, by himself. Far off, facing you. Look properly and he isn't there.
+            server.runCommand("leftbehind calm");
+            server.runCommand("kill @e[type=leftbehind:herobrine]");
+            server.runCommand("execute as @a at @s run tp @s ~ ~ ~ 0 0");
+            server.runCommand("time set 12400");
+            boolean glimpse = waitFor(context, server, 200, s -> dev.leftbehind.story.StoryDirector.activeHerobrine() != null);
+            if (!glimpse) throw new AssertionError("No glimpse of Herobrine on the first evening");
+            hud(context, false);
+            context.takeScreenshot("41_first_evening");
+            server.runCommand("execute as @a at @s anchored eyes run tp @s ~ ~ ~ facing entity " + HIM + " eyes");
+            zoom(context, 30);
+            context.waitTicks(4);
+            context.takeScreenshot("41b_first_evening_close");
+            boolean gone = waitFor(context, server, 120, s -> dev.leftbehind.story.StoryDirector.activeHerobrine() == null);
+            context.takeScreenshot("42_nobody_there");
+            zoom(context, 70);
+            hud(context, true);
+            if (!gone) throw new AssertionError("The glimpse didn't vanish when looked at");
+
             // 0.5: the hill. At dusk he walks up somewhere high and talks to someone standing next to him.
             server.runCommand("leftbehind calm");
             server.runCommand("kill @e[type=leftbehind:herobrine]");
@@ -295,6 +382,118 @@ public class LeftBehindClientTest implements FabricClientGameTest {
             server.runCommand("execute at @p run tp @p ~ ~100 ~");
             server.runCommand("execute as @a at @s run spreadplayers ~ ~ 0 1 false @s");
             context.waitTicks(40);
+            server.runCommand("leftbehind status");
+
+            // He learns your places and waits where you're going.
+            server.runOnServer(s -> {
+                var player = s.getPlayerList().getPlayers().getFirst();
+                var r = dev.leftbehind.memory.SteveMemory.get(s).relationship(player.getUUID());
+                int cx = Math.floorDiv(player.getBlockX() + 50, 24);
+                int cz = Math.floorDiv(player.getBlockZ(), 24);
+                for (int i = 0; i < 6; i++) r.marks.put("haunt:" + (cx + (i % 2)) + "," + (cz + i / 2 - 1), 5L);
+            });
+            server.runCommand("leftbehind sense @a 0");
+            server.runCommand("execute as @a run leftbehind herobrine ahead");
+            context.waitTicks(10);
+            BlockPos waiting = server.computeOnServer(s -> {
+                var h = dev.leftbehind.story.StoryDirector.activeHerobrine();
+                return h == null ? null : h.blockPosition();
+            });
+            if (waiting == null) throw new AssertionError("Herobrine didn't go to wait where the player goes");
+            server.runCommand("execute as @a at @s anchored eyes run tp @s ~ ~ ~ facing entity " + HIM + " eyes");
+            zoom(context, 30);
+            context.waitTicks(10);
+            context.takeScreenshot("43_waiting_ahead");
+            zoom(context, 70);
+            server.runCommand("tp @a " + waiting.getX() + " " + waiting.getY() + " " + waiting.getZ());
+            boolean arrived = waitFor(context, server, 200, s -> dev.leftbehind.memory.SteveMemory.get(s).counter("waited_for") > 0);
+            context.takeScreenshot("44_you_always_come_this_way");
+            if (!arrived) throw new AssertionError("Arriving where he waited did nothing");
+
+            // Structures: the Pillars (seven, then eight), the Hallway (the lights go out behind you), the Obsidian Box (knocking).
+            server.runCommand("time set noon");
+            server.runCommand("execute as @a at @s run tp @s ~ ~ ~ -90 10");
+            context.waitTicks(10);
+            server.runCommand("execute as @a run leftbehind structure pillars");
+            context.waitTicks(20);
+            hud(context, false);
+            server.runCommand("execute as @a at @s run tp @s ~-6 ~4 ~ -90 15");
+            context.waitTicks(20);
+            context.takeScreenshot("45_pillars");
+            server.runOnServer(s -> {
+                var memory = dev.leftbehind.memory.SteveMemory.get(s);
+                var player = s.getPlayerList().getPlayers().getFirst();
+                int x = (int) memory.counter("st_pillars_x"), y = (int) memory.counter("st_pillars_y"), z = (int) memory.counter("st_pillars_z");
+                double a = Math.PI * 2 * memory.counter("st_pillars_gap") / 8;
+                float yaw = (float) Math.toDegrees(Math.atan2(Math.cos(a), -Math.sin(a)));
+                player.teleportTo(s.overworld(), x + 0.5, y, z + 0.5, java.util.Set.of(), yaw, 0f, false);
+            });
+            boolean eight = waitFor(context, server, 300, s -> dev.leftbehind.memory.SteveMemory.get(s).flag("st_pillars_done"));
+            server.runCommand("execute as @a at @s run tp @s ~ ~ ~ ~180 0");
+            context.waitTicks(10);
+            context.takeScreenshot("46_eight_pillars");
+            hud(context, true);
+            if (!eight) throw new AssertionError("The eighth pillar never came");
+
+            server.runCommand("execute as @a at @s run tp @s ~40 ~ ~ -90 0");
+            context.waitTicks(20);
+            // The test world is flat and shallow, so the hallway gets a hill of stone to go down into.
+            server.runCommand("execute at @p run fill ~-12 -60 ~-6 ~54 -46 ~6 stone");
+            server.runCommand("execute at @p run tp @p ~ -45 ~ -90 20");
+            context.waitTicks(10);
+            server.runCommand("execute as @a run leftbehind structure hallway");
+            context.waitTicks(20);
+            hud(context, false);
+            server.runCommand("execute at @p run tp @p ~-6 ~ ~ -90 20");
+            context.waitTicks(20);
+            context.takeScreenshot("47_hallway_stairs");
+            server.runOnServer(s -> {
+                var memory = dev.leftbehind.memory.SteveMemory.get(s);
+                var player = s.getPlayerList().getPlayers().getFirst();
+                var dir = net.minecraft.core.Direction.from2DDataValue((int) memory.counter("st_hallway_dir"));
+                BlockPos at = new BlockPos((int) memory.counter("st_hallway_x"), (int) memory.counter("st_hallway_y"), (int) memory.counter("st_hallway_z"));
+                BlockPos mid = at.relative(dir, 9 + 14).below(9);
+                player.teleportTo(s.overworld(), mid.getX() + 0.5, mid.getY(), mid.getZ() + 0.5, java.util.Set.of(), dir.toYRot(), 0f, false);
+            });
+            context.waitTicks(30);
+            context.takeScreenshot("48_hallway_words");
+            server.runOnServer(s -> {
+                var memory = dev.leftbehind.memory.SteveMemory.get(s);
+                var player = s.getPlayerList().getPlayers().getFirst();
+                var dir = net.minecraft.core.Direction.from2DDataValue((int) memory.counter("st_hallway_dir"));
+                BlockPos at = new BlockPos((int) memory.counter("st_hallway_x"), (int) memory.counter("st_hallway_y"), (int) memory.counter("st_hallway_z"));
+                BlockPos room = at.relative(dir, 9 + 34 + 3).below(9);
+                player.teleportTo(s.overworld(), room.getX() + 0.5, room.getY(), room.getZ() + 0.5, java.util.Set.of(), dir.toYRot(), 10f, false);
+            });
+            boolean lightsOut = waitFor(context, server, 100, s -> dev.leftbehind.memory.SteveMemory.get(s).flag("st_hallway_done"));
+            context.waitTicks(10);
+            context.takeScreenshot("49_hallway_room");
+            server.runCommand("execute as @a at @s run tp @s ~ ~ ~ ~180 0");
+            context.waitTicks(60);
+            context.takeScreenshot("50_lights_going_out");
+            hud(context, true);
+            if (!lightsOut) throw new AssertionError("Reaching the room at the end of the hallway did nothing");
+            server.runCommand("execute at @p run tp @p ~ ~100 ~");
+            server.runCommand("execute as @a at @s run spreadplayers ~ ~ 0 1 false @s");
+            context.waitTicks(30);
+
+            server.runCommand("execute as @a at @s run tp @s ~-30 ~ ~ -90 10");
+            context.waitTicks(20);
+            server.runCommand("execute as @a run leftbehind structure box");
+            context.waitTicks(10);
+            hud(context, false);
+            server.runCommand("execute as @a at @s run tp @s ~-2 ~1 ~ -90 10");
+            context.waitTicks(80);
+            context.takeScreenshot("51_obsidian_box");
+            hud(context, true);
+            server.runOnServer(s -> {
+                var memory = dev.leftbehind.memory.SteveMemory.get(s);
+                BlockPos at = new BlockPos((int) memory.counter("st_box_x"), (int) memory.counter("st_box_y"), (int) memory.counter("st_box_z"));
+                s.overworld().setBlock(at.offset(-2, 1, 0), Blocks.AIR.defaultBlockState(), 3);
+            });
+            boolean opened = waitFor(context, server, 100, s -> dev.leftbehind.memory.SteveMemory.get(s).flag("st_box_done"));
+            context.takeScreenshot("52_box_opened");
+            if (!opened) throw new AssertionError("Opening the box did nothing");
             server.runCommand("leftbehind status");
 
             // The hunt.

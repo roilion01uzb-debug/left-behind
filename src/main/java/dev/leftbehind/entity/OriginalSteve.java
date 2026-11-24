@@ -78,6 +78,7 @@ public class OriginalSteve extends PathfinderMob {
     public static final double WITNESS_DISTANCE = 20.0;
 
     private int imitateCooldown = 600;
+    private final SteveWork work = new SteveWork(this);
     private int provokeCooldown = 1200;
     private int idleLineCooldown = 1200;
 
@@ -103,8 +104,8 @@ public class OriginalSteve extends PathfinderMob {
     public OriginalSteve(EntityType<? extends OriginalSteve> type, Level level) {
         super(type, level);
         this.setPersistenceRequired();
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.WOODEN_AXE));
-        this.setDropChance(EquipmentSlot.MAINHAND, 1.0f);
+        // He starts with nothing, like anyone. What he holds is whatever he has made.
+        this.setDropChance(EquipmentSlot.MAINHAND, 0.0f);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -145,7 +146,7 @@ public class OriginalSteve extends PathfinderMob {
                 10.0F, 0.9, 1.1, e -> true));
         this.goalSelector.addGoal(5, new ProvokeGoal());
         this.goalSelector.addGoal(6, new StayGoal());
-        this.goalSelector.addGoal(7, new ImitateWoodcuttingGoal());
+        this.goalSelector.addGoal(7, new WorkGoal());
         this.goalSelector.addGoal(8, new FollowPlayerGoal());
         this.goalSelector.addGoal(9, new OpenDoorGoal(this, true));
         this.goalSelector.addGoal(10, new WaterAvoidingRandomStrollGoal(this, 0.8));
@@ -314,6 +315,7 @@ public class OriginalSteve extends PathfinderMob {
     @Override
     public void die(DamageSource source) {
         super.die(source);
+        if (level() instanceof ServerLevel level) work.dropAll(level);
         SteveMemory memory = memory();
         if (memory != null && level() instanceof ServerLevel level) {
             memory.steveDead = true;
@@ -360,6 +362,7 @@ public class OriginalSteve extends PathfinderMob {
     protected void addAdditionalSaveData(ValueOutput output) {
         super.addAdditionalSaveData(output);
         output.putInt("imitate_cooldown", imitateCooldown);
+        work.save(output);
         output.putInt("provoke_cooldown", provokeCooldown);
     }
 
@@ -367,7 +370,12 @@ public class OriginalSteve extends PathfinderMob {
     protected void readAdditionalSaveData(ValueInput input) {
         super.readAdditionalSaveData(input);
         imitateCooldown = input.getIntOr("imitate_cooldown", 600);
+        work.load(input);
         provokeCooldown = input.getIntOr("provoke_cooldown", 1200);
+    }
+
+    public SteveWork work() {
+        return work;
     }
 
     public void swingArm() {
@@ -912,73 +920,45 @@ public class OriginalSteve extends PathfinderMob {
         }
     }
 
-    /** After watching players cut trees enough times, he starts doing it too. Badly. */
-    class ImitateWoodcuttingGoal extends Goal {
-        private @Nullable BlockPos log;
-        private int chopTicks;
-
-        ImitateWoodcuttingGoal() {
+    /** His part: gathering, crafting, mining, lighting the dark, bringing you what he finds. See {@link SteveWork}. */
+    class WorkGoal extends Goal {
+        WorkGoal() {
             setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
+        }
+
+        private boolean free() {
+            return !inEpisode() && !Scenes.busy() && stayAt == null && talkTicks <= 0 && getTarget() == null
+                    && (followId == null || work.request() != null || work.busy());
         }
 
         @Override
         public boolean canUse() {
             SteveMemory memory = memory();
-            if (memory == null || imitateCooldown > 0 || memory.habit("chop_wood") < 5) return false;
-            if (getMainHandItem().isEmpty()) return false; // He lost his axe. He doesn't know where.
-            imitateCooldown = 400;
-            log = null;
-            double best = Double.MAX_VALUE;
-            BlockPos origin = blockPosition();
-            for (BlockPos pos : BlockPos.betweenClosed(origin.offset(-10, -2, -10), origin.offset(10, 4, 10))) {
-                if (level().getBlockState(pos).is(BlockTags.LOGS)) {
-                    double d = pos.distSqr(origin);
-                    if (d < best) {
-                        best = d;
-                        log = pos.immutable();
-                    }
-                }
-            }
-            return log != null;
-        }
-
-        @Override
-        public void start() {
-            chopTicks = 0;
-            if (log != null) getNavigation().moveTo(log.getX() + 0.5, log.getY(), log.getZ() + 0.5, 0.8);
+            return memory != null && level() instanceof ServerLevel level && free() && work.wantsToWork(level, memory);
         }
 
         @Override
         public boolean canContinueToUse() {
-            return log != null && chopTicks < 200 && level().getBlockState(log).is(BlockTags.LOGS) && !inEpisode();
+            return work.busy() && free();
+        }
+
+        @Override
+        public boolean requiresUpdateEveryTick() {
+            return true;
         }
 
         @Override
         public void tick() {
-            if (log == null || !(level() instanceof ServerLevel level)) return;
-            getLookControl().setLookAt(Vec3.atCenterOf(log));
-            if (log.distToCenterSqr(position()) < 3.5 * 3.5) {
-                chopTicks++;
-                if (chopTicks % 10 == 0) swingArm();
-                if (chopTicks >= 60) {
-                    if (canGrief(level)) level.destroyBlock(log, true, OriginalSteve.this);
-                    SteveMemory memory = memory();
-                    if (memory != null && memory.setFlag("imitated_wood")) {
-                        SteveVoice.steve(OriginalSteve.this, "Like this? This is how you do it, right?");
-                        Journal.unlock(level.getServer(), "mem_wood");
-                    }
-                    log = null;
-                }
-            } else if (getNavigation().isDone()) {
-                getNavigation().moveTo(log.getX() + 0.5, log.getY(), log.getZ() + 0.5, 0.8);
-                chopTicks++;
-            }
+            SteveMemory memory = memory();
+            if (memory != null && level() instanceof ServerLevel level) work.tick(level, memory);
         }
 
         @Override
         public void stop() {
-            log = null;
-            imitateCooldown = 1200 + random.nextInt(1200);
+            // Interrupted (someone talks to him, a monster): he picks it up again afterwards.
+            getNavigation().stop();
+            ItemStack best = work.bestHeld();
+            setItemSlot(EquipmentSlot.MAINHAND, best);
         }
     }
 
