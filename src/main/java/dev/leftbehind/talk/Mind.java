@@ -42,7 +42,15 @@ final class Mind {
     // ---- what kind of sentence ------------------------------------------------------------
 
     private static final Pattern STOP = Pattern.compile(" (stop|never ?mind|forget it|forget about it|cancel|leave it|do not bother|no need) ");
-    private static final Pattern STOP_WORK = Pattern.compile(" (stop|quit|do not keep|do not) (working|mining|chopping|digging|breaking|cutting|gathering|wrecking)");
+    private static final Pattern STOP_WORK = Pattern.compile(" (stop|quit|do not keep|do not) (working|mining|chopping|digging|breaking|cutting|gathering|wrecking|building)");
+    private static final String PLACE_WORDS = "(base|house|home|cabin|hut|shelter|bunker|fort|place to live|place to stay|place to sleep|somewhere to sleep|somewhere to live)";
+    private static final Pattern BUILD = Pattern.compile(" (build|make|put up|set up) (us |me |a |an |the |our |my |some |you )*(real |proper |little |small |nice |new |good |quick |safe )*"
+            + PLACE_WORDS + " ");
+    private static final Pattern NEED_PLACE = Pattern.compile(" (we|i) (really |still |first |also )?(need|want|should have|should make|should build|should get|could use) (a |an |the |our |some )*(real |proper |little |small |nice |new |good |quick |safe )*"
+            + PLACE_WORDS + " ");
+    private static final Pattern LETS_BUILD = Pattern.compile(" (let us|lets|we should|can we|could we|shall we) (build|make) (something|a base|a house|a home|a shelter|it here|here) ");
+    private static final Pattern REMIND = Pattern.compile(" (remind you|make you remember|help you remember|jog your memory|what do you remember|do you remember anything|do you remember|you forgot|did you forget|your memory|your memories|why do you forget|you forget) ");
+    private static final Pattern PLAN = Pattern.compile(" (what (should|do|can|shall) we do|what now|what next|what is next|where should we go|what should i do|what do we do now|any ideas|what is the plan for|what do you think we should do) ");
     private static final Pattern HAVE = Pattern.compile(
             " (what do you have|what have you got|whats in your|what is in your|show me your|your inventory|your pockets|what are you carrying|what you got|what do you got) ");
     private static final Pattern DO_YOU_HAVE = Pattern.compile(" (do you have|have you got|got any|you have any|do you got) ");
@@ -89,9 +97,52 @@ final class Mind {
                 return true;
             }
         }
+        // A yes or no to "want me to build a shelter?".
+        dev.leftbehind.entity.SteveBuild build = work.chores().build();
+        if (build.offered(c.player.getUUID(), c.now)) {
+            int yes = Words.yesNo(text);
+            if (yes == 1 || text.contains(" please ") || text.contains(" go ahead ") || text.contains(" do it ")) {
+                build.clearOffer();
+                build.start(level, c.memory, c.player, "shelter");
+                return true;
+            }
+            if (yes == 0) {
+                build.clearOffer();
+                speak(c, "Okay. I'll keep watch, then.");
+                return true;
+            }
+        }
         if (STOP_WORK.matcher(text).find()) {
+            if (build.building() && (text.contains(" build") || work.jobName() != null && work.jobName().equals("build"))) {
+                build.cancel();
+                speak(c, "Alright. I'll leave it how it is. It's half a house. That's more than most people have.");
+                return true;
+            }
             work.pause(c.now, 6000);
             speak(c, "Alright. I'll stop. I'll just stand here, then.");
+            return true;
+        }
+        // "We need a real base." "Build us a house." He finds flat ground near you and builds it.
+        Matcher wantsPlace = BUILD.matcher(text);
+        Matcher needsPlace = NEED_PLACE.matcher(text);
+        boolean build1 = wantsPlace.find();
+        boolean build2 = !build1 && needsPlace.find();
+        if (build1 || build2 || LETS_BUILD.matcher(text).find()) {
+            String what = build1 ? wantsPlace.group(4) : build2 ? needsPlace.group(6) : "base";
+            String kind = what.contains("shelter") || what.contains("hut") || what.contains("bunker") || what.contains("sleep") ? "shelter" : "base";
+            if (build.building()) {
+                speak(c, "I'm already building one. Look. Walls.", "One at a time. I'm still on this one.");
+                return true;
+            }
+            build.start(level, c.memory, c.player, kind);
+            return true;
+        }
+        if (REMIND.matcher(text).find()) {
+            remind(c);
+            return true;
+        }
+        if (PLAN.matcher(text).find()) {
+            suggest(c, work);
             return true;
         }
         if (STOP.matcher(text).find() && (work.request() != null || work.busy()) && !text.contains(" follow") && Words.count(text) <= 6) {
@@ -225,10 +276,68 @@ final class Mind {
             speak(c, "Smelting iron. It takes a while. Everything good takes a while.");
         } else if (job.equals("hand")) {
             speak(c, "Bringing you something.");
+        } else if (job.equals("build")) {
+            speak(c, "Building. Walls first, then the roof. Don't stand where the walls go.");
+        } else if (job.equals("store")) {
+            speak(c, "Putting the extra in the chest. My pockets are full of rocks.");
+        } else if (job.equals("harvest")) {
+            speak(c, "Picking what's ripe. The seeds go back in.");
+        } else if (job.equals("read")) {
+            speak(c, "Reading the sign. Somebody wanted it read.");
+        } else if (job.equals("tune") || job.equals("look")) {
+            speak(c, "Just looking. I haven't seen one of these before. Or I have, and I forgot.");
+        } else if (job.equals("pack up")) {
+            speak(c, "Picking my table back up. I'm not leaving it for him.");
+        } else if (job.equals("flower")) {
+            speak(c, "Nothing. Don't look. It's a surprise.");
         } else {
             speak(c, "Working. Someone has to.");
         }
         return true;
+    }
+
+    /** "What should I say to remind you?" Honest, from where his head is right now. */
+    private static void remind(Talk.Ctx c) {
+        int remembered = c.memory.count("mem_");
+        if (c.memory.sanity < 35f) {
+            speak(c, pick(c, "Say it like it's normal. Say my name, and where we are. If you sound scared, I get scared.",
+                    "Don't ask me what I remember. Tell me. Tell me something true, and I'll hold on to it."));
+        } else if (remembered == 0) {
+            speak(c, pick(c, "I don't know. Places, maybe. If you take me somewhere I've been, something might come back.",
+                    "Show me old things. Broken things. Things someone built and left. That's where I keep finding pieces."));
+        } else {
+            speak(c, pick(c, "Say the names. Rana. The house with the red door. Things come back when somebody else says them.",
+                    "Take me back to the places. Every time we find something old, I get a little more back. You've seen it happen."));
+        }
+    }
+
+    /** "What should we do?" A real suggestion, from how things stand. */
+    private static void suggest(Talk.Ctx c, SteveWork work) {
+        ServerLevel level = c.level;
+        boolean home = dev.leftbehind.story.StoryDirector.homeOf(c.player, level) != null;
+        if (level.isDarkOutside() && level.canSeeSky(c.player.blockPosition().above())) {
+            speak(c, home ? "Go home. Now. We can do everything else in the morning."
+                    : "Get under something. If we don't have anything, I'll build us a shelter. Just say yes.");
+            if (!home) work.chores().build().offerShelter(level, c.player);
+            return;
+        }
+        if (!home && !work.chores().build().building()) {
+            speak(c, "We need a base. Somewhere with a door. Want me to build one? Say build a base.");
+            return;
+        }
+        if (c.player.getInventory().countItem(Items.IRON_INGOT) < 3 && work.countFor(Items.IRON_INGOT) < 3) {
+            speak(c, "Iron. Better tools, armour. Find a cave and I'll help you dig. Bring torches.");
+            return;
+        }
+        if (c.player.getFoodData().getFoodLevel() < 12) {
+            speak(c, "Food. You're hungry, I can tell. Animals, or a farm. A farm stays.");
+            return;
+        }
+        if (c.memory.count("mem_") < 3) {
+            speak(c, "Explore. There are old places out there. Things someone built and left. I want to see them.");
+            return;
+        }
+        speak(c, pick(c, "Diamonds. Deep down, near the lava. Carefully.", "Build something big. Something that lasts. I like things that last."));
     }
 
     private static void request(Talk.Ctx c, SteveWork work, Thing thing, int count, boolean make) {

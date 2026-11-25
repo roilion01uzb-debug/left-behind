@@ -14,6 +14,8 @@ import org.jspecify.annotations.Nullable;
 public class PersonRenderState extends HumanoidRenderState {
     /** Steve only: one of the OriginalSteve.STATE_ values. */
     public int pose;
+    /** Herobrine only: wearing Steve's face, so no white eyes. */
+    public boolean masked;
     /** Ghosts only: which of the removed ones this is. */
     public int variant;
     /** Ghosts only: 0 while present, rising to 1 as it fades out. */

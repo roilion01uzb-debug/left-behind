@@ -1,10 +1,13 @@
 package dev.leftbehind.story;
 
+
 import dev.leftbehind.LeftBehind;
 import dev.leftbehind.fx.Fx;
 import dev.leftbehind.memory.Relationship;
 import dev.leftbehind.memory.SteveMemory;
 import dev.leftbehind.registry.ModSounds;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.network.chat.Component;
@@ -91,7 +94,46 @@ public final class Progress {
                 grant(player, "root");
             }
         }
+        Component why = Component.literal(StoryLog.actMeaning(act)).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC);
+        Component hint = Component.literal("Open the journal to see where things stand (/steve journal).").withStyle(ChatFormatting.DARK_GRAY);
+        for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+            player.sendSystemMessage(Component.literal(actName(act)).withStyle(ChatFormatting.GOLD));
+            player.sendSystemMessage(why);
+            player.sendSystemMessage(hint);
+        }
         LeftBehind.LOGGER.info("The story moves on: {}", actName(act));
+    }
+
+    /** What is still missing before the story moves on, in plain words, for the journal. */
+    public static List<String> missing(MinecraftServer server, SteveMemory memory) {
+        List<String> out = new ArrayList<>();
+        int act = memory.act();
+        long inAct = server.overworld().getGameTime() - memory.counter("act_start");
+        int memories = memory.count("mem_");
+        int talks = 0;
+        for (Relationship r : memory.relationships.values()) talks += r.talks;
+        switch (act) {
+            case 1 -> {
+                out.add(check(memory.highestTrust() >= 35f, "He trusts you (" + Math.round(memory.highestTrust()) + " of 35)"));
+                out.add(check(talks >= 3, "You have talked to him (" + Math.min(talks, 3) + " of 3 times)"));
+                out.add(check(inAct > DAY * 3 / 4, "Most of a day has passed together"));
+            }
+            case 2 -> {
+                out.add(check(memories >= 3, "Memories he got back (" + Math.min(memories, 3) + " of 3)"));
+                out.add(check(memory.flag("ghost_seen"), "One of the others has been seen"));
+                out.add(check(memory.breaches >= 1, "He has looked Herobrine in the eye"));
+            }
+            case 3 -> {
+                out.add(check(memory.breaches >= 3, "Lost nights (" + Math.min(memory.breaches, 3) + " of 3)"));
+                out.add(check(memories >= 7, "Memories he got back (" + Math.min(memories, 7) + " of 7)"));
+            }
+            default -> {}
+        }
+        return out;
+    }
+
+    private static String check(boolean done, String what) {
+        return (done ? "[x] " : "[ ] ") + what;
     }
 
     /** Called every few seconds. Moves the story on when its conditions are met. */

@@ -98,7 +98,10 @@ JAVA_FILES = ["story/Reactions.java", "entity/OriginalSteve.java", "story/StoryD
               "entity/Herobrine.java", "story/Dialogue.java", "talk/Talk.java", "story/Scenes.java", "story/Caves.java",
               # 0.6: Steve at work, what he understands, what he learns, and Herobrine learning you.
               "story/Observation.java", "entity/SteveWork.java", "talk/Mind.java", "story/Stalker.java", "story/Structures.java",
-              "story/HerobrineMind.java"]
+              "story/HerobrineMind.java",
+              # 0.7: his body (danger, swimming, climbing), getting places, chores, building, and explaining the story.
+              "entity/SteveBody.java", "entity/SteveMoves.java", "entity/SteveChores.java", "entity/SteveBuild.java",
+              "story/StoryLog.java"]
 NOT_LINES = {
     "Steve was taken (sanity 0)", "Black Steve",
     "Type in chat to talk to Steve.", "He is waiting. Type your question.", "Original Steve has arrived.", "Steve remembers.",
@@ -113,10 +116,13 @@ NOT_LINES = {
     # 0.6: examples quoted in comments.
     "I found diamonds.", "I like diamonds.", "Where is iron?", "Light it up.", "Stop working", "Never mind", "What are you doing?",
     "Right here. Under your feet, nearly", "Do you want one?", "Do you want them?",
+    # 0.7: journal headings and sign text.
+    "Where things stand", "Nothing written yet. Meet him first.",
 }
 HEROBRINE_SOURCES = {"entity/Herobrine.java", "story/Dialogue.java", "story/Stalker.java", "story/Structures.java", "story/HerobrineMind.java"}
 # Lines from these files take this context's mood (Steve talking quietly to someone on a hill, or half asleep).
-FILE_CONTEXT = {"story/Scenes.java": "scene", "entity/SteveWork.java": "work", "talk/Mind.java": "work"}
+FILE_CONTEXT = {"story/Scenes.java": "scene", "entity/SteveWork.java": "work", "talk/Mind.java": "work",
+                "entity/SteveBuild.java": "work", "entity/SteveChores.java": "work"}
 
 
 def java_lines():
@@ -125,6 +131,8 @@ def java_lines():
     out = []
     for f in JAVA_FILES:
         src = open(os.path.join(JAVA, f)).read()
+        # Journal text and the like, marked off in the source, is read, not said.
+        src = re.sub(r"// not spoken.*?// spoken again", "", src, flags=re.S)
         for m in lit.finditer(src):
             s = m.group(1).replace('\\"', '"').replace("\\'", "'")
             if s in NOT_LINES or not re.search(r"[A-Za-z]", s) or "*" in s or "{" in s or "%" in s:

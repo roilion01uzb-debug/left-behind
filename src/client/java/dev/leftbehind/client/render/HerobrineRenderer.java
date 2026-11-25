@@ -48,6 +48,7 @@ public class HerobrineRenderer extends HumanoidMobRenderer<Herobrine, PersonRend
     @Override
     public void extractRenderState(Herobrine entity, PersonRenderState state, float partialTicks) {
         super.extractRenderState(entity, state, partialTicks);
+        state.masked = entity.isMasked();
         SpeechBubble.extract(entity, state, partialTicks);
     }
 
@@ -68,6 +69,7 @@ public class HerobrineRenderer extends HumanoidMobRenderer<Herobrine, PersonRend
 
         @Override
         public void submit(PoseStack poseStack, SubmitNodeCollector collector, int lightCoords, PersonRenderState state, float yRot, float xRot) {
+            if (state.masked) return;
             collector.order(1).submitModel(this.eyes, state, poseStack, BLANK, LightCoordsUtil.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, state.outlineColor);
             collector.order(2).submitModel(this.eyes, state, poseStack, GLOW, lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor);
         }

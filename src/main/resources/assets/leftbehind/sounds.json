@@ -253,6 +253,89 @@
       }
     ]
   },
+  "lore.tune_far": {
+    "subtitle": "subtitles.leftbehind.lore.tune_far",
+    "sounds": [
+      "leftbehind:lore/tune_far_1",
+      "leftbehind:lore/tune_far_2",
+      "leftbehind:lore/tune_far_3"
+    ]
+  },
+  "lore.tune_wrong": {
+    "subtitle": "subtitles.leftbehind.lore.tune_wrong",
+    "sounds": [
+      "leftbehind:lore/tune_wrong_1",
+      "leftbehind:lore/tune_wrong_2",
+      "leftbehind:lore/tune_wrong_3"
+    ]
+  },
+  "lore.winding_down": {
+    "subtitle": "subtitles.leftbehind.lore.winding_down",
+    "sounds": [
+      "leftbehind:lore/winding_down_1",
+      "leftbehind:lore/winding_down_2"
+    ]
+  },
+  "lore.count": {
+    "subtitle": "subtitles.leftbehind.lore.count",
+    "sounds": [
+      "leftbehind:lore/count_1",
+      "leftbehind:lore/count_2",
+      "leftbehind:lore/count_3"
+    ]
+  },
+  "lore.building_far": {
+    "subtitle": "subtitles.leftbehind.lore.building_far",
+    "sounds": [
+      "leftbehind:lore/building_far_1",
+      "leftbehind:lore/building_far_2",
+      "leftbehind:lore/building_far_3",
+      "leftbehind:lore/building_far_4"
+    ]
+  },
+  "lore.digging_down": {
+    "subtitle": "subtitles.leftbehind.lore.digging_down",
+    "sounds": [
+      "leftbehind:lore/digging_down_1",
+      "leftbehind:lore/digging_down_2",
+      "leftbehind:lore/digging_down_3"
+    ]
+  },
+  "lore.seed": {
+    "subtitle": "subtitles.leftbehind.lore.seed",
+    "sounds": [
+      {
+        "name": "leftbehind:lore/seed_1",
+        "stream": true
+      },
+      {
+        "name": "leftbehind:lore/seed_2",
+        "stream": true
+      }
+    ]
+  },
+  "lore.reset": {
+    "subtitle": "subtitles.leftbehind.lore.reset",
+    "sounds": [
+      "leftbehind:lore/reset_1",
+      "leftbehind:lore/reset_2"
+    ]
+  },
+  "lore.hum": {
+    "subtitle": "subtitles.leftbehind.lore.hum",
+    "sounds": [
+      "leftbehind:lore/hum_1",
+      "leftbehind:lore/hum_2",
+      "leftbehind:lore/hum_3"
+    ]
+  },
+  "lore.door_open": {
+    "subtitle": "subtitles.leftbehind.lore.door_open",
+    "sounds": [
+      "leftbehind:lore/door_open_1",
+      "leftbehind:lore/door_open_2"
+    ]
+  },
   "music.night": {
     "sounds": [
       {

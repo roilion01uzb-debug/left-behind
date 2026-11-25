@@ -13,6 +13,7 @@ import net.fabricmc.fabric.api.event.player.ItemEvents;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.fabricmc.fabric.api.message.v1.ServerMessageEvents;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
@@ -46,6 +47,9 @@ public final class Observation {
             if (context.getLevel() instanceof ServerLevel server && context.getPlayer() instanceof ServerPlayer player
                     && context.getItemInHand().getItem() instanceof BlockItem blockItem) {
                 onPlace(server, player, blockItem.getBlock());
+                BlockPos placed = server.getBlockState(context.getClickedPos()).canBeReplaced()
+                        ? context.getClickedPos() : context.getClickedPos().relative(context.getClickedFace());
+                onPlaceAt(server, player, blockItem.getBlock(), placed);
             }
             return null;
         });
@@ -225,6 +229,25 @@ public final class Observation {
             Reactions.remark(steve, "build", 600, "It's getting big. Is there a room for me? I don't need a room. I just wondered.");
         } else if (memory.habit("build") == 200) {
             Reactions.remark(steve, "build2", 600, "You build things that stay. I like things that stay.");
+        }
+    }
+
+    /** Where you put it says how you move: a block under yourself mid-jump, a block at the edge while crouching. */
+    private static void onPlaceAt(ServerLevel level, ServerPlayer player, Block block, BlockPos pos) {
+        Haunt.placed(player, pos);
+        OriginalSteve steve = watching(level, player);
+        if (steve == null) return;
+        SteveMemory memory = SteveMemory.get(level.getServer());
+        BlockPos feet = player.blockPosition();
+        if (!player.onGround() && pos.getX() == feet.getX() && pos.getZ() == feet.getZ() && pos.getY() < player.getY()) {
+            Reactions.learnMove(steve, memory, "pillar", "Jump, and put a block under you. That's clever. I'll remember that.");
+        } else if (player.isShiftKeyDown() && pos.getY() == feet.getY() - 1 && !pos.equals(feet.below())) {
+            Reactions.learnMove(steve, memory, "bridge", "You crouch at the edge so you don't fall. I'll remember that.");
+        }
+        // What you build with, he builds with.
+        BlockState state = block.defaultBlockState();
+        if (state.isCollisionShapeFullBlock(level, pos) && !state.hasBlockEntity() && block != Blocks.DIRT && block != Blocks.TNT) {
+            memory.observe("builds_with:" + net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block));
         }
     }
 

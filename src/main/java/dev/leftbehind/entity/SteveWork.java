@@ -77,6 +77,7 @@ public final class SteveWork {
 
     private final OriginalSteve steve;
     final SimpleContainer stash = new SimpleContainer(36);
+    final SteveChores chores;
     private @Nullable Job job;
     private int thinkCooldown = 100;
     private int lastTorch;
@@ -92,6 +93,9 @@ public final class SteveWork {
     private @Nullable String lastNote;
     /** Torches left to put down for a "light it up" request. */
     private int lightsLeft;
+    /** His own crafting table and furnace, when he has put them down. He packs them up again when you move on. */
+    private @Nullable BlockPos myTable;
+    private @Nullable BlockPos myFurnace;
 
     /** A player asked for something. Count 0 with a torch means "light this place up". */
     public record Request(UUID player, Item item, int count, boolean craft) {}
@@ -100,16 +104,29 @@ public final class SteveWork {
 
     SteveWork(OriginalSteve steve) {
         this.steve = steve;
+        this.chores = new SteveChores(steve, this);
+    }
+
+    public SteveChores chores() {
+        return chores;
     }
 
     // ---- saving -----------------------------------------------------------------------
 
     void save(ValueOutput output) {
         stash.storeAsItemList(output.list("stash", ItemStack.CODEC));
+        if (myTable != null) output.putLong("my_table", myTable.asLong());
+        if (myFurnace != null) output.putLong("my_furnace", myFurnace.asLong());
+        chores.build().save(output);
     }
 
     void load(ValueInput input) {
         input.list("stash", ItemStack.CODEC).ifPresent(list -> stash.fromItemList((ValueInput.TypedInputList<ItemStack>) list));
+        long table = input.getLongOr("my_table", Long.MIN_VALUE);
+        myTable = table == Long.MIN_VALUE ? null : BlockPos.of(table);
+        long furnace = input.getLongOr("my_furnace", Long.MIN_VALUE);
+        myFurnace = furnace == Long.MIN_VALUE ? null : BlockPos.of(furnace);
+        chores.build().load(input);
     }
 
     void dropAll(ServerLevel level) {
@@ -193,6 +210,8 @@ public final class SteveWork {
     public boolean isEmpty() {
         return stash.isEmpty();
     }
+
+    private String lastJob = "";
 
     public boolean busy() {
         return job != null;
@@ -435,6 +454,10 @@ public final class SteveWork {
         if (level.getGameTime() < pausedUntil && request == null) return false;
         Request asked = request;
         job = choose(level, memory);
+        if (job != null && !job.name().equals(lastJob)) {
+            LeftBehind.LOGGER.info("Steve starts {} at {}", job.name(), steve.blockPosition().toShortString());
+        }
+        lastJob = job == null ? "" : job.name();
         if (asked != null) {
             // What he does about what you asked for goes in the log, so a stuck request can be seen.
             String note = BuiltInRegistries.ITEM.getKey(asked.item()).getPath() + " -> " + (job == null ? "nothing" : job.name())
@@ -478,6 +501,10 @@ public final class SteveWork {
         if (anchor == null) return null;
         boolean griefing = StoryDirector.griefingAllowed(level);
 
+        // You moved on: he packs up his table and furnace and takes them with him, like anyone would.
+        Job packUp = packUp(level, anchor);
+        if (packUp != null) return packUp;
+
         // Someone asked.
         if (request != null) {
             Job asked = forRequest(level, memory, anchor, griefing);
@@ -500,6 +527,10 @@ public final class SteveWork {
             }
         }
 
+        // The things around him: beds, chests, crops, signs, note blocks, flowers, anything new. And building, when asked.
+        Job chore = chores.choose(level, memory, anchor);
+        if (chore != null) return chore;
+
         // At night, the dark around you gets smaller.
         if (level.isDarkOutside() || anchor.getY() < 50) {
             if (count(Items.TORCH) == 0 && count(ItemTags.COALS) > 0 && count(Items.STICK) > 0) return new Craft(Items.TORCH, anchor);
@@ -516,7 +547,8 @@ public final class SteveWork {
         int planks = count(s -> s.is(ItemTags.PLANKS));
         int logs = count(s -> s.is(ItemTags.LOGS));
         int sticks = count(Items.STICK);
-        boolean table = tableNear(level, steve.blockPosition(), 24) != null;
+        // A table near by, or his own in his pockets. He only puts it down when he needs it.
+        boolean table = hasTable(level);
         boolean woodPick = count(Items.WOODEN_PICKAXE) + count(Items.STONE_PICKAXE) + count(Items.IRON_PICKAXE) > 0;
         boolean stonePick = count(Items.STONE_PICKAXE) + count(Items.IRON_PICKAXE) > 0;
         boolean ironPick = count(Items.IRON_PICKAXE) > 0;
@@ -527,11 +559,7 @@ public final class SteveWork {
             if (chop != null) return chop;
         }
         if (planks < 8 && logs > 0) return new Craft(plankFor(), anchor);
-        if (!table && count(Items.CRAFTING_TABLE) == 0 && planks >= 4) return new Craft(Items.CRAFTING_TABLE, anchor);
-        if (!table && count(Items.CRAFTING_TABLE) > 0) {
-            BlockPos spot = groundNear(level, anchor.blockPosition(), 3, 6);
-            if (spot != null) return new Place(spot, Items.CRAFTING_TABLE, Lines.TABLE);
-        }
+        if (!table && planks >= 4) return new Craft(Items.CRAFTING_TABLE, anchor);
         if (sticks < 4 && planks >= 2) return new Craft(Items.STICK, anchor);
         if (!woodPick && table && planks >= 3 && sticks >= 2) return new Craft(Items.WOODEN_PICKAXE, anchor);
         if (!griefing || !sawMine) return null;
@@ -553,11 +581,7 @@ public final class SteveWork {
             if (count(Items.IRON_INGOT) >= 3 && sticks >= 2 && table) return new Craft(Items.IRON_PICKAXE, anchor);
             if (count(Items.RAW_IRON) > 0 && count(ItemTags.COALS) > 0) {
                 BlockPos furnace = furnaceNear(level, steve.blockPosition(), 24);
-                if (furnace != null) return new Smelt(furnace, Items.RAW_IRON, Items.IRON_INGOT);
-                if (count(Items.FURNACE) > 0) {
-                    BlockPos spot = groundNear(level, anchor.blockPosition(), 3, 6);
-                    if (spot != null) return new Place(spot, Items.FURNACE, Lines.FURNACE);
-                }
+                if (furnace != null || count(Items.FURNACE) > 0) return new Smelt(furnace, Items.RAW_IRON, Items.IRON_INGOT);
                 if (cobble >= 8 && table) return new Craft(Items.FURNACE, anchor);
             }
             if (raw < 3) {
@@ -652,7 +676,7 @@ public final class SteveWork {
         if (all.isEmpty()) return null;
         for (Plan p : all) {
             if (!canFill(p)) continue;
-            if (p.needsTable() && tableNear(level, steve.blockPosition(), 24) == null) return table(level, memory, anchor, griefing, depth);
+            if (p.needsTable() && !hasTable(level)) return table(level, memory, anchor, griefing, depth);
             return new Craft(item, anchor);
         }
         // Try the plans he is closest to finishing first (sticks from planks before sticks from bamboo he can't find).
@@ -667,7 +691,7 @@ public final class SteveWork {
                 Item it = option.getItem();
                 Plan p = knows(memory, it) ? plan(level, it) : null;
                 if (p == null) continue;
-                if (p.needsTable() && tableNear(level, steve.blockPosition(), 24) == null) return table(level, memory, anchor, griefing, depth);
+                if (p.needsTable() && !hasTable(level)) return table(level, memory, anchor, griefing, depth);
                 return new Craft(it, anchor);
             }
             int tried = 0;
@@ -701,13 +725,50 @@ public final class SteveWork {
         return missing;
     }
 
-    /** He needs a crafting table close by: put his down, or make one. */
+    /** He needs a crafting table and has none: he makes one, once, and keeps it. */
     private @Nullable Job table(ServerLevel level, SteveMemory memory, ServerPlayer anchor, boolean griefing, int depth) {
-        if (count(Items.CRAFTING_TABLE) > 0) {
-            BlockPos spot = groundNear(level, anchor.blockPosition(), 3, 6);
-            return spot == null ? null : new Place(spot, Items.CRAFTING_TABLE, Lines.TABLE);
-        }
         return prepare(level, memory, Items.CRAFTING_TABLE, anchor, griefing, depth + 1);
+    }
+
+    /** Is there a table he can use: one near by, or his own in his pockets? */
+    private boolean hasTable(ServerLevel level) {
+        return count(Items.CRAFTING_TABLE) > 0 || tableNear(level, steve.blockPosition(), 24) != null;
+    }
+
+    /** His table or furnace is behind: go back and pick it up before following on. */
+    private @Nullable Job packUp(ServerLevel level, ServerPlayer anchor) {
+        if (myTable != null && !level.getBlockState(myTable).is(Blocks.CRAFTING_TABLE)) myTable = null;
+        if (myFurnace != null && !level.getBlockState(myFurnace).is(Blocks.FURNACE)) myFurnace = null;
+        BlockPos left = myTable != null ? myTable : myFurnace;
+        if (left == null) return null;
+        // Still where you are working: leave it be.
+        if (anchor.blockPosition().distSqr(left) < 14 * 14) return null;
+        // Too far behind to walk back for: it stays where it is (somebody will find it).
+        if (steve.blockPosition().distSqr(left) > 40 * 40) {
+            if (left == myTable) myTable = null;
+            else myFurnace = null;
+            return null;
+        }
+        return new PackUp(left);
+    }
+
+    /** Puts one of his own blocks down right next to him. Returns where, or null if there's no room. */
+    private @Nullable BlockPos putDown(ServerLevel level, Item item) {
+        BlockPos spot = groundNear(level, steve.blockPosition(), 1, 3);
+        if (spot == null) return null;
+        Block block = ((net.minecraft.world.item.BlockItem) item).getBlock();
+        BlockState state = block.defaultBlockState();
+        if (state.hasProperty(net.minecraft.world.level.block.HorizontalDirectionalBlock.FACING)) {
+            Direction facing = Direction.getApproximateNearest(steve.getX() - spot.getX(), 0, steve.getZ() - spot.getZ());
+            if (facing.getAxis().isHorizontal()) state = state.setValue(net.minecraft.world.level.block.HorizontalDirectionalBlock.FACING, facing);
+        }
+        steve.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(item));
+        steve.getLookControl().setLookAt(Vec3.atCenterOf(spot));
+        level.setBlock(spot, state, 3);
+        level.playSound(null, spot, state.getSoundType().getPlaceSound(), SoundSource.BLOCKS, 1f, 0.9f);
+        steve.swingArm();
+        take(s -> s.is(item), 1);
+        return spot;
     }
 
     /** Ingots: smelt the raw ore he has, with coal, at a furnace (his own if there isn't one). */
@@ -716,11 +777,7 @@ public final class SteveWork {
         if (count(raw) == 0) return fetch(level, memory, anchor, raw, 3, griefing);
         if (count(ItemTags.COALS) == 0) return fetch(level, memory, anchor, Items.COAL, 2, griefing);
         BlockPos furnace = furnaceNear(level, steve.blockPosition(), 24);
-        if (furnace != null) return new Smelt(furnace, raw, ingot);
-        if (count(Items.FURNACE) > 0) {
-            BlockPos spot = groundNear(level, anchor.blockPosition(), 3, 6);
-            if (spot != null) return new Place(spot, Items.FURNACE, Lines.FURNACE);
-        }
+        if (furnace != null || count(Items.FURNACE) > 0) return new Smelt(furnace, raw, ingot);
         return prepare(level, memory, Items.FURNACE, anchor, griefing, depth + 1);
     }
 
@@ -759,8 +816,45 @@ public final class SteveWork {
         return null;
     }
 
+    /** What he will dig through to get somewhere: the ground itself, never a build. */
+    static boolean diggable(BlockState st) {
+        return natural(st) || st.is(COAL) || st.is(IRON) || st.is(COPPER) || st.is(GOLD) || st.is(DIAMOND) || st.is(EMERALD)
+                || st.is(LAPIS) || st.is(REDSTONE) || st.is(BlockTags.TERRACOTTA) || st.is(Blocks.SANDSTONE) || st.is(Blocks.RED_SANDSTONE)
+                || st.is(Blocks.MYCELIUM) || st.is(Blocks.SMOOTH_BASALT) || st.is(Blocks.BASALT) || st.is(Blocks.MAGMA_BLOCK)
+                || st.is(BlockTags.REPLACEABLE);
+    }
+
+    /** What he builds with when he has to get up, down or across: cheap blocks first. */
+    public @Nullable Item buildingBlock() {
+        for (Item item : new Item[]{Items.DIRT, Items.COBBLESTONE, Items.COBBLED_DEEPSLATE, Items.NETHERRACK, Items.COARSE_DIRT, Items.STONE,
+                Items.ANDESITE, Items.DIORITE, Items.GRANITE, Items.TUFF, Items.DEEPSLATE, Items.BLACKSTONE, Items.SANDSTONE}) {
+            if (count(item) > 0) return item;
+        }
+        for (int i = 0; i < stash.getContainerSize(); i++) {
+            ItemStack s = stash.getItem(i);
+            if (s.is(ItemTags.PLANKS) && s.getCount() > 4) return s.getItem();
+        }
+        return null;
+    }
+
+    /** Something to eat, out of his pockets (never the things that make you sick). */
+    public ItemStack takeFood() {
+        for (int i = 0; i < stash.getContainerSize(); i++) {
+            ItemStack s = stash.getItem(i);
+            if (s.isEmpty() || !s.has(net.minecraft.core.component.DataComponents.FOOD)) continue;
+            if (s.is(Items.ROTTEN_FLESH) || s.is(Items.SPIDER_EYE) || s.is(Items.POISONOUS_POTATO) || s.is(Items.PUFFERFISH)
+                    || s.is(Items.CHICKEN) || s.is(Items.SUSPICIOUS_STEW)) {
+                continue;
+            }
+            ItemStack one = s.split(1);
+            stash.setChanged();
+            return one;
+        }
+        return ItemStack.EMPTY;
+    }
+
     /** Blocks that grow or lie around in the world, which he can take without wrecking anyone's build. */
-    private static boolean natural(BlockState st) {
+    static boolean natural(BlockState st) {
         return st.is(BlockTags.DIRT) || st.is(BlockTags.SAND) || st.is(BlockTags.BASE_STONE_OVERWORLD) || st.is(BlockTags.BASE_STONE_NETHER)
                 || st.is(BlockTags.FLOWERS) || st.is(BlockTags.ICE) || st.is(BlockTags.LEAVES) || st.is(BlockTags.SNOW)
                 || st.is(Blocks.GRAVEL) || st.is(Blocks.CLAY) || st.is(Blocks.OBSIDIAN) || st.is(Blocks.PUMPKIN) || st.is(Blocks.MELON)
@@ -790,6 +884,33 @@ public final class SteveWork {
         return need == 0 && count(Items.GOLDEN_PICKAXE) > 0;
     }
 
+    /** Whatever it takes to get some of an item: chop, craft planks, dig, or make it. Used by building. */
+    @Nullable Job obtain(ServerLevel level, SteveMemory memory, ServerPlayer anchor, Item item, int need) {
+        boolean griefing = StoryDirector.griefingAllowed(level);
+        ItemStack probe = new ItemStack(item);
+        if (probe.is(ItemTags.PLANKS)) {
+            if (count(s -> s.is(ItemTags.LOGS)) > 0) return new Craft(plankFor(), anchor);
+            return griefing ? gather(level, anchor, SteveWork::naturalLog, Math.min(16, need / 4 + 1), null) : null;
+        }
+        if (probe.is(ItemTags.LOGS)) return griefing ? gather(level, anchor, SteveWork::naturalLog, Math.min(16, need), null) : null;
+        if (item == Items.DIRT) {
+            return griefing ? gather(level, anchor, (l, p, st) -> (st.is(Blocks.DIRT) || st.is(Blocks.GRASS_BLOCK)) && exposed(l, p), Math.min(16, need), null) : null;
+        }
+        Job found = fetch(level, memory, anchor, item, need, griefing);
+        if (found != null) return found;
+        if (craftable(level, item)) return prepare(level, memory, item, anchor, griefing, 0);
+        return null;
+    }
+
+    /** The planks he would make from the logs he has (oak if he has none). */
+    Item planksType() {
+        for (int i = 0; i < stash.getContainerSize(); i++) {
+            ItemStack s = stash.getItem(i);
+            if (s.is(ItemTags.PLANKS)) return s.getItem();
+        }
+        return plankFor();
+    }
+
     /** Can it be made with a crafting recipe at all? */
     public static boolean craftable(ServerLevel level, Item item) {
         return !plans(level, item).isEmpty();
@@ -807,15 +928,77 @@ public final class SteveWork {
         /** One tick. Returns true when finished. */
         abstract boolean tick(ServerLevel level, SteveMemory memory);
 
+        private int stuck;
+
         boolean walkTo(BlockPos pos, double reach, double speed) {
             // Like a player: what counts is how far it is from his eyes (he can reach up a tree trunk).
             Vec3 center = Vec3.atCenterOf(pos);
             if (steve.position().distanceToSqr(center) < reach * reach || steve.getEyePosition().distanceToSqr(center) < reach * reach) {
                 steve.getNavigation().stop();
+                steve.moves().reset();
+                stuck = 0;
                 return true;
             }
-            if (steve.getNavigation().isDone() || ticks % 40 == 0) steve.getNavigation().moveTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, speed);
+            // No way to walk there: build up, dig down, bridge across, like you would. Only for things close by.
+            if (stuck > 60 && steve.level() instanceof ServerLevel level && steve.memory() != null
+                    && Math.abs(pos.getY() - steve.getBlockY()) <= 8 && center.distanceToSqr(steve.position()) < 12 * 12) {
+                if (steve.moves().toward(level, steve.memory(), pos)) return false;
+                stuck = 0;
+            }
+            if (steve.getNavigation().isDone() || ticks % 40 == 0) {
+                net.minecraft.world.level.pathfinder.Path path = steve.getNavigation().createPath(pos, 1);
+                if (path == null || !path.canReach()) stuck += 40;
+                else stuck = 0;
+                steve.getNavigation().moveTo(path, speed);
+            }
             return false;
+        }
+    }
+
+    /** One tick of a job written elsewhere (chores, building). Returns true when finished. */
+    public interface Step {
+        boolean tick(ServerLevel level, SteveMemory memory, Task task);
+    }
+
+    /** A job written elsewhere: it gets the walking (with climbing, digging and bridging) and the timing. */
+    public final class Task extends Job {
+        private final String name;
+        private final Step step;
+        /** Free for the step to use. */
+        public int stage;
+        public int counter;
+
+        public Task(String name, @Nullable BlockPos target, int limit, Step step) {
+            this.name = name;
+            this.step = step;
+            this.target = target;
+            this.limit = limit;
+        }
+
+        @Override
+        String name() {
+            return name;
+        }
+
+        @Override
+        boolean tick(ServerLevel level, SteveMemory memory) {
+            return step.tick(level, memory, this);
+        }
+
+        public boolean walk(BlockPos pos, double reach, double speed) {
+            return walkTo(pos, reach, speed);
+        }
+
+        public int ticks() {
+            return ticks;
+        }
+
+        public @Nullable BlockPos target() {
+            return target;
+        }
+
+        public void target(@Nullable BlockPos pos) {
+            target = pos;
         }
     }
 
@@ -858,7 +1041,7 @@ public final class SteveWork {
                 SteveVoice.steve(steve, line);
             }
             if (!walkTo(pos, 4.2, 1.0)) {
-                if (ticks % 200 == 199 && steve.getNavigation().isDone()) {
+                if (ticks % 200 == 199 && steve.getNavigation().isDone() && !steve.moves().active()) {
                     unreachable.add(pos.asLong());
                     return next(level);
                 }
@@ -920,6 +1103,16 @@ public final class SteveWork {
             if (plan == null) return true;
             if (plan.needsTable()) {
                 BlockPos table = tableNear(level, steve.blockPosition(), 24);
+                if (table == null && count(Items.CRAFTING_TABLE) > 0) {
+                    // His own table, out of his pockets, right where he stands. Only the first time is worth a word.
+                    table = putDown(level, Items.CRAFTING_TABLE);
+                    if (table == null) return true;
+                    myTable = table;
+                    if (memory.setFlag("steve_table")) {
+                        SteveVoice.steve(steve, Lines.TABLE);
+                        Journal.unlock(level.getServer(), "mem_wood");
+                    }
+                }
                 if (table == null) return true;
                 target = table;
                 if (!walkTo(table, 3.0, 0.9)) return false;
@@ -973,6 +1166,45 @@ public final class SteveWork {
         }
     }
 
+    /** Picks his table or furnace back up. */
+    class PackUp extends Job {
+        PackUp(BlockPos at) {
+            this.target = at;
+            this.limit = 400;
+        }
+
+        @Override
+        String name() {
+            return "pack up";
+        }
+
+        @Override
+        boolean tick(ServerLevel level, SteveMemory memory) {
+            BlockPos at = target;
+            if (at == null) return true;
+            BlockState state = level.getBlockState(at);
+            Item item = state.is(Blocks.CRAFTING_TABLE) ? Items.CRAFTING_TABLE : state.is(Blocks.FURNACE) ? Items.FURNACE : null;
+            if (item == null) return true;
+            if (!walkTo(at, 3.5, 1.1)) return false;
+            steve.getLookControl().setLookAt(Vec3.atCenterOf(at));
+            if (ticks % 5 == 0) steve.swingArm();
+            if (ticks < 24) return false;
+            // A furnace keeps what was in it: that comes along too.
+            if (level.getBlockEntity(at) instanceof net.minecraft.world.Container container) {
+                for (int i = 0; i < container.getContainerSize(); i++) {
+                    ItemStack inside = container.removeItemNoUpdate(i);
+                    if (!inside.isEmpty()) give(inside);
+                }
+            }
+            level.playSound(null, at, state.getSoundType().getBreakSound(), SoundSource.BLOCKS, 1f, 1f);
+            level.removeBlock(at, false);
+            give(new ItemStack(item));
+            if (at.equals(myTable)) myTable = null;
+            if (at.equals(myFurnace)) myFurnace = null;
+            return true;
+        }
+    }
+
     /** Lights a dark spot near you. */
     class Light extends Job {
         Light(BlockPos at) {
@@ -1010,7 +1242,7 @@ public final class SteveWork {
         private final Item raw;
         private final Item ingot;
 
-        Smelt(BlockPos furnace, Item raw, Item ingot) {
+        Smelt(@Nullable BlockPos furnace, Item raw, Item ingot) {
             this.target = furnace;
             this.raw = raw;
             this.ingot = ingot;
@@ -1025,7 +1257,14 @@ public final class SteveWork {
         @Override
         boolean tick(ServerLevel level, SteveMemory memory) {
             BlockPos at = target;
-            if (at == null) return true;
+            if (at == null) {
+                if (count(Items.FURNACE) == 0) return true;
+                at = putDown(level, Items.FURNACE);
+                if (at == null) return true;
+                target = at;
+                myFurnace = at;
+                if (memory.setFlag("steve_furnace")) SteveVoice.steve(steve, Lines.FURNACE);
+            }
             if (!walkTo(at, 3.0, 0.9)) return false;
             steve.getLookControl().setLookAt(Vec3.atCenterOf(at));
             if (burning == 0) {
@@ -1069,7 +1308,7 @@ public final class SteveWork {
         boolean tick(ServerLevel level, SteveMemory memory) {
             if (!to.isAlive() || to.level() != level) return true;
             if (steve.distanceToSqr(to) > 3.2 * 3.2) {
-                if (steve.getNavigation().isDone() || ticks % 20 == 0) steve.getNavigation().moveTo(to, 1.1);
+                walkTo(to.blockPosition(), 3.0, 1.1);
                 return false;
             }
             steve.getNavigation().stop();
@@ -1253,7 +1492,7 @@ public final class SteveWork {
 
     // ---- tools ------------------------------------------------------------------------
 
-    private ItemStack bestTool(BlockState state) {
+    ItemStack bestTool(BlockState state) {
         ItemStack best = ItemStack.EMPTY;
         float bestSpeed = 1f;
         for (int i = 0; i < stash.getContainerSize(); i++) {
@@ -1276,7 +1515,7 @@ public final class SteveWork {
         return false;
     }
 
-    private static int breakTicks(ServerLevel level, BlockPos pos, BlockState state, ItemStack tool) {
+    static int breakTicks(ServerLevel level, BlockPos pos, BlockState state, ItemStack tool) {
         float hardness = state.getDestroySpeed(level, pos);
         if (hardness < 0) return Integer.MAX_VALUE;
         float speed = tool.isEmpty() ? 1f : Math.max(1f, tool.getDestroySpeed(state));

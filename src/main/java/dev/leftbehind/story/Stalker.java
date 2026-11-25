@@ -217,6 +217,7 @@ public final class Stalker {
                 "you come back here a lot", "i know all of your places");
         Herobrine.whisper(player, line);
         if (memory.setFlag("waited_seen")) Journal.unlock(level.getServer(), "note_waiting");
+        StoryLog.beat(level.getServer(), player, "waiting");
         OriginalSteve steve = StoryDirector.findSteve(level);
         if (steve != null && !steve.inEpisode() && steve.distanceToSqr(player) < 20 * 20) {
             Reactions.remark(steve, "waited", 300, "He was standing right there. Where you always go.",
@@ -246,6 +247,16 @@ public final class Stalker {
 
     /** He stands far away, roughly where you're facing, at the edge of the light. Vanishes when looked at for long. */
     public static boolean glimpse(ServerLevel level, ServerPlayer player) {
+        return glimpse(level, player, false);
+    }
+
+    /** The same, but he is wearing Steve's face: no white eyes. Steve is somewhere else at the time. */
+    public static boolean otherSteve(ServerLevel level, ServerPlayer player) {
+        if (StoryDirector.activeHerobrine() != null || !level.canSeeSky(player.blockPosition().above())) return false;
+        return glimpse(level, player, true);
+    }
+
+    private static boolean glimpse(ServerLevel level, ServerPlayer player, boolean masked) {
         Vec3 view = player.getViewVector(1f);
         Vec3 flat = new Vec3(view.x, 0, view.z);
         if (flat.lengthSqr() < 1e-4) flat = new Vec3(1, 0, 0);
@@ -266,6 +277,10 @@ public final class Stalker {
                 continue;
             }
             herobrine.glimpse(player, 500);
+            if (masked) {
+                herobrine.setMasked(true);
+                return true;
+            }
             SteveMemory.get(level.getServer()).setFlag("first_glimpse");
             return true;
         }
@@ -277,6 +292,7 @@ public final class Stalker {
         OriginalSteve steve = StoryDirector.findSteve(level);
         SteveMemory memory = SteveMemory.get(level.getServer());
         if (memory.counter("glimpses") == 0) Journal.unlock(level.getServer(), "note_glimpse");
+        StoryLog.beat(level.getServer(), player, "glimpse");
         memory.addCounter("glimpses", 1);
         if (steve == null || steve.inEpisode() || steve.distanceToSqr(player) > 32 * 32) return;
         Reactions.remark(steve, "glimpse", 120, "Did you see someone? Over there. ...No. Never mind. Trees.",

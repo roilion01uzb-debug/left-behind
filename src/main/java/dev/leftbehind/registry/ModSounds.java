@@ -38,6 +38,27 @@ public final class ModSounds {
     public static final Holder<SoundEvent> GHOST_HUM = register("ghost.hum");
     public static final Holder<SoundEvent> FRAGMENT = register("memory.fragment");
     public static final Holder<SoundEvent> THEME = register("memory.theme");
+    // 0.7: sounds that belong to this story, instead of the usual horror drone.
+    /** Steve's tune, on a note block somewhere you can't see. */
+    public static final Holder<SoundEvent> TUNE_FAR = register("lore.tune_far");
+    /** Steve's tune played back by someone who only heard it once. */
+    public static final Holder<SoundEvent> TUNE_WRONG = register("lore.tune_wrong");
+    /** The music box running down. */
+    public static final Holder<SoundEvent> WINDING_DOWN = register("lore.winding_down");
+    /** Seven knocks on stone, a gap, then an eighth. He counts things. */
+    public static final Holder<SoundEvent> COUNT = register("lore.count");
+    /** Somebody placing blocks a long way off. */
+    public static final Holder<SoundEvent> BUILDING_FAR = register("lore.building_far");
+    /** Somebody digging straight down. */
+    public static final Holder<SoundEvent> DIGGING_DOWN = register("lore.digging_down");
+    /** The tone of a world before its seed. */
+    public static final Holder<SoundEvent> SEED = register("lore.seed");
+    /** The world forgetting itself for a second. */
+    public static final Holder<SoundEvent> RESET = register("lore.reset");
+    /** Steve humming his tune, far off, while he is standing next to you. */
+    public static final Holder<SoundEvent> HUM = register("lore.hum");
+    /** A wooden door, opening slowly by itself. */
+    public static final Holder<SoundEvent> DOOR_OPEN = register("lore.door_open");
 
     /** The music cues, in the order of the cue numbers in {@link dev.leftbehind.story.Score}. */
     public static final List<Holder<SoundEvent>> MUSIC = List.of(THEME, register("music.night"), register("music.underground"),

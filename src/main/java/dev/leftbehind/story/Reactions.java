@@ -91,6 +91,12 @@ public final class Reactions {
             Vec3 last = LAST_POSITION.put(id, player.position());
             int still = last != null && last.distanceToSqr(player.position()) < 0.01 ? STILL_SECONDS.getOrDefault(id, 0) + 1 : 0;
             STILL_SECONDS.put(id, still);
+            // He learns how you move by watching you do it.
+            if (player.isSwimming() || (player.isInWater() && player.isSprinting())) {
+                learnMove(steve, memory, "swim", "So that's how you swim. Kick, and keep your head up.");
+            } else if (player.onClimbable() && !player.onGround()) {
+                learnMove(steve, memory, "climb", "Hands, feet. Hands, feet. I see how you do it.");
+            }
             if (player.isOnFire()) {
                 remark(steve, "fire", 20, "You're on fire! Water! WATER!", "Roll! No, wait. Water!");
             } else if (player.getHealth() < 7f && !player.isCreative()) {
@@ -106,6 +112,11 @@ public final class Reactions {
                 inTheMoment(level, steve, memory, player, still);
             }
         }
+    }
+
+    /** He saw you move in a way he didn't know. The first time, he says so. See SteveBody#skill. */
+    public static void learnMove(OriginalSteve steve, SteveMemory memory, String move, String line) {
+        if (memory.observe("saw_" + move) == 1) SteveVoice.steve(steve, line);
     }
 
     /** What is happening to you right now, that he can see: what's near you, where you are, what you're doing. */

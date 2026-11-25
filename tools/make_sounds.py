@@ -760,6 +760,259 @@ def sfx_06():
         save(f"ambient/wind_howl_{i}", wind_howl(800 + i), quality=3, peak=0.7)
 
 
+# ------------------------------------------------------------------ 0.7: sounds that belong to this story
+# Steve's note-block tune, in note-block steps (0 is F#3), -1 is a rest. Same as SteveChores.TUNE.
+STEVE_TUNE = [13, 6, 9, 8, -1, 13, 6, 11, 9, -1, 14, 13, 9, 8, 6, 5, 6, -1]
+F_SHARP_3 = 184.997
+# The title-screen seed people used to swear Herobrine came from. The tones in lore/seed are its digits.
+OLD_SEED = "478868574082066804"
+
+
+def harp(freq, seconds, rng, bright=1.0):
+    """A note block: a plucked string, its upper harmonics dying first."""
+    tt = t(seconds)
+    out = np.zeros_like(tt)
+    for k in range(1, 9):
+        out += (bright ** (k - 1)) / k ** 1.25 * np.sin(2 * np.pi * freq * k * (1 + rng.uniform(-0.001, 0.001)) * tt) \
+            * np.exp(-tt * (2.2 + 1.9 * k))
+    out[: int(SR * 0.003)] *= np.linspace(0, 1, int(SR * 0.003))
+    return out
+
+
+def tune_far(seed, notes, beat):
+    """Steve's tune on a note block somewhere you can't see: thin, distant, in a big space."""
+    rng = np.random.default_rng(seed)
+    out = np.zeros(int(SR * (len(notes) * beat + 4)))
+    for i, n in enumerate(notes):
+        if n >= 0:
+            place(out, harp(F_SHARP_3 * 2 ** (n / 12), 1.6, rng, 0.55), 0.1 + i * beat + rng.uniform(-0.01, 0.01), 0.9)
+    return fade(reverb(lp(out, 1500), 3.6, 0.62, rng, tone=1600), 0.01, 1.2)
+
+
+def tune_wrong(seed):
+    """The same tune, played by someone who only heard it once: wrong notes, wrong gaps, stuck on one note."""
+    rng = np.random.default_rng(seed)
+    notes = [n for n in STEVE_TUNE[: 10 + int(rng.integers(0, 6))]]
+    for _ in range(3):
+        i = int(rng.integers(0, len(notes)))
+        if notes[i] >= 0:
+            notes[i] += int(rng.choice([-1, 1, -2]))  # close, never right
+    stuck = int(rng.integers(3, len(notes) - 2))
+    notes = notes[:stuck] + [notes[stuck]] * 3 + notes[stuck + 1:]
+    out = np.zeros(int(SR * (len(notes) * 0.62 + 5)))
+    at = 0.1
+    for n in notes:
+        if n >= 0:
+            place(out, harp(F_SHARP_3 * 2 ** (n / 12) * 0.5, 2.0, rng, 0.5), at, 0.9)
+        at += rng.uniform(0.38, 0.85)
+    return fade(reverb(lp(out, 1300), 3.8, 0.6, rng, tone=1400), 0.01, 1.5)
+
+
+def winding_down(seed):
+    """The theme on its music box, running down: slower, lower, then the spring gives out."""
+    rng = np.random.default_rng(seed)
+    melody = THEME_MELODY[: 12 + int(rng.integers(0, 6))]
+    out = music_box(seed, melody, THEME_BASS[:6], 84, drift=7.0 + rng.uniform(0, 3), wow=36, lowpass=4200, crackles=3)
+    clicks = np.zeros(int(SR * 1.6))
+    for k in range(5):
+        c = bp(noise(0.02, rng), 2500, 7000) * np.exp(-t(0.02) * 200)
+        place(clicks, c, 0.15 + k * (0.12 + 0.05 * k), 0.5 - 0.08 * k)
+    tail = np.concatenate([out[: int(len(out) * 0.86)], np.zeros(int(SR * 0.2))])
+    return fade(np.concatenate([fade(tail, 0.0, 0.4), clicks]), 0.02, 0.3)
+
+
+def stone_knock(rng, pitch=1.0):
+    k = np.zeros(int(SR * 0.3))
+    place(k, bp(noise(0.05, rng), 400 * pitch, 3200 * pitch) * np.exp(-t(0.05) * 110), 0.0, 1.0)
+    place(k, thump(0.3, 260 * pitch, 120 * pitch, 34), 0.0, 0.9)
+    return k
+
+
+def count(seed):
+    """Seven knocks on stone, evenly, like counting. A wait. Then an eighth, closer."""
+    rng = np.random.default_rng(seed)
+    gap = rng.uniform(0.55, 0.7)
+    pitch = rng.uniform(0.85, 1.1)
+    out = np.zeros(int(SR * (7 * gap + 2.4 + 2.0)))
+    for i in range(7):
+        place(out, stone_knock(rng, pitch), 0.05 + i * gap, 0.75)
+    far = reverb(lp(out, 2600), 1.8, 0.45, rng, tone=2000)
+    near = np.zeros_like(far)
+    place(near, stone_knock(rng, pitch * 0.96), 0.05 + 6 * gap + 2.4, 1.0)
+    return fade(far + reverb(near, 1.0, 0.25, rng, tone=3000, tail=False)[: len(far)], 0.001, 0.6)
+
+
+def place_block(rng, kind):
+    """One block put down: a soft thud and the grit of it settling."""
+    seconds = 0.22
+    body = thump(seconds, 170 if kind == "stone" else 120, 70, 28)
+    grit = bp(noise(seconds, rng), 250 if kind == "dirt" else 600, 2400 if kind == "dirt" else 4200) * np.exp(-t(seconds) * 30)
+    return body * 0.8 + grit * (0.7 if kind == "dirt" else 0.5)
+
+
+def building_far(seed):
+    """Somebody building, a long way off. A row of blocks, a pause, a jump and another, as if pillaring up."""
+    rng = np.random.default_rng(seed)
+    kind = rng.choice(["stone", "dirt", "wood"])
+    placements = []
+    at = 0.1
+    for _ in range(int(rng.integers(6, 11))):
+        placements.append(at)
+        at += rng.uniform(0.28, 0.4) if rng.random() < 0.7 else rng.uniform(0.9, 1.6)
+    out = np.zeros(int(SR * (at + 3.0)))
+    for p in placements:
+        place(out, place_block(rng, kind), p, rng.uniform(0.7, 1.0))
+    return fade(reverb(lp(out, 1100), 3.0, 0.55, rng, tone=1200), 0.01, 1.0)
+
+
+def digging_down(seed):
+    """Somebody digging straight down. Each block a little deeper, a little further, until you can't hear it."""
+    rng = np.random.default_rng(seed)
+    blocks = int(rng.integers(4, 7))
+    out = np.zeros(int(SR * (blocks * 1.5 + 3)))
+    at = 0.05
+    for b in range(blocks):
+        depth = b / blocks
+        stone = b >= 1
+        for _ in range(int(rng.integers(2, 5)) if stone else 2):
+            h = np.zeros(int(SR * 0.22))
+            h[: int(SR * 0.06)] += bp(noise(0.06, rng), 500 if stone else 200, 3800 if stone else 1500) * np.exp(-t(0.06) * 70)
+            h += 0.6 * thump(0.22, 200 if stone else 130, 90, 32)
+            place(out, lp(h, 2600 - 1800 * depth), at, 1.0 - 0.75 * depth)
+            at += rng.uniform(0.22, 0.32)
+        # the block gives, and something drops a block lower
+        place(out, lp(thump(0.3, 110, 50, 20), 900) * 0.5, at, 1.0 - 0.75 * depth)
+        at += rng.uniform(0.45, 0.8)
+    return fade(reverb(out, 2.4, 0.5, rng, tone=1500), 0.002, 1.0)
+
+
+def seed_tone(seed):
+    """A world before its seed: a low held fifth, and the digits of an old seed read out as soft tones."""
+    rng = np.random.default_rng(seed)
+    seconds = 16
+    tt = t(seconds)
+    hold = np.zeros_like(tt)
+    for f, a in ((55.0, 1.0), (82.41, 0.55), (110.0, 0.35)):
+        hold += a * np.sin(2 * np.pi * f * tt + rng.uniform(0, 6)) * (0.7 + 0.3 * np.sin(2 * np.pi * rng.uniform(0.05, 0.1) * tt))
+    hold = lp(hold, 400) * np.minimum(1, tt / 3) * np.minimum(1, (seconds - tt) / 4)
+    pips = np.zeros_like(tt)
+    scale = [0, 2, 3, 5, 7, 8, 10, 12, 14, 15]  # A minor, the theme's key
+    digits = OLD_SEED if seed % 2 else OLD_SEED[::-1]
+    for i, d in enumerate(digits):
+        f = 440.0 * 2 ** (scale[int(d)] / 12)
+        pt = t(0.5)
+        pip = np.sin(2 * np.pi * f * pt) * np.exp(-pt * 6) * np.minimum(1, pt / 0.01)
+        place(pips, pip, 2.0 + i * 0.62, 0.22)
+    return fade(hold * 0.8 + reverb(pips, 3.0, 0.6, rng, tone=3000, tail=False), 0.5, 2.0)
+
+
+def reset_sound(seed):
+    """The world forgetting itself: a breath drawn backwards, a dead stop, and everything clicking back in."""
+    rng = np.random.default_rng(seed)
+    swell = reverb(bp(noise(1.2, rng), 300, 6000) * np.exp(-t(1.2) * 3), 1.2, 0.8, rng, tail=False)[::-1]
+    out = np.zeros(int(SR * 2.6))
+    place(out, fade(swell, 0.05, 0.0), 0.0, 0.7)
+    cut = int(SR * 1.2)
+    out[cut: cut + int(SR * 0.18)] = 0
+    back = np.zeros(int(SR * 1.2))
+    for _ in range(40):  # every block rebuilt at once
+        c = bp(noise(0.012, rng), 1200, 7000) * np.exp(-t(0.012) * 300)
+        place(back, c, rng.uniform(0, 0.25) ** 1.5, rng.uniform(0.2, 0.6))
+    place(back, thump(0.6, 90, 40, 9), 0.0, 0.9)
+    place(out, back, 1.38, 1.0)
+    return fade(out, 0.01, 0.4)
+
+
+def hum(seed, notes, stop_early=False):
+    """Steve humming his tune with his mouth closed, a little off, a long way inside his head."""
+    rng = np.random.default_rng(seed)
+    beat = 0.5
+    seconds = len(notes) * beat + 2.5
+    tt = t(seconds)
+    freq = np.full(len(tt), np.nan)
+    gate = np.zeros(len(tt))
+    for i, n in enumerate(notes):
+        if n < 0:
+            continue
+        a, b = int(SR * (0.2 + i * beat)), int(SR * (0.2 + (i + 0.92) * beat))
+        freq[a:b] = F_SHARP_3 / 2 * 2 ** (n / 12) * (1 + rng.uniform(-0.008, 0.008))
+        gate[a:b] = 1
+    if stop_early:
+        cut = int(len(tt) * rng.uniform(0.45, 0.6))
+        gate[cut:] = 0
+    # glide between notes, hold the last pitch through rests
+    idx = np.where(~np.isnan(freq), np.arange(len(tt)), 0)
+    np.maximum.accumulate(idx, out=idx)
+    freq = np.nan_to_num(freq[idx], nan=150.0)
+    freq = signal.savgol_filter(freq, int(SR * 0.06) | 1, 2)
+    freq *= 1 + 0.006 * np.sin(2 * np.pi * 5.2 * tt)
+    gate = lp(gate, 18, order=2)
+    src = signal.sawtooth(2 * np.pi * np.cumsum(freq) / SR)
+    voice = lp(src, 900) * 0.8 + bp(src, 230, 320) * 1.2 + bp(src, 1900, 2300) * 0.15  # "mmm": nasal, closed mouth
+    voice += 0.03 * bp(rng.standard_normal(len(tt)), 300, 2000)
+    return fade(reverb(voice * gate, 2.2, 0.4, rng, tone=2500), 0.05, 0.8)
+
+
+def door_open(seed):
+    """A wooden door opening slowly by itself: the latch, a long creak, a soft bump against the wall. Then nothing."""
+    rng = np.random.default_rng(seed)
+    seconds = rng.uniform(2.2, 2.8)
+    tt = t(seconds)
+    f = 22 + 30 * (tt / seconds) ** 0.7 + 6 * np.sin(2 * np.pi * 0.8 * tt)
+    phase = np.cumsum(f) / SR
+    pulses = (np.mod(phase, 1.0) < 0.07).astype(float) * (0.6 + 0.4 * rng.random(len(tt)))
+    body = bp(pulses, 220, 1300) + 0.5 * bp(pulses, 1700, 3000)
+    body *= np.sin(np.pi * tt / seconds) ** 0.4
+    out = np.zeros(int(SR * (seconds + 1.6)))
+    latch = np.zeros(int(SR * 0.08))
+    place(latch, bp(noise(0.03, rng), 1500, 6000) * np.exp(-t(0.03) * 150), 0.0, 1.0)
+    latch += 0.4 * thump(0.08, 600, 300, 60)
+    place(out, latch, 0.0, 0.8)
+    place(out, body, 0.12, 0.9)
+    place(out, thump(0.3, 110, 60, 22) + 0.3 * bp(noise(0.3, rng), 150, 900) * np.exp(-t(0.3) * 25), 0.12 + seconds, 0.5)
+    return fade(reverb(out, 1.4, 0.3, rng, tone=2200), 0.001, 0.5)
+
+
+def presence_lore(seed):
+    """He is near: the theme's first three notes, so slow and low they are hardly notes, over seven heavy pulses."""
+    rng = np.random.default_rng(seed)
+    seconds = 11
+    out = np.zeros(int(SR * seconds))
+    for i, semis in enumerate((7, 0, 3)):
+        tone = bell(note(semis - 19), 4.5, rng, 0.5)
+        swell = reverb(tone, 3.5, 0.9, rng, tail=False)[::-1]
+        place(out, swell, 0.3 + i * 2.6, 0.55)
+    for i in range(7):
+        place(out, lp(thump(0.5, 70, 36, 9), 300), 0.6 + i * 1.3, 0.9)
+    return fade(reverb(out, 3.0, 0.35, rng, tone=2500, tail=False), 1.0, 2.5)
+
+
+def sfx_07():
+    save("lore/tune_far_1", tune_far(901, STEVE_TUNE[:10], 0.42), peak=0.7)
+    save("lore/tune_far_2", tune_far(902, STEVE_TUNE[10:], 0.42), peak=0.7)
+    save("lore/tune_far_3", tune_far(903, STEVE_TUNE, 0.55), peak=0.7)
+    for i in range(1, 4):
+        save(f"lore/tune_wrong_{i}", tune_wrong(910 + i), peak=0.7)
+    for i in range(1, 3):
+        save(f"lore/winding_down_{i}", winding_down(920 + i), peak=0.7)
+    for i in range(1, 4):
+        save(f"lore/count_{i}", count(930 + i), peak=0.8)
+    for i in range(1, 5):
+        save(f"lore/building_far_{i}", building_far(940 + i), peak=0.7)
+    for i in range(1, 4):
+        save(f"lore/digging_down_{i}", digging_down(950 + i), peak=0.7)
+    for i in range(1, 3):
+        save(f"lore/seed_{i}", seed_tone(960 + i), quality=3, peak=0.65)
+    for i in range(1, 3):
+        save(f"lore/reset_{i}", reset_sound(970 + i), peak=0.8)
+    save("lore/hum_1", hum(981, STEVE_TUNE[:10]), peak=0.65)
+    save("lore/hum_2", hum(982, STEVE_TUNE[10:] + STEVE_TUNE[:5]), peak=0.65)
+    save("lore/hum_3", hum(983, STEVE_TUNE, stop_early=True), peak=0.65)
+    for i in range(1, 3):
+        save(f"lore/door_open_{i}", door_open(990 + i), peak=0.7)
+    save("herobrine/presence", presence_lore(999), quality=3, peak=0.75)
+
+
 WHISPERS = [
     [(400, 2000, 2550), (320, 870, 2250), (640, 1190, 2390)],
     [(500, 700, 2350), (400, 1620, 2400), (600, 1040, 2250), (320, 870, 2250)],
@@ -767,6 +1020,10 @@ WHISPERS = [
 ]
 
 if __name__ == "__main__":
+    import sys
+    if sys.argv[1:] == ["07"]:
+        sfx_07()
+        sys.exit(0)
     save("ambient/dread_1", dread(101, 43.65), quality=3, peak=0.7)
     save("ambient/dread_2", dread(102, 38.89), quality=3, peak=0.7)
     save("ambient/dread_3", dread(103, 49.0), quality=3, peak=0.7)
@@ -796,3 +1053,4 @@ if __name__ == "__main__":
     for act in (2, 3, 4):
         save(f"music/act_{act}", music_act(650 + act, act), quality=4, peak=0.75)
     sfx_06()
+    sfx_07()
