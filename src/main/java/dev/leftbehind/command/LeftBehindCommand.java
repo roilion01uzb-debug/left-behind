@@ -106,6 +106,21 @@ public final class LeftBehindCommand {
                                     ctx.getSource().sendSuccess(() -> Component.literal("Cave: " + event), false);
                                     return 1;
                                 })))
+                .then(Commands.literal("haunt")
+                        .then(Commands.argument("what", StringArgumentType.word())
+                                .suggests((ctx, b) -> net.minecraft.commands.SharedSuggestionProvider.suggest(
+                                        java.util.Arrays.stream(dev.leftbehind.story.Haunt.Kind.values())
+                                                .map(k -> k.name().toLowerCase(java.util.Locale.ROOT)), b))
+                                .executes(ctx -> {
+                                    ServerPlayer player = ctx.getSource().getPlayerOrException();
+                                    String what = StringArgumentType.getString(ctx, "what");
+                                    if (!dev.leftbehind.story.Haunt.force(player.level(), player, what)) {
+                                        ctx.getSource().sendFailure(Component.literal("Couldn't make \"" + what + "\" happen here."));
+                                        return 0;
+                                    }
+                                    ctx.getSource().sendSuccess(() -> Component.literal("Haunt: " + what), false);
+                                    return 1;
+                                })))
                 .then(Commands.literal("scene")
                         .then(Commands.literal("hill").executes(ctx -> scene(ctx.getSource(), Scenes.Kind.HILL)))
                         .then(Commands.literal("sleepwalk").executes(ctx -> scene(ctx.getSource(), Scenes.Kind.SLEEPWALK))))
@@ -220,6 +235,9 @@ public final class LeftBehindCommand {
                             + (req.craft() ? " (make)" : ""))
                     .append(", carrying ").append(work.isEmpty() ? "nothing" : work.describe())
                     .append(", knows ").append(dev.leftbehind.entity.SteveWork.knownCount(m)).append(" recipes\n");
+            sb.append("Body: ").append(steve.body().describe()).append(steve.moves().active() ? ", finding a way" : "")
+                    .append(", building: ").append(work.chores().build().progress())
+                    .append(", story log: ").append(m.storyLog.size()).append(" entries\n");
         }
         sb.append("Habits learned: ").append(m.habits).append('\n');
         for (Map.Entry<UUID, Relationship> e : m.relationships.entrySet()) {

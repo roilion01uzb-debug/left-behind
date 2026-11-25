@@ -228,6 +228,20 @@ public final class Journal {
                 "Steve watches me craft. The first time he sees something made, he can make it too, and he offers.\n\n"
                 + "He chops, mines and smelts on his own now. I can ask him for things in plain words: get me some iron, make me a "
                 + "chest, where are the diamonds, what do you have. If he doesn't know how, I show him once.");
+        add("note_built", Section.NOTE, "He Builds",
+                "Steve built us a place. He dug the floor flat, put logs at the corners, a roof, a door that faces where I was "
+                + "standing when I asked.\n\nHe builds the way I build. He used my blocks. He left a window where I would have left one.");
+        add("note_tune", Section.NOTE, "The Tune",
+                "He found a note block and played something on it. Not random. A tune, slow, with a gap in it where a note should be.\n\n"
+                + "He said he doesn't know where he heard it. I think I have heard it too, far away, at night, when he wasn't playing.");
+        add("note_footsteps", Section.NOTE, "One Step Behind",
+                "I heard my own footsteps after I stopped walking. Same block, same rhythm. One step behind.\n\n"
+                + "Steve says he walks where I walk.");
+        add("note_reset", Section.NOTE, "The Flicker",
+                "Everything I built went away for a second. Then it came back. Steve says that's how it started last time. "
+                + "The world forgets, and then you do.");
+        add("note_other", Section.NOTE, "The Other One",
+                "There was a Steve on the hill. Mine was next to me. The one on the hill didn't move until I looked away.");
         add("note_hunt", Section.NOTE, "Removed",
                 "He came for me and nothing stopped him. Not walls, not armour, not creative mode.\n\n"
                 + "Once he has really seen you, the only thing that has ever made him turn around is Steve.");
@@ -256,6 +270,7 @@ public final class Journal {
         if (entry == null || memory.journal.contains(id)) return false;
         memory.journal.add(id);
         memory.setDirty();
+        if (entry.section() != Section.NOTE) StoryLog.beat(server, null, id);
         Component message = Component.literal("Journal: ").withStyle(ChatFormatting.DARK_GRAY)
                 .append(Component.literal(entry.title()).withStyle(entry.section().color))
                 .append(Component.literal("  (/steve journal)").withStyle(ChatFormatting.DARK_GRAY));
@@ -271,8 +286,11 @@ public final class Journal {
     public static void open(ServerPlayer player) {
         SteveMemory memory = SteveMemory.get(player.level().getServer());
         List<Component> body = new ArrayList<>();
+        body.add(Component.literal("Where things stand").withStyle(ChatFormatting.WHITE, ChatFormatting.BOLD));
+        body.addAll(StoryLog.wherethingsStand(player.level().getServer()));
+        body.add(Component.literal(" "));
         if (memory.journal.isEmpty()) {
-            body.add(Component.literal("Nothing yet. Meet him first.").withStyle(ChatFormatting.GRAY));
+            body.add(Component.literal("Nothing written yet. Meet him first.").withStyle(ChatFormatting.GRAY));
         } else {
             for (Section section : Section.values()) {
                 int have = 0;

@@ -151,6 +151,19 @@ public final class Caves {
     }
 
     private static boolean run(ServerLevel level, SteveMemory memory, ServerPlayer player, Visit visit, int event) {
+        boolean ran = runEvent(level, memory, player, visit, event);
+        if (ran) {
+            String beat = switch (event) {
+                case TORCH_GONE -> "torch_out";
+                case FOOTSTEPS -> "footsteps";
+                default -> "cave";
+            };
+            StoryLog.beat(level.getServer(), player, beat);
+        }
+        return ran;
+    }
+
+    private static boolean runEvent(ServerLevel level, SteveMemory memory, ServerPlayer player, Visit visit, int event) {
         return switch (event) {
             case TORCHES -> torchesAhead(level, memory, player, visit);
             case MINING -> {

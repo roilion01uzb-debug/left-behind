@@ -224,6 +224,7 @@ public final class Structures {
             if (d > 12 * 12) continue;
             if (memory.setFlag("st_pillars_found")) {
                 Journal.unlock(level.getServer(), "note_pillars");
+                StoryLog.beat(level.getServer(), player, "pillars");
                 Progress.grant(player, "relic");
                 OriginalSteve steve = nearSteve(level, player);
                 if (steve != null) Reactions.remark(steve, "pillars", 60, "Don't count them. He likes it when you count them.",
@@ -335,6 +336,7 @@ public final class Structures {
             if (!memory.flag("st_hallway_found") && player.blockPosition().distSqr(at) < 8 * 8) {
                 memory.setFlag("st_hallway_found");
                 Journal.unlock(level.getServer(), "note_hallway");
+                StoryLog.beat(level.getServer(), player, "hallway");
                 OriginalSteve steve = nearSteve(level, player);
                 if (steve != null) Reactions.remark(steve, "hallway", 60, "I know where that goes. I don't want to. I know.",
                         "Stairs. Down. I dug those. Didn't I?");
@@ -405,12 +407,14 @@ public final class Structures {
             if (d > 16 * 16) continue;
             if (memory.setFlag("st_box_found")) {
                 Journal.unlock(level.getServer(), "note_box");
+                StoryLog.beat(level.getServer(), player, "box");
                 OriginalSteve steve = nearSteve(level, player);
                 if (steve != null) Reactions.remark(steve, "box", 60, "Don't open it. Someone wanted it closed. Maybe it was me.",
                         "Leave it. Please. It's quiet when it's closed.");
             }
             if (opened) {
                 memory.setFlag("st_box_done");
+                StoryLog.beat(level.getServer(), player, "box_open");
                 Herobrine.whisper(player, "you let it out");
                 Fx.staticFlash(player, 12);
                 memory.addSanity(-6f);

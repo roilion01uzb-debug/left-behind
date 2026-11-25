@@ -78,7 +78,10 @@ public class OriginalSteve extends PathfinderMob {
     public static final double WITNESS_DISTANCE = 20.0;
 
     private int imitateCooldown = 600;
+    private int wakeTicks;
     private final SteveWork work = new SteveWork(this);
+    private final SteveBody body = new SteveBody(this);
+    private final SteveMoves moves = new SteveMoves(this);
     private int provokeCooldown = 1200;
     private int idleLineCooldown = 1200;
 
@@ -106,6 +109,29 @@ public class OriginalSteve extends PathfinderMob {
         this.setPersistenceRequired();
         // He starts with nothing, like anyone. What he holds is whatever he has made.
         this.setDropChance(EquipmentSlot.MAINHAND, 0.0f);
+        // He would rather walk around running water than through it, and around water than swim, but he will swim.
+        this.setPathfindingMalus(SteveNavigation.CURRENT, 14.0f);
+        this.setPathfindingMalus(net.minecraft.world.level.pathfinder.PathType.WATER, 6.0f);
+        this.setPathfindingMalus(net.minecraft.world.level.pathfinder.PathType.WATER_BORDER, 2.0f);
+    }
+
+    @Override
+    protected net.minecraft.world.entity.ai.navigation.PathNavigation createNavigation(Level level) {
+        return new SteveNavigation(this, level);
+    }
+
+    /** Asleep, he lies still. */
+    @Override
+    protected boolean isImmobile() {
+        return super.isImmobile() || isSleeping();
+    }
+
+    public SteveBody body() {
+        return body;
+    }
+
+    public SteveMoves moves() {
+        return moves;
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -136,7 +162,14 @@ public class OriginalSteve extends PathfinderMob {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(0, new BodyGoal());
+        this.goalSelector.addGoal(0, new FloatGoal(this) {
+            @Override
+            public boolean canUse() {
+                // Not while he is diving after you, or swimming for his life (that steers itself).
+                return super.canUse() && !body.diving() && body.danger() == null;
+            }
+        });
         this.goalSelector.addGoal(1, new EpisodeGoal());
         this.goalSelector.addGoal(1, new SceneGoal());
         this.goalSelector.addGoal(2, new TalkGoal());
@@ -193,6 +226,8 @@ public class OriginalSteve extends PathfinderMob {
     public void orderFollow(ServerPlayer player) {
         followId = player.getUUID();
         stayAt = null;
+        // He can talk and walk at the same time. Standing there chatting while you climb away was the bug.
+        stopTalking();
     }
 
     public void orderStay() {
@@ -237,6 +272,20 @@ public class OriginalSteve extends PathfinderMob {
             return;
         }
         boolean episode = memory.mood().inEpisode();
+        if (isSleeping()) {
+            // He gets up when you do.
+            boolean anyoneAsleep = false;
+            for (ServerPlayer p : level.players()) if (p.isSleeping() && p.distanceToSqr(this) < 32 * 32) anyoneAsleep = true;
+            if (anyoneAsleep || level.isDarkOutside() && tickCount % 20 != 0) {
+                wakeTicks = 0;
+            } else if (++wakeTicks > 30) {
+                stopSleeping();
+                wakeTicks = 0;
+                Reactions.remark(this, "woke", 600, "Morning. I slept. I actually slept.", "I dreamed about a house. It had a red door.");
+            }
+        } else {
+            body.tick(level, memory);
+        }
         if (!episode) {
             if (getState() != STATE_NORMAL && !Scenes.sleepwalking()) setState(STATE_NORMAL);
             if (isSprinting()) setSprinting(false);
@@ -270,6 +319,8 @@ public class OriginalSteve extends PathfinderMob {
     @Override
     public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
         boolean hurt = super.hurtServer(level, source, damage);
+        if (hurt && isSleeping()) stopSleeping();
+        if (hurt && isAlive() && !(source.getEntity() instanceof Player)) body.hurtBy(source);
         if (!hurt || !isAlive() || !(source.getEntity() instanceof ServerPlayer player)) return hurt;
         SteveMemory memory = memory();
         if (memory == null) return hurt;
@@ -455,6 +506,7 @@ public class OriginalSteve extends PathfinderMob {
                     "Morning. Did something happen last night?", "Hey. Sleep okay? I slept great.");
             Journal.unlock(level.getServer(), "mem_morning");
             Progress.grantAll(level.getServer(), "morning");
+            dev.leftbehind.story.StoryLog.beat(level.getServer(), null, "morning_after");
         }
     }
 
@@ -740,6 +792,39 @@ public class OriginalSteve extends PathfinderMob {
 
     // ---- goals --------------------------------------------------------------
 
+    /** Getting himself out of trouble: the current, the dark water, fire, lava, a creeper. Before anything else. */
+    class BodyGoal extends Goal {
+        BodyGoal() {
+            setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
+        }
+
+        @Override
+        public boolean canUse() {
+            return body.danger() != null && !isSleeping();
+        }
+
+        @Override
+        public boolean requiresUpdateEveryTick() {
+            return true;
+        }
+
+        @Override
+        public void start() {
+            getNavigation().stop();
+            moves.reset();
+        }
+
+        @Override
+        public void tick() {
+            if (level() instanceof ServerLevel level) body.steer(level);
+        }
+
+        @Override
+        public void stop() {
+            setSprinting(false);
+        }
+    }
+
     /** Everything he does while the memory has him. */
     class EpisodeGoal extends Goal {
         EpisodeGoal() {
@@ -819,7 +904,17 @@ public class OriginalSteve extends PathfinderMob {
         public boolean canUse() {
             if (talkTicks <= 0 || talkingTo == null) return false;
             partner = level().getPlayerByUUID(talkingTo);
-            return partner != null && partner.distanceToSqr(OriginalSteve.this) < 8 * 8;
+            return partner != null && partner.distanceToSqr(OriginalSteve.this) < 8 * 8 && !walkingOff(partner);
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return canUse();
+        }
+
+        /** You told him to follow and you're leaving: he comes along and keeps talking on the way. */
+        private boolean walkingOff(Player partner) {
+            return partner.getUUID().equals(followId) && partner.distanceToSqr(OriginalSteve.this) > 4 * 4;
         }
 
         @Override
@@ -901,22 +996,42 @@ public class OriginalSteve extends PathfinderMob {
             return target != null && distanceToSqr(target) > 9 * 9;
         }
 
+        /** How long there has been no way to walk to them. */
+        private int noWay;
+
         @Override
         public boolean canContinueToUse() {
             return target != null && target.isAlive() && distanceToSqr(target) > (ordered ? 3 * 3 : 4 * 4) && !inEpisode();
         }
 
         @Override
+        public void start() {
+            noWay = 0;
+        }
+
+        @Override
         public void tick() {
             if (target == null) return;
             getLookControl().setLookAt(target, 10f, getMaxHeadXRot());
-            if (getNavigation().isDone() || tickCount % 20 == 0) getNavigation().moveTo(target, distanceToSqr(target) > 12 * 12 ? 1.15 : 0.9);
+            boolean flying = target instanceof Player p && (p.getAbilities().flying || p.isFallFlying());
+            if (tickCount % 20 == 0) {
+                net.minecraft.world.level.pathfinder.Path path = getNavigation().createPath(target, 1);
+                boolean reachable = path != null && path.canReach();
+                noWay = reachable || flying ? 0 : noWay + 20;
+                if (!moves.active() || reachable) getNavigation().moveTo(path, distanceToSqr(target) > 12 * 12 ? 1.15 : 0.9);
+                if (reachable) moves.reset();
+            }
+            // No path: up a cliff, down a hole, across a gap, into the rock. He finds his own way, like you did.
+            if (noWay >= 40 && distanceToSqr(target) < 28 * 28 && level() instanceof ServerLevel level && memory() != null) {
+                if (!moves.toward(level, memory(), target.blockPosition())) noWay = 0;
+            }
         }
 
         @Override
         public void stop() {
             target = null;
             getNavigation().stop();
+            moves.reset();
         }
     }
 
@@ -928,7 +1043,7 @@ public class OriginalSteve extends PathfinderMob {
 
         private boolean free() {
             return !inEpisode() && !Scenes.busy() && stayAt == null && talkTicks <= 0 && getTarget() == null
-                    && (followId == null || work.request() != null || work.busy());
+                    && (followId == null || work.request() != null || work.busy() || work.chores().build().building());
         }
 
         @Override

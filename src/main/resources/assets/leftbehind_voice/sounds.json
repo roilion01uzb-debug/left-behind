@@ -503,6 +503,22 @@
    }
   ]
  },
+ "steve.00cb595c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/00cb595c"
+   }
+  ]
+ },
+ "steve.015d82f0": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/015d82f0"
+   }
+  ]
+ },
  "steve.019a95f9": {
   "sounds": [
    {
@@ -516,6 +532,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/01ad3e6d"
+   }
+  ]
+ },
+ "steve.01d6db91": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/01d6db91"
    }
   ]
  },
@@ -751,6 +775,22 @@
    }
   ]
  },
+ "steve.09fef771": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/09fef771"
+   }
+  ]
+ },
+ "steve.0a076bf6": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/0a076bf6"
+   }
+  ]
+ },
  "steve.0a0910a8": {
   "sounds": [
    {
@@ -772,6 +812,22 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/0a7c27cb"
+   }
+  ]
+ },
+ "steve.0a95bd24": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/0a95bd24"
+   }
+  ]
+ },
+ "steve.0b111d5c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/0b111d5c"
    }
   ]
  },
@@ -831,6 +887,14 @@
    }
   ]
  },
+ "steve.0c30e0e7": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/0c30e0e7"
+   }
+  ]
+ },
  "steve.0c86ab85": {
   "sounds": [
    {
@@ -871,6 +935,14 @@
    }
   ]
  },
+ "steve.0d51521f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/0d51521f"
+   }
+  ]
+ },
  "steve.0d6921b1": {
   "sounds": [
    {
@@ -908,6 +980,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/0e45d99e"
+   }
+  ]
+ },
+ "steve.0e6e87c7": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/0e6e87c7"
    }
   ]
  },
@@ -975,6 +1055,22 @@
    }
   ]
  },
+ "steve.0f604ecd": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/0f604ecd"
+   }
+  ]
+ },
+ "steve.0fcc0c0b": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/0fcc0c0b"
+   }
+  ]
+ },
  "steve.0fe8f5f5": {
   "sounds": [
    {
@@ -996,6 +1092,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/10391f5e"
+   }
+  ]
+ },
+ "steve.106cb764": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/106cb764"
    }
   ]
  },
@@ -1087,11 +1191,27 @@
    }
   ]
  },
+ "steve.137e0bcf": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/137e0bcf"
+   }
+  ]
+ },
  "steve.13a021eb": {
   "sounds": [
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/13a021eb"
+   }
+  ]
+ },
+ "steve.14126529": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/14126529"
    }
   ]
  },
@@ -1108,6 +1228,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/15179e4c"
+   }
+  ]
+ },
+ "steve.1547e2c8": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/1547e2c8"
    }
   ]
  },
@@ -1183,6 +1311,14 @@
    }
   ]
  },
+ "steve.17c91ee7": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/17c91ee7"
+   }
+  ]
+ },
  "steve.17cc07d9": {
   "sounds": [
    {
@@ -1236,6 +1372,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/19352af6"
+   }
+  ]
+ },
+ "steve.19759ff0": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/19759ff0"
    }
   ]
  },
@@ -1383,6 +1527,14 @@
    }
   ]
  },
+ "steve.1e67e48c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/1e67e48c"
+   }
+  ]
+ },
  "steve.1e7c2f35": {
   "sounds": [
    {
@@ -1471,6 +1623,14 @@
    }
   ]
  },
+ "steve.202bebe4": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/202bebe4"
+   }
+  ]
+ },
  "steve.206b4e7d": {
   "sounds": [
    {
@@ -1511,6 +1671,22 @@
    }
   ]
  },
+ "steve.21fa5e38": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/21fa5e38"
+   }
+  ]
+ },
+ "steve.2201268b": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/2201268b"
+   }
+  ]
+ },
  "steve.22296c2e": {
   "sounds": [
    {
@@ -1535,6 +1711,14 @@
    }
   ]
  },
+ "steve.229fdb0f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/229fdb0f"
+   }
+  ]
+ },
  "steve.22f7ebe3": {
   "sounds": [
    {
@@ -1548,6 +1732,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/231f0dc9"
+   }
+  ]
+ },
+ "steve.232ebc66": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/232ebc66"
    }
   ]
  },
@@ -1663,6 +1855,22 @@
    }
   ]
  },
+ "steve.25803877": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/25803877"
+   }
+  ]
+ },
+ "steve.25b92b39": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/25b92b39"
+   }
+  ]
+ },
  "steve.25ba4319": {
   "sounds": [
    {
@@ -1759,6 +1967,22 @@
    }
   ]
  },
+ "steve.29c7885e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/29c7885e"
+   }
+  ]
+ },
+ "steve.29db57ab": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/29db57ab"
+   }
+  ]
+ },
  "steve.2a0557cc": {
   "sounds": [
    {
@@ -1847,6 +2071,14 @@
    }
   ]
  },
+ "steve.2cd96ccf": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/2cd96ccf"
+   }
+  ]
+ },
  "steve.2cf1620e": {
   "sounds": [
    {
@@ -1887,6 +2119,14 @@
    }
   ]
  },
+ "steve.2df0c20e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/2df0c20e"
+   }
+  ]
+ },
  "steve.2dfdb3fd": {
   "sounds": [
    {
@@ -1916,6 +2156,22 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/2e2c23d6"
+   }
+  ]
+ },
+ "steve.2e390357": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/2e390357"
+   }
+  ]
+ },
+ "steve.2e9eaf18": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/2e9eaf18"
    }
   ]
  },
@@ -1951,6 +2207,14 @@
    }
   ]
  },
+ "steve.2f6c5eb5": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/2f6c5eb5"
+   }
+  ]
+ },
  "steve.2f764ef1": {
   "sounds": [
    {
@@ -1975,11 +2239,27 @@
    }
   ]
  },
+ "steve.2fa5d8cb": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/2fa5d8cb"
+   }
+  ]
+ },
  "steve.2fd2caff": {
   "sounds": [
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/2fd2caff"
+   }
+  ]
+ },
+ "steve.302a1d45": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/302a1d45"
    }
   ]
  },
@@ -1999,6 +2279,14 @@
    }
   ]
  },
+ "steve.30c5c1a6": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/30c5c1a6"
+   }
+  ]
+ },
  "steve.316c1308": {
   "sounds": [
    {
@@ -2012,6 +2300,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/320eb5d1"
+   }
+  ]
+ },
+ "steve.321dbc5e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/321dbc5e"
    }
   ]
  },
@@ -2047,11 +2343,27 @@
    }
   ]
  },
+ "steve.32da24f8": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/32da24f8"
+   }
+  ]
+ },
  "steve.32dee798": {
   "sounds": [
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/32dee798"
+   }
+  ]
+ },
+ "steve.332e65b1": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/332e65b1"
    }
   ]
  },
@@ -2076,6 +2388,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/33c3f92f"
+   }
+  ]
+ },
+ "steve.3452a1cc": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/3452a1cc"
    }
   ]
  },
@@ -2191,11 +2511,27 @@
    }
   ]
  },
+ "steve.385c87d2": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/385c87d2"
+   }
+  ]
+ },
  "steve.386a8556": {
   "sounds": [
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/386a8556"
+   }
+  ]
+ },
+ "steve.387572a6": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/387572a6"
    }
   ]
  },
@@ -2212,6 +2548,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/39294c29"
+   }
+  ]
+ },
+ "steve.393e1a59": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/393e1a59"
    }
   ]
  },
@@ -2271,6 +2615,14 @@
    }
   ]
  },
+ "steve.3aaaa756": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/3aaaa756"
+   }
+  ]
+ },
  "steve.3acd4634": {
   "sounds": [
    {
@@ -2316,6 +2668,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/3bbc3046"
+   }
+  ]
+ },
+ "steve.3bc09d50": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/3bc09d50"
    }
   ]
  },
@@ -2591,6 +2951,14 @@
    }
   ]
  },
+ "steve.44bffcd7": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/44bffcd7"
+   }
+  ]
+ },
  "steve.44e23b49": {
   "sounds": [
    {
@@ -2631,6 +2999,22 @@
    }
   ]
  },
+ "steve.4702903f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/4702903f"
+   }
+  ]
+ },
+ "steve.4709f23d": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/4709f23d"
+   }
+  ]
+ },
  "steve.4729c4e0": {
   "sounds": [
    {
@@ -2647,11 +3031,43 @@
    }
   ]
  },
+ "steve.48cc21d7": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/48cc21d7"
+   }
+  ]
+ },
+ "steve.48dcc760": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/48dcc760"
+   }
+  ]
+ },
+ "steve.49116ee2": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/49116ee2"
+   }
+  ]
+ },
  "steve.491e24e0": {
   "sounds": [
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/491e24e0"
+   }
+  ]
+ },
+ "steve.4965122f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/4965122f"
    }
   ]
  },
@@ -2711,6 +3127,14 @@
    }
   ]
  },
+ "steve.4bbc1a54": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/4bbc1a54"
+   }
+  ]
+ },
  "steve.4c3eb235": {
   "sounds": [
    {
@@ -2751,6 +3175,14 @@
    }
   ]
  },
+ "steve.4d0d0531": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/4d0d0531"
+   }
+  ]
+ },
  "steve.4d6bc4f7": {
   "sounds": [
    {
@@ -2780,6 +3212,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/4dc290df"
+   }
+  ]
+ },
+ "steve.4dc71aea": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/4dc71aea"
    }
   ]
  },
@@ -2823,6 +3263,22 @@
    }
   ]
  },
+ "steve.4e3198df": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/4e3198df"
+   }
+  ]
+ },
+ "steve.4e6a24e0": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/4e6a24e0"
+   }
+  ]
+ },
  "steve.4ecc1589": {
   "sounds": [
    {
@@ -2847,11 +3303,27 @@
    }
   ]
  },
+ "steve.4f1a34cd": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/4f1a34cd"
+   }
+  ]
+ },
  "steve.4f2289ba": {
   "sounds": [
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/4f2289ba"
+   }
+  ]
+ },
+ "steve.4f2cc123": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/4f2cc123"
    }
   ]
  },
@@ -2999,6 +3471,14 @@
    }
   ]
  },
+ "steve.55050443": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/55050443"
+   }
+  ]
+ },
  "steve.5509e27f": {
   "sounds": [
    {
@@ -3012,6 +3492,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/5516a2a9"
+   }
+  ]
+ },
+ "steve.55213700": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/55213700"
    }
   ]
  },
@@ -3095,6 +3583,14 @@
    }
   ]
  },
+ "steve.56d8ec91": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/56d8ec91"
+   }
+  ]
+ },
  "steve.56ea0cba": {
   "sounds": [
    {
@@ -3103,11 +3599,27 @@
    }
   ]
  },
+ "steve.56ff9800": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/56ff9800"
+   }
+  ]
+ },
  "steve.570e0ec4": {
   "sounds": [
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/570e0ec4"
+   }
+  ]
+ },
+ "steve.571d8527": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/571d8527"
    }
   ]
  },
@@ -3132,6 +3644,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/57814f0f"
+   }
+  ]
+ },
+ "steve.57b3f17c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/57b3f17c"
    }
   ]
  },
@@ -3207,6 +3727,14 @@
    }
   ]
  },
+ "steve.5962c573": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/5962c573"
+   }
+  ]
+ },
  "steve.5969e098": {
   "sounds": [
    {
@@ -3247,11 +3775,27 @@
    }
   ]
  },
+ "steve.5b7eff13": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/5b7eff13"
+   }
+  ]
+ },
  "steve.5b9ff6b9": {
   "sounds": [
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/5b9ff6b9"
+   }
+  ]
+ },
+ "steve.5bb1acd9": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/5bb1acd9"
    }
   ]
  },
@@ -3276,6 +3820,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/5d25d753"
+   }
+  ]
+ },
+ "steve.5de00610": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/5de00610"
    }
   ]
  },
@@ -3359,6 +3911,22 @@
    }
   ]
  },
+ "steve.6156ac90": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/6156ac90"
+   }
+  ]
+ },
+ "steve.616ce519": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/616ce519"
+   }
+  ]
+ },
  "steve.618560cc": {
   "sounds": [
    {
@@ -3375,6 +3943,14 @@
    }
   ]
  },
+ "steve.62160783": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/62160783"
+   }
+  ]
+ },
  "steve.63086d82": {
   "sounds": [
    {
@@ -3388,6 +3964,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/63166802"
+   }
+  ]
+ },
+ "steve.632f0b68": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/632f0b68"
    }
   ]
  },
@@ -3428,6 +4012,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/63b14204"
+   }
+  ]
+ },
+ "steve.6440ee4a": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/6440ee4a"
    }
   ]
  },
@@ -3503,6 +4095,14 @@
    }
   ]
  },
+ "steve.67896a88": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/67896a88"
+   }
+  ]
+ },
  "steve.67df6df3": {
   "sounds": [
    {
@@ -3524,6 +4124,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/68544204"
+   }
+  ]
+ },
+ "steve.68f70381": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/68f70381"
    }
   ]
  },
@@ -3655,6 +4263,14 @@
    }
   ]
  },
+ "steve.6d956e70": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/6d956e70"
+   }
+  ]
+ },
  "steve.6da7b904": {
   "sounds": [
    {
@@ -3708,6 +4324,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/6e94c385"
+   }
+  ]
+ },
+ "steve.6edce5b6": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/6edce5b6"
    }
   ]
  },
@@ -3836,6 +4460,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/71949fd3"
+   }
+  ]
+ },
+ "steve.720303e6": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/720303e6"
    }
   ]
  },
@@ -4055,6 +4687,22 @@
    }
   ]
  },
+ "steve.781570c3": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/781570c3"
+   }
+  ]
+ },
+ "steve.7825f5ed": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/7825f5ed"
+   }
+  ]
+ },
  "steve.78bf16f4": {
   "sounds": [
    {
@@ -4084,6 +4732,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/79857d66"
+   }
+  ]
+ },
+ "steve.7986a18a": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/7986a18a"
    }
   ]
  },
@@ -4167,6 +4823,14 @@
    }
   ]
  },
+ "steve.7c77d1db": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/7c77d1db"
+   }
+  ]
+ },
  "steve.7cd9acce": {
   "sounds": [
    {
@@ -4231,11 +4895,43 @@
    }
   ]
  },
+ "steve.7efb8b4a": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/7efb8b4a"
+   }
+  ]
+ },
+ "steve.7f0a996b": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/7f0a996b"
+   }
+  ]
+ },
  "steve.7f342bef": {
   "sounds": [
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/7f342bef"
+   }
+  ]
+ },
+ "steve.7f6093eb": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/7f6093eb"
+   }
+  ]
+ },
+ "steve.7f698f7b": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/7f698f7b"
    }
   ]
  },
@@ -4247,11 +4943,27 @@
    }
   ]
  },
+ "steve.7fd14c7b": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/7fd14c7b"
+   }
+  ]
+ },
  "steve.7ff9bcec": {
   "sounds": [
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/7ff9bcec"
+   }
+  ]
+ },
+ "steve.806cdc0b": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/806cdc0b"
    }
   ]
  },
@@ -4383,6 +5095,14 @@
    }
   ]
  },
+ "steve.83f40d71": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/83f40d71"
+   }
+  ]
+ },
  "steve.84371d4b": {
   "sounds": [
    {
@@ -4431,6 +5151,14 @@
    }
   ]
  },
+ "steve.85bc86b6": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/85bc86b6"
+   }
+  ]
+ },
  "steve.8656a15b": {
   "sounds": [
    {
@@ -4463,11 +5191,27 @@
    }
   ]
  },
+ "steve.875c71c6": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/875c71c6"
+   }
+  ]
+ },
  "steve.876a6db9": {
   "sounds": [
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/876a6db9"
+   }
+  ]
+ },
+ "steve.879f79c2": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/879f79c2"
    }
   ]
  },
@@ -4495,6 +5239,14 @@
    }
   ]
  },
+ "steve.87cdbb48": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/87cdbb48"
+   }
+  ]
+ },
  "steve.88196029": {
   "sounds": [
    {
@@ -4508,6 +5260,22 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/882b89ff"
+   }
+  ]
+ },
+ "steve.8843638d": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/8843638d"
+   }
+  ]
+ },
+ "steve.88c6d0df": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/88c6d0df"
    }
   ]
  },
@@ -4607,11 +5375,19 @@
    }
   ]
  },
- "steve.8b6d1869": {
+ "steve.8b64f7ea": {
   "sounds": [
    {
     "attenuation_distance": 40,
-    "name": "leftbehind_voice:steve/8b6d1869"
+    "name": "leftbehind_voice:steve/8b64f7ea"
+   }
+  ]
+ },
+ "steve.8b886dc0": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/8b886dc0"
    }
   ]
  },
@@ -4620,6 +5396,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/8c2f8bae"
+   }
+  ]
+ },
+ "steve.8c88fff3": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/8c88fff3"
    }
   ]
  },
@@ -4647,11 +5431,35 @@
    }
   ]
  },
+ "steve.8d182487": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/8d182487"
+   }
+  ]
+ },
+ "steve.8d34bbfa": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/8d34bbfa"
+   }
+  ]
+ },
  "steve.8d8b60ab": {
   "sounds": [
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/8d8b60ab"
+   }
+  ]
+ },
+ "steve.8dc6f060": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/8dc6f060"
    }
   ]
  },
@@ -4668,6 +5476,22 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/8de78add"
+   }
+  ]
+ },
+ "steve.8de8be26": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/8de8be26"
+   }
+  ]
+ },
+ "steve.8de8efa1": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/8de8efa1"
    }
   ]
  },
@@ -4799,6 +5623,14 @@
    }
   ]
  },
+ "steve.9261ef6e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/9261ef6e"
+   }
+  ]
+ },
  "steve.9283eef8": {
   "sounds": [
    {
@@ -4863,6 +5695,14 @@
    }
   ]
  },
+ "steve.94699471": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/94699471"
+   }
+  ]
+ },
  "steve.9499b0f3": {
   "sounds": [
    {
@@ -4919,11 +5759,27 @@
    }
   ]
  },
+ "steve.976b3b6c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/976b3b6c"
+   }
+  ]
+ },
  "steve.9779662e": {
   "sounds": [
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/9779662e"
+   }
+  ]
+ },
+ "steve.97a7c429": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/97a7c429"
    }
   ]
  },
@@ -4940,6 +5796,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/98431519"
+   }
+  ]
+ },
+ "steve.98509538": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/98509538"
    }
   ]
  },
@@ -4999,6 +5863,14 @@
    }
   ]
  },
+ "steve.9965194a": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/9965194a"
+   }
+  ]
+ },
  "steve.99b16896": {
   "sounds": [
    {
@@ -5047,6 +5919,14 @@
    }
   ]
  },
+ "steve.9a9f3c35": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/9a9f3c35"
+   }
+  ]
+ },
  "steve.9ae03487": {
   "sounds": [
    {
@@ -5071,11 +5951,27 @@
    }
   ]
  },
+ "steve.9b8b5ed6": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/9b8b5ed6"
+   }
+  ]
+ },
  "steve.9baf91cc": {
   "sounds": [
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/9baf91cc"
+   }
+  ]
+ },
+ "steve.9c27c1f2": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/9c27c1f2"
    }
   ]
  },
@@ -5095,11 +5991,27 @@
    }
   ]
  },
+ "steve.9d60ac06": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/9d60ac06"
+   }
+  ]
+ },
  "steve.9d66c359": {
   "sounds": [
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/9d66c359"
+   }
+  ]
+ },
+ "steve.9d9690ca": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/9d9690ca"
    }
   ]
  },
@@ -5151,6 +6063,14 @@
    }
   ]
  },
+ "steve.a084dd68": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/a084dd68"
+   }
+  ]
+ },
  "steve.a0c61669": {
   "sounds": [
    {
@@ -5191,6 +6111,22 @@
    }
   ]
  },
+ "steve.a20a9031": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/a20a9031"
+   }
+  ]
+ },
+ "steve.a21e16f2": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/a21e16f2"
+   }
+  ]
+ },
  "steve.a2291b79": {
   "sounds": [
    {
@@ -5204,6 +6140,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/a2702cae"
+   }
+  ]
+ },
+ "steve.a2ac3a5c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/a2ac3a5c"
    }
   ]
  },
@@ -5311,11 +6255,27 @@
    }
   ]
  },
+ "steve.a6cee816": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/a6cee816"
+   }
+  ]
+ },
  "steve.a75c257e": {
   "sounds": [
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/a75c257e"
+   }
+  ]
+ },
+ "steve.a7f67841": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/a7f67841"
    }
   ]
  },
@@ -5348,6 +6308,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/a88933b7"
+   }
+  ]
+ },
+ "steve.a8bd5b99": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/a8bd5b99"
    }
   ]
  },
@@ -5396,6 +6364,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/a9a8770e"
+   }
+  ]
+ },
+ "steve.a9c2ae3f": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/a9c2ae3f"
    }
   ]
  },
@@ -5460,6 +6436,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/ac021019"
+   }
+  ]
+ },
+ "steve.ac047816": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/ac047816"
    }
   ]
  },
@@ -5575,6 +6559,14 @@
    }
   ]
  },
+ "steve.afbe4a2e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/afbe4a2e"
+   }
+  ]
+ },
  "steve.afcbf3fd": {
   "sounds": [
    {
@@ -5623,6 +6615,14 @@
    }
   ]
  },
+ "steve.b159c1ca": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/b159c1ca"
+   }
+  ]
+ },
  "steve.b15aa35e": {
   "sounds": [
    {
@@ -5644,6 +6644,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/b19ed6c2"
+   }
+  ]
+ },
+ "steve.b1b7b71e": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/b1b7b71e"
    }
   ]
  },
@@ -5783,6 +6791,14 @@
    }
   ]
  },
+ "steve.b542f406": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/b542f406"
+   }
+  ]
+ },
  "steve.b54e33ae": {
   "sounds": [
    {
@@ -5895,6 +6911,14 @@
    }
   ]
  },
+ "steve.b8bc9d90": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/b8bc9d90"
+   }
+  ]
+ },
  "steve.b8f08000": {
   "sounds": [
    {
@@ -5943,6 +6967,14 @@
    }
   ]
  },
+ "steve.b9f59978": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/b9f59978"
+   }
+  ]
+ },
  "steve.ba09c80f": {
   "sounds": [
    {
@@ -5983,6 +7015,14 @@
    }
   ]
  },
+ "steve.bb2e9e40": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/bb2e9e40"
+   }
+  ]
+ },
  "steve.bb40c435": {
   "sounds": [
    {
@@ -6007,6 +7047,14 @@
    }
   ]
  },
+ "steve.bbdc6509": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/bbdc6509"
+   }
+  ]
+ },
  "steve.bbe44131": {
   "sounds": [
    {
@@ -6020,6 +7068,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/bc723c70"
+   }
+  ]
+ },
+ "steve.bc8297c1": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/bc8297c1"
    }
   ]
  },
@@ -6087,6 +7143,14 @@
    }
   ]
  },
+ "steve.bdf171f0": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/bdf171f0"
+   }
+  ]
+ },
  "steve.be426843": {
   "sounds": [
    {
@@ -6140,6 +7204,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/c0769900"
+   }
+  ]
+ },
+ "steve.c16d922a": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/c16d922a"
    }
   ]
  },
@@ -6207,6 +7279,14 @@
    }
   ]
  },
+ "steve.c3443acf": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/c3443acf"
+   }
+  ]
+ },
  "steve.c3519bc5": {
   "sounds": [
    {
@@ -6244,6 +7324,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/c44740e5"
+   }
+  ]
+ },
+ "steve.c4864aec": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/c4864aec"
    }
   ]
  },
@@ -6327,6 +7415,22 @@
    }
   ]
  },
+ "steve.c81f8f75": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/c81f8f75"
+   }
+  ]
+ },
+ "steve.c86ae6c2": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/c86ae6c2"
+   }
+  ]
+ },
  "steve.c8867e67": {
   "sounds": [
    {
@@ -6343,11 +7447,27 @@
    }
   ]
  },
+ "steve.c8d7ea63": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/c8d7ea63"
+   }
+  ]
+ },
  "steve.c91bc662": {
   "sounds": [
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/c91bc662"
+   }
+  ]
+ },
+ "steve.c940be23": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/c940be23"
    }
   ]
  },
@@ -6455,11 +7575,35 @@
    }
   ]
  },
+ "steve.ce00f2be": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/ce00f2be"
+   }
+  ]
+ },
  "steve.ce35bc44": {
   "sounds": [
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/ce35bc44"
+   }
+  ]
+ },
+ "steve.ce4dfefd": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/ce4dfefd"
+   }
+  ]
+ },
+ "steve.cec92ad9": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/cec92ad9"
    }
   ]
  },
@@ -6476,6 +7620,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/cef75d23"
+   }
+  ]
+ },
+ "steve.cf493127": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/cf493127"
    }
   ]
  },
@@ -6532,6 +7684,30 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/d0421716"
+   }
+  ]
+ },
+ "steve.d0460028": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d0460028"
+   }
+  ]
+ },
+ "steve.d05403fb": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d05403fb"
+   }
+  ]
+ },
+ "steve.d05db51c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d05db51c"
    }
   ]
  },
@@ -6596,6 +7772,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/d1ba09de"
+   }
+  ]
+ },
+ "steve.d1f55de2": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d1f55de2"
    }
   ]
  },
@@ -6727,6 +7911,14 @@
    }
   ]
  },
+ "steve.d4f41044": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d4f41044"
+   }
+  ]
+ },
  "steve.d500f41c": {
   "sounds": [
    {
@@ -6767,6 +7959,14 @@
    }
   ]
  },
+ "steve.d62a38b0": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d62a38b0"
+   }
+  ]
+ },
  "steve.d64591b2": {
   "sounds": [
    {
@@ -6783,6 +7983,14 @@
    }
   ]
  },
+ "steve.d6f4acb1": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d6f4acb1"
+   }
+  ]
+ },
  "steve.d7060bda": {
   "sounds": [
    {
@@ -6796,6 +8004,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/d7092214"
+   }
+  ]
+ },
+ "steve.d768e449": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/d768e449"
    }
   ]
  },
@@ -6895,6 +8111,14 @@
    }
   ]
  },
+ "steve.da01a432": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/da01a432"
+   }
+  ]
+ },
  "steve.da168598": {
   "sounds": [
    {
@@ -6959,6 +8183,14 @@
    }
   ]
  },
+ "steve.db812821": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/db812821"
+   }
+  ]
+ },
  "steve.dbb92b77": {
   "sounds": [
    {
@@ -6967,11 +8199,27 @@
    }
   ]
  },
+ "steve.dbf06c40": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/dbf06c40"
+   }
+  ]
+ },
  "steve.dc22276d": {
   "sounds": [
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/dc22276d"
+   }
+  ]
+ },
+ "steve.dcae1b6c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/dcae1b6c"
    }
   ]
  },
@@ -7183,6 +8431,14 @@
    }
   ]
  },
+ "steve.e32b2655": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e32b2655"
+   }
+  ]
+ },
  "steve.e36eaa6b": {
   "sounds": [
    {
@@ -7223,6 +8479,14 @@
    }
   ]
  },
+ "steve.e47adb1c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e47adb1c"
+   }
+  ]
+ },
  "steve.e4898197": {
   "sounds": [
    {
@@ -7244,6 +8508,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/e4fbaad7"
+   }
+  ]
+ },
+ "steve.e4fbe9ed": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e4fbe9ed"
    }
   ]
  },
@@ -7271,11 +8543,35 @@
    }
   ]
  },
+ "steve.e68e0595": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e68e0595"
+   }
+  ]
+ },
  "steve.e6d7f329": {
   "sounds": [
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/e6d7f329"
+   }
+  ]
+ },
+ "steve.e6fe0c4d": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e6fe0c4d"
+   }
+  ]
+ },
+ "steve.e704ca79": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e704ca79"
    }
   ]
  },
@@ -7300,6 +8596,22 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/e7c788ea"
+   }
+  ]
+ },
+ "steve.e7d5cec2": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e7d5cec2"
+   }
+  ]
+ },
+ "steve.e809944b": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/e809944b"
    }
   ]
  },
@@ -7391,6 +8703,14 @@
    }
   ]
  },
+ "steve.ea0162d5": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/ea0162d5"
+   }
+  ]
+ },
  "steve.ea1d6c3a": {
   "sounds": [
    {
@@ -7407,11 +8727,11 @@
    }
   ]
  },
- "steve.ea9ec3ae": {
+ "steve.eaa29cd8": {
   "sounds": [
    {
     "attenuation_distance": 40,
-    "name": "leftbehind_voice:steve/ea9ec3ae"
+    "name": "leftbehind_voice:steve/eaa29cd8"
    }
   ]
  },
@@ -7420,6 +8740,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/ead6e608"
+   }
+  ]
+ },
+ "steve.eb1f3731": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/eb1f3731"
    }
   ]
  },
@@ -7511,6 +8839,22 @@
    }
   ]
  },
+ "steve.ee1ea1ae": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/ee1ea1ae"
+   }
+  ]
+ },
+ "steve.ee3065ff": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/ee3065ff"
+   }
+  ]
+ },
  "steve.ee77dd47": {
   "sounds": [
    {
@@ -7575,6 +8919,14 @@
    }
   ]
  },
+ "steve.f07513b4": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f07513b4"
+   }
+  ]
+ },
  "steve.f082e587": {
   "sounds": [
    {
@@ -7604,6 +8956,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/f1372a92"
+   }
+  ]
+ },
+ "steve.f17dde0d": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f17dde0d"
    }
   ]
  },
@@ -7687,6 +9047,14 @@
    }
   ]
  },
+ "steve.f423c789": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f423c789"
+   }
+  ]
+ },
  "steve.f446d0b3": {
   "sounds": [
    {
@@ -7759,11 +9127,27 @@
    }
   ]
  },
+ "steve.f5cc6cc5": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f5cc6cc5"
+   }
+  ]
+ },
  "steve.f6282620": {
   "sounds": [
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/f6282620"
+   }
+  ]
+ },
+ "steve.f65ce1e1": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f65ce1e1"
    }
   ]
  },
@@ -7812,6 +9196,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/f7524985"
+   }
+  ]
+ },
+ "steve.f760d8ed": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f760d8ed"
    }
   ]
  },
@@ -7879,11 +9271,27 @@
    }
   ]
  },
+ "steve.f898b754": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f898b754"
+   }
+  ]
+ },
  "steve.f8dac112": {
   "sounds": [
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/f8dac112"
+   }
+  ]
+ },
+ "steve.f920fc70": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f920fc70"
    }
   ]
  },
@@ -7900,6 +9308,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/f965f94f"
+   }
+  ]
+ },
+ "steve.f98bd562": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/f98bd562"
    }
   ]
  },
@@ -7940,6 +9356,22 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/fab9166c"
+   }
+  ]
+ },
+ "steve.fbd608cc": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/fbd608cc"
+   }
+  ]
+ },
+ "steve.fc68357c": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/fc68357c"
    }
   ]
  },
@@ -7988,6 +9420,14 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/fd58046a"
+   }
+  ]
+ },
+ "steve.fd6f23c3": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/fd6f23c3"
    }
   ]
  },
@@ -8044,6 +9484,22 @@
    {
     "attenuation_distance": 40,
     "name": "leftbehind_voice:steve/fe48eaf2"
+   }
+  ]
+ },
+ "steve.fe673cac": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/fe673cac"
+   }
+  ]
+ },
+ "steve.ff0c5a55": {
+  "sounds": [
+   {
+    "attenuation_distance": 40,
+    "name": "leftbehind_voice:steve/ff0c5a55"
    }
   ]
  },

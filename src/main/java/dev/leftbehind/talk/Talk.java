@@ -120,6 +120,7 @@ public final class Talk {
         Session session = session(player);
         long now = level.getGameTime();
         String text = Words.normalize(raw);
+        dev.leftbehind.story.Haunt.said(player, raw);
 
         // If Herobrine is waiting for your question, this is it.
         if (session.herobrineUntil > now) {
@@ -336,6 +337,9 @@ public final class Talk {
         say(c, "ask_" + q.id(), q.ask());
     }
 
+    private static final Pattern ORDER = Pattern.compile("^ (hey |ok |okay |alright )?(steve )?(can you |could you |please |will you |would you |now )*"
+            + "(follow|come|stop|wait|stay|go|get|make|build|craft|bring|give|help|dig|mine|chop|light|fetch|find|put|place|open|close|cancel|never ?mind|forget|lets|let us) ");
+
     /** Tries to read the message as an answer to what he asked. False if it isn't one. */
     private static boolean answer(Ctx c, String text, String raw) {
         Session s = c.session;
@@ -344,6 +348,8 @@ public final class Talk {
         TalkBook.Question q = s.pendingQ == null ? null : book.questions.get(s.pendingQ);
         if (q == null) return false;
         boolean question = raw.contains("?") || Words.startsLikeQuestion(text);
+        // "steve follow me" is not your favourite block. Telling him to do something always beats his question.
+        if (!q.type().equals("name") && ORDER.matcher(text).find()) return false;
         switch (q.type()) {
             case "name" -> {
                 String name = Words.nameStatement(text, raw, true);

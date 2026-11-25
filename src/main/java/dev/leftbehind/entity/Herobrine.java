@@ -47,6 +47,7 @@ public class Herobrine extends PathfinderMob {
     public enum Mode { WATCH_STEVE, WATCH_PLAYER, HUNT, GUIDE }
 
     private static final EntityDataAccessor<Boolean> DATA_HUNTING = SynchedEntityData.defineId(Herobrine.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> DATA_MASKED = SynchedEntityData.defineId(Herobrine.class, EntityDataSerializers.BOOLEAN);
 
     private Mode mode = Mode.WATCH_STEVE;
     private @Nullable UUID targetId;
@@ -82,6 +83,16 @@ public class Herobrine extends PathfinderMob {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(DATA_HUNTING, false);
+        builder.define(DATA_MASKED, false);
+    }
+
+    /** Wearing Steve's face: the eyes are not white. Only ever for a glimpse. */
+    public boolean isMasked() {
+        return this.entityData.get(DATA_MASKED);
+    }
+
+    public void setMasked(boolean masked) {
+        this.entityData.set(DATA_MASKED, masked);
     }
 
     public boolean isHunting() {
@@ -236,7 +247,8 @@ public class Herobrine extends PathfinderMob {
             // You saw something. Look properly, or walk over, and there's nothing there.
             if (looked) lookedTicks++;
             if (lookedTicks > 12 || dist < 24) {
-                dev.leftbehind.story.Stalker.afterGlimpse(level, target);
+                if (isMasked()) dev.leftbehind.story.Haunt.afterOtherSteve(level, target);
+                else dev.leftbehind.story.Stalker.afterGlimpse(level, target);
                 discard();
             }
             return;
@@ -371,6 +383,7 @@ public class Herobrine extends PathfinderMob {
         SteveMemory memory = SteveMemory.get(level.getServer());
         memory.addCounter("hunts", 1);
         if (memory.setFlag("hunted")) Journal.unlock(level.getServer(), "note_hunt");
+        dev.leftbehind.story.StoryLog.beat(level.getServer(), player, "hunt");
         Progress.grant(player, "hunted");
         OriginalSteve steve = StoryDirector.findSteve(level);
         if (steve != null && !steve.inEpisode() && steve.distanceToSqr(player) < 40 * 40) {

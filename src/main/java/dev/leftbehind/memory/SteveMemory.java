@@ -35,7 +35,8 @@ public final class SteveMemory extends SavedData {
             Codec.STRING.listOf().optionalFieldOf("flags", List.of()).forGetter(m -> List.copyOf(m.flags)),
             Codec.STRING.listOf().optionalFieldOf("journal", List.of()).forGetter(m -> m.journal),
             Codec.STRING.listOf().optionalFieldOf("night_log", List.of()).forGetter(m -> m.nightLog),
-            Codec.unboundedMap(Codec.STRING, Codec.STRING).optionalFieldOf("learned", Map.of()).forGetter(m -> m.learned)
+            Codec.unboundedMap(Codec.STRING, Codec.STRING).optionalFieldOf("learned", Map.of()).forGetter(m -> m.learned),
+            Codec.STRING.listOf().optionalFieldOf("story_log", List.of()).forGetter(m -> m.storyLog)
     ).apply(i, SteveMemory::new));
 
     public static final SavedDataType<SteveMemory> TYPE = new SavedDataType<>(
@@ -60,14 +61,16 @@ public final class SteveMemory extends SavedData {
     public final List<String> nightLog;
     /** Words players have taught him, and what they told him they mean. */
     public final Map<String, String> learned;
+    /** What has happened in the story, in order: "day|id". The journal's "Where things stand" page reads it. */
+    public final List<String> storyLog;
 
     public SteveMemory() {
-        this(100f, Map.of(), Map.of(), Optional.empty(), false, 0, Map.of(), List.of(), List.of(), List.of(), Map.of());
+        this(100f, Map.of(), Map.of(), Optional.empty(), false, 0, Map.of(), List.of(), List.of(), List.of(), Map.of(), List.of());
     }
 
     private SteveMemory(float sanity, Map<UUID, Relationship> relationships, Map<String, Integer> habits,
                         Optional<UUID> steveId, boolean steveDead, int breaches, Map<String, Long> counters,
-                        List<String> flags, List<String> journal, List<String> nightLog, Map<String, String> learned) {
+                        List<String> flags, List<String> journal, List<String> nightLog, Map<String, String> learned, List<String> storyLog) {
         this.sanity = sanity;
         this.relationships = new HashMap<>(relationships);
         this.habits = new HashMap<>(habits);
@@ -79,6 +82,7 @@ public final class SteveMemory extends SavedData {
         this.journal = new ArrayList<>(journal);
         this.nightLog = new ArrayList<>(nightLog);
         this.learned = new HashMap<>(learned);
+        this.storyLog = new ArrayList<>(storyLog);
     }
 
     public static SteveMemory get(MinecraftServer server) {

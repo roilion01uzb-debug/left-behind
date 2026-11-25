@@ -23,7 +23,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
@@ -69,6 +68,8 @@ public final class StoryDirector {
         Caves.resetTransient();
         Stalker.resetTransient();
         Structures.resetTransient();
+        StoryLog.resetTransient();
+        Haunt.resetTransient();
         wasDark = false;
         wasRaining = false;
     }
@@ -80,6 +81,7 @@ public final class StoryDirector {
         if (level.players().isEmpty()) return;
         long time = level.getGameTime();
         if (time % 5 == 0) Sense.tick(server, time);
+        Haunt.tick(server);
         if (time % 20 != 0) return;
         SteveMemory memory = SteveMemory.get(server);
         RandomSource random = level.getRandom();
@@ -144,6 +146,8 @@ public final class StoryDirector {
         Scenes.consider(level, memory, steve);
         if (Scenes.busy()) return;
         Reactions.watchPlayers(level, steve, memory);
+        StoryLog.second(level, memory, steve);
+        Haunt.second(level, memory, steve);
 
         // Fraying: he starts seeing things.
         if (memory.sanityStage().atMost(SanityStage.FRAYING) && random.nextInt(memory.sanity < 25f ? 300 : 600) == 0) {
@@ -227,8 +231,21 @@ public final class StoryDirector {
             wasDark = dark;
             if (!memory.mood().inEpisode() && nearestPlayerDistanceSqr(level, steve) < 24 * 24) {
                 if (dark) {
-                    Reactions.remark(steve, "nightfall", 120, "It's getting dark. You should be inside.", "Night. I don't sleep. I just wait.",
-                            "The first night is always the worst. You never forget your first night.");
+                    // Nowhere to go for the night: he offers to build something. Otherwise, a word about the dark.
+                    ServerPlayer homeless = null;
+                    for (ServerPlayer p : level.players()) {
+                        if (!p.isSpectator() && p.distanceToSqr(steve) < 24 * 24 && homeOf(p, level) == null && memory.trust(p.getUUID()) >= 10f) homeless = p;
+                    }
+                    boolean offered = false;
+                    if (homeless != null && !steve.work().chores().build().building()) {
+                        long before = memory.counter("cd_offer_shelter");
+                        steve.work().chores().build().offerShelter(level, homeless);
+                        offered = memory.counter("cd_offer_shelter") != before;
+                    }
+                    if (!offered) {
+                        Reactions.remark(steve, "nightfall", 120, "It's getting dark. You should be inside.", "Night. I don't sleep. I just wait.",
+                                "The first night is always the worst. You never forget your first night.");
+                    }
                     if (memory.highestTrust() >= 25f) Journal.unlock(level.getServer(), "mem_first_night");
                 } else {
                     Reactions.remark(steve, "sunrise", 120, "Morning. We made it.", "The sun came back. It doesn't always feel like it will.",
@@ -291,9 +308,9 @@ public final class StoryDirector {
             boolean underground = indoors && player.getY() < 55;
             int roll = random.nextInt(100);
             if (act == 1) {
-                // Act I: nothing you could swear to. A creak, a drip, someone mining somewhere, steps a long way off.
-                if (dark && !indoors && roll < 30) Fx.soundTo(player, ModSounds.WIND_HOWL, SoundSource.AMBIENT, 0.5f, 1.0f);
-                else if (underground && roll < 40) Fx.soundTo(player, ModSounds.DREAD, SoundSource.AMBIENT, 0.35f, 1.0f);
+                // Act I: nothing you could swear to. A tune a long way off, someone digging, a creak, a drip, steps.
+                if (dark && !indoors && roll < 30) Fx.soundTo(player, Fx.behind(player, 26.0), ModSounds.TUNE_FAR, SoundSource.AMBIENT, 2.0f, 1.0f);
+                else if (underground && roll < 40) Fx.soundTo(player, Fx.behind(player, 14.0), ModSounds.DIGGING_DOWN, SoundSource.AMBIENT, 0.8f, 1.0f);
                 else if (underground && roll < 62) Fx.soundTo(player, Fx.behind(player, 14.0), ModSounds.FAR_MINING, SoundSource.AMBIENT, 0.6f, 1.0f);
                 else if (underground && roll < 80) Fx.soundTo(player, Fx.behind(player, 5.0), ModSounds.DRIP, SoundSource.AMBIENT, 0.7f, 1.0f);
                 else if (indoors && !underground && roll < 55) Fx.soundTo(player, Fx.behind(player, 3.0), ModSounds.CREAK, SoundSource.AMBIENT, 0.7f, 1.0f);
@@ -303,28 +320,37 @@ public final class StoryDirector {
             }
             if (!dark && !indoors && roll < 55) continue; // Daylight in the open is mostly safe. Mostly.
             if (roll < 22) {
-                Fx.soundTo(player, ModSounds.DREAD, SoundSource.AMBIENT, underground ? 0.7f : 0.5f, 1.0f);
+                // His things, not a horror-film drone: the world's own hum underground, Steve's tune played wrong
+                // out in the dark, and indoors, something counting on stone.
+                if (underground) Fx.soundTo(player, ModSounds.SEED, SoundSource.AMBIENT, 0.55f, 1.0f);
+                else if (!indoors) Fx.soundTo(player, Fx.behind(player, 22.0), ModSounds.TUNE_WRONG, SoundSource.AMBIENT, 1.8f, 1.0f);
+                else Fx.soundTo(player, Fx.behind(player, 6.0), ModSounds.COUNT, SoundSource.AMBIENT, 0.9f, 1.0f);
             } else if (roll < 36 && !indoors) {
-                Fx.soundTo(player, ModSounds.WIND_HOWL, SoundSource.AMBIENT, 0.6f, 0.9f + random.nextFloat() * 0.2f);
+                // Someone is building something, out of sight. You will find out what later.
+                Fx.soundTo(player, Fx.behind(player, 30.0), ModSounds.BUILDING_FAR, SoundSource.AMBIENT, 2.2f, 0.95f + random.nextFloat() * 0.1f);
             } else if (roll < 50 && indoors) {
                 // Something knocks, behind you, on something that might be your door.
                 Fx.soundTo(player, Fx.behind(player, 5.0), ModSounds.KNOCK, SoundSource.AMBIENT, 1.0f, 0.9f + random.nextFloat() * 0.2f);
             } else if (roll < 60) {
                 if (underground && random.nextBoolean()) Fx.soundTo(player, Fx.behind(player, 12.0), ModSounds.FAR_MINING, SoundSource.AMBIENT, 0.7f, 0.9f);
                 else if (indoors && random.nextBoolean()) Fx.soundTo(player, Fx.behind(player, 3.0), ModSounds.CREAK, SoundSource.AMBIENT, 0.8f, 0.9f);
-                else Fx.soundTo(player, Fx.behind(player, 7.0), SoundEvents.AMBIENT_CAVE, SoundSource.AMBIENT, 0.7f, 0.8f);
+                else Fx.soundTo(player, Fx.behind(player, 10.0), ModSounds.DIGGING_DOWN, SoundSource.AMBIENT, 0.9f, 0.9f);
             } else if (roll < 72 && (act >= 3 || (act == 2 && dark && roll >= 66))) {
                 // Words, close behind you. Real ones now: "turn around", "i'm right behind you".
                 if (act >= 3 && random.nextInt(3) == 0) Herobrine.whisper(player, HerobrineMind.whisperFor(level, player));
                 else Fx.soundTo(player, Fx.behind(player, 2.5), ModSounds.WHISPER, SoundSource.AMBIENT, act == 2 ? 0.6f : 0.8f, 1.0f);
             } else if (roll < 82 && act >= 3) {
-                Fx.soundTo(player, Fx.behind(player, 1.5), ModSounds.BREATH, SoundSource.AMBIENT, 0.8f, 1.0f);
+                // Steve's tune, hummed right behind you. Steve isn't humming.
+                if (random.nextBoolean()) Fx.soundTo(player, Fx.behind(player, 2.0), ModSounds.HUM, SoundSource.AMBIENT, 0.7f, 1.0f);
+                else Fx.soundTo(player, Fx.behind(player, 1.5), ModSounds.BREATH, SoundSource.AMBIENT, 0.8f, 1.0f);
             } else if (roll < 90 && act >= 3 && memory.sanity < 70f) {
                 Fx.soundTo(player, ModSounds.STATIC, SoundSource.AMBIENT, 0.5f, 1.0f);
                 Fx.staticFlash(player, 6);
             } else if (roll < 94 && act >= 3 && dark) {
                 // For three frames, in the dark, something looks back.
                 Fx.eyes(player, 3);
+            } else if (roll < 97 && act >= 4) {
+                Fx.soundTo(player, ModSounds.WINDING_DOWN, SoundSource.AMBIENT, 0.6f, 1.0f);
             } else if (roll < 100 && act >= 2) {
                 Fx.soundTo(player, Fx.behind(player, 4.0), ModSounds.STALK_STEP, SoundSource.HOSTILE, 0.6f, 1.0f);
             }
@@ -532,6 +558,7 @@ public final class StoryDirector {
             }
         }
         if (memory.setFlag("breach_seen")) Journal.unlock(level.getServer(), "note_breach");
+        StoryLog.beat(level.getServer(), null, "breach");
         steve.orderNothing();
         steve.beginFlee(level, memory, 700);
         LeftBehind.LOGGER.info("Memory breach #{} (stability now {})", memory.breaches, memory.sanity);
@@ -568,6 +595,7 @@ public final class StoryDirector {
     public static void onGhostSeen(ServerLevel level, Remnant ghost, ServerPlayer player) {
         SteveMemory memory = SteveMemory.get(level.getServer());
         if (memory.setFlag("ghost_seen")) Journal.unlock(level.getServer(), "note_ghosts");
+        StoryLog.beat(level.getServer(), player, "ghost");
         memory.setFlag("seen_" + ghost.getVariant());
         Progress.grant(player, "ghost");
         OriginalSteve steve = findSteve(level);

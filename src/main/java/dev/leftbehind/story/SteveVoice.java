@@ -75,6 +75,7 @@ public final class SteveVoice {
 
     private static void emit(ServerLevel level, Entity speaker, String name, int color, String line, @Nullable String voiceText) {
         String voice = VoiceIndex.sound(voiceOf(name), voiceText);
+        if ("Steve".equals(name)) Haunt.steveSaid(line, voice);
         // With a recording, he isn't done until the recording is, plus a breath.
         int speaking = voice.isEmpty() ? speakingTicks(line) : Math.max(VoiceIndex.ticks(voice) + 12, 30);
         BUSY_UNTIL.put(speaker.getId(), level.getGameTime() + speaking);
@@ -142,7 +143,12 @@ public final class SteveVoice {
 
     /** Only the given player hears it, as a voice in their head: a subtitle, no bubble. */
     public static void whisper(ServerPlayer player, @Nullable Entity from, String name, int color, String line) {
-        String voice = VoiceIndex.sound(voiceOf(name), line);
+        whisper(player, from, name, color, line, true);
+    }
+
+    /** As above; with voiced false only the words show, because the sound is being played some other way. */
+    public static void whisper(ServerPlayer player, @Nullable Entity from, String name, int color, String line, boolean voiced) {
+        String voice = voiced ? VoiceIndex.sound(voiceOf(name), line) : "";
         int ticks = Math.max(speakingTicks(line), VoiceIndex.ticks(voice) + 12) + 50;
         if (ServerPlayNetworking.canSend(player, SpeechPayload.TYPE)) {
             ServerPlayNetworking.send(player, new SpeechPayload(from == null ? -1 : from.getId(), name, color, line, ticks, SpeechPayload.WHISPER, voice));

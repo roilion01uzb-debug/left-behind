@@ -49,6 +49,17 @@ SOUNDS = {
     "ghost.hum": (["ghost/hum"], "A faint hum", False),
     "memory.fragment": (["memory/fragment"], "A memory surfaces", False),
     "memory.theme": (["memory/theme"], "An old music box", True),
+    # 0.7: lore sounds
+    "lore.tune_far": ([f"lore/tune_far_{i}" for i in range(1, 4)], "A note block, far away", False),
+    "lore.tune_wrong": ([f"lore/tune_wrong_{i}" for i in range(1, 4)], "Someone plays Steve's tune wrong", False),
+    "lore.winding_down": ([f"lore/winding_down_{i}" for i in range(1, 3)], "A music box runs down", False),
+    "lore.count": ([f"lore/count_{i}" for i in range(1, 4)], "Something counts on stone", False),
+    "lore.building_far": ([f"lore/building_far_{i}" for i in range(1, 5)], "Someone placing blocks, far off", False),
+    "lore.digging_down": ([f"lore/digging_down_{i}" for i in range(1, 4)], "Someone digging straight down", False),
+    "lore.seed": ([f"lore/seed_{i}" for i in range(1, 3)], "The world hums", True),
+    "lore.reset": ([f"lore/reset_{i}" for i in range(1, 3)], "The world flickers", False),
+    "lore.hum": ([f"lore/hum_{i}" for i in range(1, 4)], "Someone hums Steve's tune", False),
+    "lore.door_open": ([f"lore/door_open_{i}" for i in range(1, 3)], "A door opens by itself", False),
     # music cues (0.5), played on the music slider like vanilla songs, so no subtitles
     "music.night": (["music/night"], None, True),
     "music.underground": (["music/underground"], None, True),

@@ -7,7 +7,7 @@ Herobrine is always one step ahead of both of you, and he knows exactly which me
 
 ## Download
 
-`downloads/left-behind-0.6.0.jar`. Put it in your `mods` folder together with Fabric API.
+`downloads/left-behind-0.7.0.jar`. Put it in your `mods` folder together with Fabric API.
 
 ## What's in it
 
@@ -56,6 +56,40 @@ Steve speaks English, and you talk to him the way you talk to anyone: **type in 
 - He still learns from you (chop enough trees and he starts chopping), still gets angry in stages if you hurt him,
   and defends players he trusts from monsters.
 - Players without the mod on a server still get his words in chat.
+
+### What's new in 0.7
+
+- **Steve gets around like a player.** He swims (head up, kicking, diving after you), climbs ladders and vines, opens
+  trapdoors over his head, opens and closes fence gates and doors, and when there is no path he makes one: he pillars
+  up under himself, digs stairs down (never straight down), clears a two-high tunnel and bridges gaps crouching at the
+  edge. He won't dig through bedrock, lava, water, or anybody's walls.
+- **He watches out for himself.** He notices flowing water that would carry him over an edge, drops, lava, fire, a
+  hissing creeper and running out of air, and gets clear before it happens. He eats when he's hurt and heals slowly.
+- **No more crafting tables everywhere.** He carries his own table and furnace, puts them down when he needs them, and
+  picks them back up when you move on.
+- **He uses the world.** Chests (he stores what he doesn't need and doesn't take yours), ripe crops (harvests and
+  replants), signs (reads them out), beds (sleeps when you sleep), note blocks (plays a tune he half remembers), bells,
+  levers, buttons, doors, barrels, cakes, furnaces, lecterns, jukeboxes, flowers (picks one for you), and has something to
+  say about nearly every other block.
+- **He builds.** Say "build us a shelter" or "we need a real base": he finds flat ground, levels it, and builds walls,
+  windows, a roof, a door facing you and torches inside, with the same blocks you build with. When it's getting dark and
+  you have nowhere to go, he offers.
+- **He understands more.** Reminders ("remind me to..."), plans ("what should we do?", "first we need a real base"), and
+  when he doesn't get something he says what he can do instead of "say it simpler". "Follow me" gets him moving at once
+  (he used to stand there talking for twenty seconds), and telling him to do something is never mistaken for the answer
+  to a question he just asked you.
+- **The story explains itself.** Every time something happens (a glimpse, the pillars, a ghost, a lost night) it is
+  written down with the day, and the next time Steve is near you and calm he tells you what it was. The journal opens on
+  **Where things stand**: the act you're in and what it means, how Steve is, what has happened lately, and a checklist of
+  what moves the story on. When an act begins, chat says what it means.
+- **New things happen to you**, one at a time with long gaps: your footsteps one step behind you, everything you built
+  flickering out of the world for a second, Steve's voice saying old things from the dark, another Steve standing far
+  away, every animal staring at the same empty spot, a sign with your own words on it, a few seconds of lost time, and
+  your door opening by itself.
+- **Sounds from the story instead of the usual horror drone**: Steve's tune on a far note block, the same tune played
+  back wrong, a music box running down, knocks counting to seven and then eight, someone placing blocks or digging
+  straight down out of sight, Steve humming, the tones of an old seed, the world resetting, a door opening slowly.
+  27 new sound files, a new "presence" sound, and 184 new voiced lines for Steve.
 
 ### What's new in 0.6
 
@@ -183,6 +217,7 @@ Block changes also respect the `mob_griefing` game rule.
 | `/leftbehind sanity <0-100>` | Sets Steve's sanity |
 | `/leftbehind scene <hill\|sleepwalk>` | Starts a scene with Herobrine and Steve now |
 | `/leftbehind cave <torches\|mining\|torch\|footsteps\|sign\|end>` | Runs one cave event where you stand |
+| `/leftbehind haunt <footsteps\|reset\|echo\|other_steve\|animals\|sign_words\|lost_time\|door>` | Makes one of the 0.7 haunts happen to you now |
 | `/leftbehind reset` | Makes the world forget everything |
 
 Everyone can use `/steve journal`, and `/steve say <text>` talks to Steve without chat (for servers where chat is off).
